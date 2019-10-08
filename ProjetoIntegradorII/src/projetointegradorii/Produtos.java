@@ -38,7 +38,7 @@ public class Produtos extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButtonCancelarf = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jRadioButton3 = new javax.swing.JRadioButton();
@@ -57,6 +57,12 @@ public class Produtos extends javax.swing.JFrame {
         jTabbedPane1.setToolTipText("");
         jTabbedPane1.setName(""); // NOI18N
 
+        jTextFieldNomeProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNomeProdutoActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Nome do Produto:");
 
         jLabel4.setText("Descrição do Produto:");
@@ -68,11 +74,16 @@ public class Produtos extends javax.swing.JFrame {
         jLabel7.setText("Fornecedor:");
 
         jButtonCancelarf.setText("Cancelar");
-
-        btnNovo.setText("Salvar");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelarf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
+                jButtonCancelarfActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
             }
         });
 
@@ -105,7 +116,7 @@ public class Produtos extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addComponent(jButtonCancelarf)
                                     .addGap(18, 18, 18)
-                                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -134,7 +145,7 @@ public class Produtos extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelarf)
-                    .addComponent(btnNovo))
+                    .addComponent(btnSalvar))
                 .addContainerGap(150, Short.MAX_VALUE))
         );
 
@@ -248,15 +259,39 @@ public class Produtos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // ao clicar no botão 'Novo' ativa os campos listados abaixo
-        //        jTextFieldNomeProduto.setEnabled(true);
-        //        jTextFieldDescPorduto.setEnabled(true);
-        //        jTextFieldCodProduto.setEnabled(true);
-        //        jTextFieldForneProduto.setEnabled(true);
-        //        jTextFieldQuantProduto.setEnabled(true);
-        //        jButtonSalvar.setEnabled(true);
-    }//GEN-LAST:event_btnNovoActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        mod.setProduto(jTextFieldNomeProduto.getText());
+        mod.setDescProduto(jTextFieldDescPorduto.getText());
+        mod.setCodProduto(Integer.parseInt(jTextFieldCodProduto.getText()));
+        mod.setQuantProduto(Integer.parseInt(jTextFieldQuantProduto.getText()));
+        mod.setFornecedor(jTextFieldForneProduto.getText());
+        try {
+            control.salvar(mod);
+        } catch (SQLException ex) {
+            Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTextFieldNomeProduto.setText("");
+        jTextFieldDescPorduto.setText("");
+        jTextFieldCodProduto.setText("");
+        jTextFieldQuantProduto.setText("");
+        jTextFieldForneProduto.setText("");
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void jTextFieldNomeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNomeProdutoActionPerformed
+
+    private void jButtonCancelarfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarfActionPerformed
+      FrInicio inicio = null;
+        try {
+            inicio = new FrInicio();
+        } catch (SQLException ex) {
+            Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+      inicio.setVisible(true);
+    }//GEN-LAST:event_jButtonCancelarfActionPerformed
 
     
     public static void main(String args[]) {
@@ -273,7 +308,7 @@ public class Produtos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

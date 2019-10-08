@@ -15,9 +15,9 @@ public class controle {
         try {
             conex.conexao(); // conecta no banco de dados
             PreparedStatement pst = conex.con.prepareStatement("insert into produto values (?,?,?,?,?)"); // comando para inserir dados na tabela
-            pst.setInt(1, mod.getCodProduto()); // passando a posição da referencia do argumento em cada item
-            pst.setString(2, mod.getProduto());
-            pst.setString(3, mod.getDescProduto());
+            pst.setString(1, mod.getProduto()); // passando a posição da referencia do argumento em cada item
+            pst.setString(2, mod.getDescProduto());
+            pst.setInt(3, mod.getCodProduto());
             pst.setInt(4, mod.getQuantProduto());
             pst.setString(5, mod.getFornecedor());
             pst.execute();

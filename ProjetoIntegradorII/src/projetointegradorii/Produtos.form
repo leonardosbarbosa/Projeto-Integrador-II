@@ -90,7 +90,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jButtonCancelarf" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnNovo" min="-2" pref="81" max="-2" attributes="0"/>
+                                          <Component id="btnSalvar" min="-2" pref="81" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -131,7 +131,7 @@
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButtonCancelarf" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnNovo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="150" max="32767" attributes="0"/>
                   </Group>
@@ -140,6 +140,9 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="jTextFieldNomeProduto">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNomeProdutoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldDescPorduto">
             </Component>
@@ -178,13 +181,16 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarfActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnNovo">
+            <Component class="javax.swing.JButton" name="btnSalvar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

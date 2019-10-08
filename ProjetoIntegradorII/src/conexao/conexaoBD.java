@@ -13,7 +13,7 @@ public class conexaoBD {
     public Statement stm; // responsavel pela pesquisa no banco de dados
     public ResultSet rs; // armazenar o resultado da pesquisa
     private final String driver = "com.mysql.jdbc.Driver"; // banco de dados que vai trabalhar
-    private final String caminho = "jdbc:mysql://localhost:3307/loja?;"; // caminho do banco de dados
+    private final String url = "jdbc:mysql://localhost:3307/loja?;"; // caminho do banco de dados
     private final String usuario = "root"; // administrador do worchbench
     private final String senha = ""; // senha do worchbench
 
@@ -22,7 +22,7 @@ public class conexaoBD {
     public void conexao() throws SQLException {
         try {
             System.setProperty("jdbc.Drivers", driver);
-            con = DriverManager.getConnection(caminho, usuario, senha);
+            con = DriverManager.getConnection(url, usuario, senha);
             // JOptionPane.showMessageDialog(null, "Connexão efetuada com Sucesso!"); // teste sua conexao 
         } catch (SQLException ex) {
             //  JOptionPane.showMessageDialog(null, "Erro ao Conectar com o Banco!\n" + ex); 
