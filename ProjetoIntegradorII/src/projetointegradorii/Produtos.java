@@ -291,6 +291,7 @@ public class Produtos extends javax.swing.JFrame {
         }
       
       inicio.setVisible(true);
+      dispose();
     }//GEN-LAST:event_jButtonCancelarfActionPerformed
 
     

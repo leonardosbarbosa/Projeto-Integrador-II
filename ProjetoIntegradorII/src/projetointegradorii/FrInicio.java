@@ -138,6 +138,7 @@ public class FrInicio extends javax.swing.JFrame {
             Logger.getLogger(FrInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         produto.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnProdutosActionPerformed
 
     public static void main(String args[]) {
