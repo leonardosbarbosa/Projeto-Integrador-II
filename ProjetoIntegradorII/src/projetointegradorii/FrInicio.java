@@ -1,13 +1,13 @@
 
 package projetointegradorii;
-import  projetointegradorii.Produtos;
+import  projetointegradorii.FrProdutos;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FrInicio extends javax.swing.JFrame {
 
-    public FrInicio() throws SQLException {Produtos produto = new Produtos();
+    public FrInicio() throws SQLException {FrProdutos produto = new FrProdutos();
         
         initComponents();
     }
@@ -131,9 +131,9 @@ public class FrInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
-        Produtos produto = null;
+        FrProdutos produto = null;
         try {
-            produto = new Produtos();
+            produto = new FrProdutos();
         } catch (SQLException ex) {
             Logger.getLogger(FrInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
