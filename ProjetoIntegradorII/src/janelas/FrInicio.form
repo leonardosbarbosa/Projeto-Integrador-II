@@ -33,16 +33,11 @@
                       <EmptySpace min="-2" pref="203" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btnVenda" min="-2" pref="200" max="-2" attributes="0"/>
-                              <EmptySpace min="111" pref="111" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnProdutos" min="-2" pref="200" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnVenda" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="btnProdutos" min="-2" pref="200" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="btnClientes" min="-2" pref="200" max="-2" attributes="0"/>
                           <Component id="btnRelatorio" min="-2" pref="200" max="-2" attributes="0"/>
@@ -126,6 +121,9 @@
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVendaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnProdutos">
       <Properties>

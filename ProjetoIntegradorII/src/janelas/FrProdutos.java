@@ -1,9 +1,7 @@
-
-package projetointegradorii;
+package janelas;
 
 import Modelos.ModeloProduto;
-import conexao.conexaoBD;
-import conexao.controle;
+import conexao.ConexaoBD;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,15 +9,12 @@ import java.util.logging.Logger;
 public class FrProdutos extends javax.swing.JFrame {
 
     ModeloProduto mod = new ModeloProduto();
-    conexaoBD conecta = new conexaoBD();
-    controle control = new controle();
+    ConexaoBD conexao = new ConexaoBD();
 
-    public FrProdutos() throws SQLException {
+    public FrProdutos() {
         initComponents();
-        conecta.conexao();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -27,17 +22,17 @@ public class FrProdutos extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        jTextFieldNomeProduto = new javax.swing.JTextField();
-        jTextFieldDescPorduto = new javax.swing.JTextField();
-        jTextFieldCodProduto = new javax.swing.JTextField();
-        jTextFieldForneProduto = new javax.swing.JTextField();
-        jTextFieldQuantProduto = new javax.swing.JTextField();
+        txtNomeProduto = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
+        txtCodProduto = new javax.swing.JTextField();
+        txtFornecedor = new javax.swing.JTextField();
+        txtQtdeProduto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButtonCancelarf = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -57,9 +52,9 @@ public class FrProdutos extends javax.swing.JFrame {
         jTabbedPane1.setToolTipText("");
         jTabbedPane1.setName(""); // NOI18N
 
-        jTextFieldNomeProduto.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNomeProdutoActionPerformed(evt);
+                txtNomeProdutoActionPerformed(evt);
             }
         });
 
@@ -73,10 +68,10 @@ public class FrProdutos extends javax.swing.JFrame {
 
         jLabel7.setText("Fornecedor:");
 
-        jButtonCancelarf.setText("Cancelar");
-        jButtonCancelarf.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Voltar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarfActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -97,12 +92,12 @@ public class FrProdutos extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldDescPorduto, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel5)
@@ -110,14 +105,14 @@ public class FrProdutos extends javax.swing.JFrame {
                                 .addComponent(jLabel7))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldForneProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextFieldCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextFieldQuantProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtQtdeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addGap(9, 9, 9)
                                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jButtonCancelarf))))))
+                                    .addComponent(btnCancelar))))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -125,27 +120,27 @@ public class FrProdutos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextFieldDescPorduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextFieldCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextFieldQuantProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQtdeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextFieldForneProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancelarf)
+                    .addComponent(btnCancelar)
                     .addComponent(btnSalvar))
                 .addContainerGap(147, Short.MAX_VALUE))
         );
@@ -262,60 +257,39 @@ public class FrProdutos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        mod.setProduto(jTextFieldNomeProduto.getText());
-        mod.setDescProduto(jTextFieldDescPorduto.getText());
-        mod.setCodProduto(Integer.parseInt(jTextFieldCodProduto.getText()));
-        mod.setQuantProduto(Integer.parseInt(jTextFieldQuantProduto.getText()));
-        mod.setFornecedor(jTextFieldForneProduto.getText());
         try {
-            control.salvar(mod);
+            conexao.conectar();
+            String sql = "INSERT INTO produtos VALUES ('" + txtNomeProduto.getText() + "', '" + txtDescricao.getText() + "', " + txtCodProduto.getText() + ", " + txtQtdeProduto.getText() + ", '" + txtFornecedor.getText() + "')";
+            conexao.inserir(sql);
         } catch (SQLException ex) {
             Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jTextFieldNomeProduto.setText("");
-        jTextFieldDescPorduto.setText("");
-        jTextFieldCodProduto.setText("");
-        jTextFieldQuantProduto.setText("");
-        jTextFieldForneProduto.setText("");
-        
+
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void jTextFieldNomeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoActionPerformed
+    private void txtNomeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeProdutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomeProdutoActionPerformed
+    }//GEN-LAST:event_txtNomeProdutoActionPerformed
 
-    private void jButtonCancelarfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarfActionPerformed
-      FrInicio inicio = null;
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        FrInicio inicio;
         try {
             inicio = new FrInicio();
+            inicio.setVisible(true);
+            dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrVendas.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
-      inicio.setVisible(true);
-      dispose();
-    }//GEN-LAST:event_jButtonCancelarfActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    
-    public static void main(String args[]) {
-      
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new FrProdutos().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButtonCancelarf;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -330,11 +304,11 @@ public class FrProdutos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableCampoPesquisa;
-    private javax.swing.JTextField jTextFieldCodProduto;
-    private javax.swing.JTextField jTextFieldDescPorduto;
-    private javax.swing.JTextField jTextFieldForneProduto;
-    private javax.swing.JTextField jTextFieldNomeProduto;
     private javax.swing.JTextField jTextFieldPesquisar;
-    private javax.swing.JTextField jTextFieldQuantProduto;
+    private javax.swing.JTextField txtCodProduto;
+    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtFornecedor;
+    private javax.swing.JTextField txtNomeProduto;
+    private javax.swing.JTextField txtQtdeProduto;
     // End of variables declaration//GEN-END:variables
 }

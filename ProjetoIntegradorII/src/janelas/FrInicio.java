@@ -1,13 +1,13 @@
+package janelas;
 
-package projetointegradorii;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.SQLException;
 
 public class FrInicio extends javax.swing.JFrame {
 
-    public FrInicio() throws SQLException {FrProdutos produto = new FrProdutos();
-        
+    public FrInicio() throws SQLException {
+
         initComponents();
     }
 
@@ -59,6 +59,11 @@ public class FrInicio extends javax.swing.JFrame {
         btnVenda.setFocusable(false);
         btnVenda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnVenda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVendaActionPerformed(evt);
+            }
+        });
 
         btnProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Devices.png"))); // NOI18N
         btnProdutos.setText("Produtos");
@@ -83,13 +88,10 @@ public class FrInicio extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(203, 203, 203))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(111, 111, 111))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(87, 87, 87)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(111, 111, 111)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -117,18 +119,15 @@ public class FrInicio extends javax.swing.JFrame {
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
-        FrCadastroCli myFrame = new FrCadastroCli();
-        myFrame.setVisible(true);
+        FrClientes clientes = new FrClientes();
+        clientes.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
-        FrProdutos produto = null;
-        try {
-            produto = new FrProdutos();
-        } catch (SQLException ex) {
-            Logger.getLogger(FrInicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        produto.setVisible(true);
+
+        FrProdutos produtos = new FrProdutos();
+        produtos.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnProdutosActionPerformed
 
@@ -136,8 +135,15 @@ public class FrInicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
+    private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
+        // TODO add your handling code here:
+        FrVendas vendas = new FrVendas();
+        vendas.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVendaActionPerformed
+
     public static void main(String args[]) {
-      
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
