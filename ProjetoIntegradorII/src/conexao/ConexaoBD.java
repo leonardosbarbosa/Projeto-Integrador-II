@@ -13,7 +13,7 @@ public class ConexaoBD {
 
     public void conectar() throws SQLException {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/loja?zeroDateTimeBehavior=convertToNull", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3308/formCli?zeroDateTimeBehavior=convertToNull", "root", "");
             st = (java.sql.Statement) con.createStatement();
 
         } catch (Exception e) {
@@ -40,4 +40,6 @@ public class ConexaoBD {
             JOptionPane.showMessageDialog(null, "Registro não gravado.");
         }
     }
+    
+  
 }

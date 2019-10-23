@@ -2,7 +2,7 @@
 package Modelos;
 
 public class ModeloProduto {
-    private String Produto;
+   private String Produto;
    private String DescProduto;
    private int codProduto;
    private int quantProduto;

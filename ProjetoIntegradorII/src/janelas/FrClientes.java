@@ -5,22 +5,33 @@
  */
 package janelas;
 
+import Modelos.ModeloCliente;
+import conexao.ConexaoBD;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
  * @author pedro.hfarantes
  */
 public class FrClientes extends javax.swing.JFrame {
-
+    
+    private ResultSet rs;
+    ModeloCliente mod = new ModeloCliente();
+    ConexaoBD conexao = new ConexaoBD();
     /**
      * Creates new form FrCliente
      */
-    public FrClientes() {
+    
+    public FrClientes() throws SQLException {
         initComponents();
+        conexao.conectar();
+        preencherTabela("select * from clientes");
     }
 
     /**
@@ -34,7 +45,7 @@ public class FrClientes extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableCli = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -50,39 +61,24 @@ public class FrClientes extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)), "Pesquisar por:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
 
-        jTable2.setForeground(new java.awt.Color(153, 255, 204));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCli.setForeground(new java.awt.Color(153, 255, 204));
+        jTableCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Código", "Nome", "CPF", "Data de Nasc.", "Celular", "E-mail", "UF", "Cidade"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true, true
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
-        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+        ));
+        jTableCli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable2MouseClicked(evt);
+                jTableCliMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(5);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(30);
-            jTable2.getColumnModel().getColumn(3).setResizable(false);
-            jTable2.getColumnModel().getColumn(3).setPreferredWidth(30);
-        }
+        jScrollPane2.setViewportView(jTableCli);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Search.png"))); // NOI18N
 
@@ -196,7 +192,7 @@ public class FrClientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void jTableCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCliMouseClicked
         // TODO add your handling code here:
        /* int indiceLinha = jTable2.getSelectedRow();
         CodigoClieTextField.setText(jTable2.getValueAt(indiceLinha, 0).toString());
@@ -209,7 +205,7 @@ public class FrClientes extends javax.swing.JFrame {
         EmailClijTextField.setText(jTable2.getValueAt(indiceLinha, 7).toString());
         RuaClijTextField.setText(jTable2.getValueAt(indiceLinha, 8).toString());
         BairroClijTextField.setText(jTable2.getValueAt(indiceLinha, 9).toString());*/
-    }//GEN-LAST:event_jTable2MouseClicked
+    }//GEN-LAST:event_jTableCliMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -230,7 +226,39 @@ public class FrClientes extends javax.swing.JFrame {
             dispose();  
         
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    public void preencherTabela(){
+        ArrayList dados = new ArrayList();
+        
+        String [] Colunas = new String[]{"ID Cliente", "Nome", "CPF"};
+        try {
+            conexao.conectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try{
+            rs.first(); 
+        do {
+            dados.add(new Object[]{rs.getInt(mod.getId()),rs.getString(mod.getNome()),rs.getString(mod.getCpf())});
+        } while (rs.next());
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao preencher o ArrayList");
+        }
+        
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTableCli.setModel(modelo);
+        jTableCli.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTableCli.getColumnModel().getColumn(0).setResizable(false);
+        
+        jTableCli.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTableCli.getColumnModel().getColumn(1).setResizable(false);
+        
+        jTableCli.getColumnModel().getColumn(2).setPreferredWidth(150);
+        jTableCli.getColumnModel().getColumn(2).setResizable(false);
+        
+        jTableCli.getTableHeader().setReorderingAllowed(false);
+        jTableCli.setAutoResizeMode(jTableCli.AUTO_RESIZE_OFF);
+        jTableCli.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
     /**
      * @param args the command line arguments
      */
@@ -278,7 +306,7 @@ public class FrClientes extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableCli;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
