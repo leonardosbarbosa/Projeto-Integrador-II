@@ -39,16 +39,20 @@ public class ClientesForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel6 = new javax.swing.JPanel();
         jButtonNovo = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jButtonSalvar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
+        jButtonHome = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jTextFieldPesquisaCpf = new javax.swing.JTextField();
         jButtonPesquisar = new javax.swing.JButton();
+        RBNome = new javax.swing.JRadioButton();
+        RBCpf = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jTextFieldRua = new javax.swing.JTextField();
@@ -137,6 +141,13 @@ public class ClientesForm extends javax.swing.JFrame {
             }
         });
 
+        jButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/house.png"))); // NOI18N
+        jButtonHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHomeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -147,22 +158,26 @@ public class ClientesForm extends javax.swing.JFrame {
                 .addComponent(jButtonExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAlterar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonHome)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonSalvar)
-                    .addComponent(jButtonExcluir)
-                    .addComponent(jButtonAlterar))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonHome)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonSalvar)
+                        .addComponent(jButtonExcluir)
+                        .addComponent(jButtonAlterar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa de clientes"));
 
-        jLabel14.setText("Digite o CPF:");
+        jLabel14.setText("Nome ou CPF do cliente:");
 
         jButtonPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/loupe.png"))); // NOI18N
         jButtonPesquisar.setToolTipText("Clique para realizar uma pesquisa de clientes a base de dados através do CPF");
@@ -172,16 +187,28 @@ public class ClientesForm extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(RBNome);
+        RBNome.setText("Nome");
+
+        buttonGroup1.add(RBCpf);
+        RBCpf.setText("CPF");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(RBNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RBCpf)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonPesquisar)
                 .addContainerGap())
         );
@@ -192,7 +219,11 @@ public class ClientesForm extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jTextFieldPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RBNome)
+                    .addComponent(RBCpf))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jButtonPesquisar)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -447,7 +478,7 @@ public class ClientesForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -461,7 +492,7 @@ public class ClientesForm extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -526,6 +557,11 @@ public class ClientesForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        
+        if (RBNome.isSelected()) {
+            
+        }
+        
         jTextField1Cidade.setEnabled(true);
         jTextField7Email.setEnabled(true);
         jTextFieldBairro.setEnabled(true);
@@ -541,7 +577,12 @@ public class ClientesForm extends javax.swing.JFrame {
         jComboBoxSexo.setEnabled(false);
         try {
             // TODO add your handling code here:
-            PreparedStatement pst = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + jTextFieldPesquisaCpf.getText() + "'");
+            PreparedStatement pst = null;
+            if (RBCpf.isSelected()){
+            pst = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + jTextFieldPesquisaCpf.getText() + "'");
+            }else if(RBNome.isSelected()){
+            pst = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + jTextFieldPesquisaCpf.getText() + "'");  
+            }
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int codigo = rs.getInt("id");
@@ -635,6 +676,12 @@ public class ClientesForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
+    private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
+        // TODO add your handling code here:
+        TelaInicio abrirInicio = new TelaInicio();
+        abrirInicio.setVisible(true);
+    }//GEN-LAST:event_jButtonHomeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -671,8 +718,12 @@ public class ClientesForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton RBCpf;
+    private javax.swing.JRadioButton RBNome;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JButton jButtonSalvar;
