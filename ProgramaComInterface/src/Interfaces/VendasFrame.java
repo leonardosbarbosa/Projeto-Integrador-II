@@ -5,6 +5,12 @@
  */
 package Interfaces;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import utilitarios.ConexaoBd;
+import utilitarios.ModeloTabela;
+
 /**
  *
  * @author phfar
@@ -14,8 +20,14 @@ public class VendasFrame extends javax.swing.JFrame {
     /**
      * Creates new form VendasFrame
      */
+    ConexaoBd conecta = new ConexaoBd();
+
     public VendasFrame() {
         initComponents();
+        conecta.conexao();
+        preencherTabelaClientes("SELECT id, nome, cpf FROM clientes ORDER BY id");
+        preencherTabelaProdutos("SELECT id, descr, vlr_venda, un, qtd_estoque FROM produtos ORDER BY id");
+        
     }
 
     /**
@@ -33,14 +45,13 @@ public class VendasFrame extends javax.swing.JFrame {
         jRadioButtonNome = new javax.swing.JRadioButton();
         jRadioButtonCpf = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableClientes = new javax.swing.JTable();
         jButtonAddCli = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldPesquisaProduto = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButtonAddProduto = new javax.swing.JButton();
+        jTableProdutos = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -55,20 +66,26 @@ public class VendasFrame extends javax.swing.JFrame {
 
         jRadioButtonCpf.setText("CPF");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableClientes);
 
         jButtonAddCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/add.png"))); // NOI18N
+        jButtonAddCli.setToolTipText("Adicionar um novo cliente a base de dados");
+        jButtonAddCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddCliActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,21 +128,18 @@ public class VendasFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Descrição do produto:");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
-
-        jButtonAddProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/add.png"))); // NOI18N
-        jButtonAddProduto.setToolTipText("Clique para cadastrar um novo produto");
+        jScrollPane2.setViewportView(jTableProdutos);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shopping-cart (2).png"))); // NOI18N
         jButton2.setToolTipText("Clique para ver o carrinho e finalizar a compra");
@@ -151,8 +165,7 @@ public class VendasFrame extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonAddProduto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2)))
                 .addContainerGap())
         );
@@ -166,9 +179,7 @@ public class VendasFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonAddProduto)
-                    .addComponent(jButton2))
+                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -241,6 +252,70 @@ public class VendasFrame extends javax.swing.JFrame {
         voltarInicio.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButtonAddCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddCliActionPerformed
+        // TODO add your handling code here:
+        ClientesForm abrirClientes = new ClientesForm();
+        abrirClientes.setVisible(true);
+    }//GEN-LAST:event_jButtonAddCliActionPerformed
+
+    public void preencherTabelaClientes(String SQL) {
+        ArrayList dados = new ArrayList();
+
+        String[] Colunas = new String[]{"ID", "Nome", "CPF"};
+
+        conecta.executaSQL(SQL);
+        try {
+            conecta.rs.first();
+            do {
+                dados.add(new Object[]{conecta.rs.getInt("id"), conecta.rs.getString("nome"), conecta.rs.getString("cpf")});
+            } while (conecta.rs.next());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "ERRO:" + ex);
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTableClientes.setModel(modelo);
+        jTableClientes.getColumnModel().getColumn(0).setPreferredWidth(30);
+        jTableClientes.getColumnModel().getColumn(0).setResizable(false);
+        jTableClientes.getColumnModel().getColumn(1).setPreferredWidth(200);
+        jTableClientes.getColumnModel().getColumn(1).setResizable(true);
+        jTableClientes.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableClientes.getColumnModel().getColumn(2).setResizable(true);
+        jTableClientes.getTableHeader().setReorderingAllowed(false);
+        jTableClientes.setAutoResizeMode(jTableClientes.AUTO_RESIZE_OFF);
+        jTableClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    public void preencherTabelaProdutos(String SQL) {
+        ArrayList dados = new ArrayList();
+
+        String[] Colunas = new String[]{"ID", "Descrição", "Valor de venda", "Unidade", "Estoque"};
+
+        conecta.executaSQL(SQL);
+        try {
+            conecta.rs.first();
+            do {
+                dados.add(new Object[]{conecta.rs.getInt("id"), conecta.rs.getString("descr"), conecta.rs.getFloat("vlr_venda"), conecta.rs.getString("un"), conecta.rs.getInt("qtd_estoque")});
+            } while (conecta.rs.next());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "ERRO:" + ex);
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTableProdutos.setModel(modelo);
+        jTableProdutos.getColumnModel().getColumn(0).setPreferredWidth(30);
+        jTableProdutos.getColumnModel().getColumn(0).setResizable(false);
+        jTableProdutos.getColumnModel().getColumn(1).setPreferredWidth(200);
+        jTableProdutos.getColumnModel().getColumn(1).setResizable(true);
+        jTableProdutos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableProdutos.getColumnModel().getColumn(2).setResizable(true);
+        jTableProdutos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTableProdutos.getColumnModel().getColumn(3).setResizable(true);
+        jTableProdutos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTableProdutos.getColumnModel().getColumn(4).setResizable(true);
+        jTableProdutos.getTableHeader().setReorderingAllowed(false);
+        jTableProdutos.setAutoResizeMode(jTableProdutos.AUTO_RESIZE_OFF);
+        jTableProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -280,7 +355,6 @@ public class VendasFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAddCli;
-    private javax.swing.JButton jButtonAddProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -290,8 +364,8 @@ public class VendasFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonNome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableClientes;
+    private javax.swing.JTable jTableProdutos;
     private javax.swing.JTextField jTextFieldPesquisaCliente;
     private javax.swing.JTextField jTextFieldPesquisaProduto;
     // End of variables declaration//GEN-END:variables

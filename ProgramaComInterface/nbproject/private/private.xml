@@ -13,8 +13,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/phfar/Documents/NetBeansProjects/ProgramaComInterface/src/programacominterface/ProgramaComInterface.java</file>
+            <file>file:/C:/Users/phfar/Documents/NetBeansProjects/ProgramaComInterface/src/utilitarios/ModeloTabela.java</file>
             <file>file:/C:/Users/phfar/Documents/NetBeansProjects/ProgramaComInterface/src/Interfaces/ProdutosForm.java</file>
             <file>file:/C:/Users/phfar/Documents/NetBeansProjects/ProgramaComInterface/src/utilitarios/ConexaoBd.java</file>
+            <file>file:/C:/Users/phfar/Documents/NetBeansProjects/ProgramaComInterface/src/Interfaces/VendasFrame.java</file>
+            <file>file:/C:/Users/phfar/Documents/NetBeansProjects/ProgramaComInterface/src/Interfaces/VendaFinalizada.java</file>
             <file>file:/C:/Users/phfar/Documents/NetBeansProjects/ProgramaComInterface/src/Interfaces/TelaInicio.java</file>
             <file>file:/C:/Users/phfar/Documents/NetBeansProjects/ProgramaComInterface/src/Interfaces/ClientesForm.java</file>
         </group>

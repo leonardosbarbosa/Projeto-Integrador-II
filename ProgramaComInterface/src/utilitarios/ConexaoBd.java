@@ -44,7 +44,7 @@ public class ConexaoBd {
 
         try {
             stm = conn.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
-            int rs = stm.executeUpdate(sql);
+            rs = stm.executeQuery(sql);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro de ExecutaSQL \n " + ex.getMessage());
         }
