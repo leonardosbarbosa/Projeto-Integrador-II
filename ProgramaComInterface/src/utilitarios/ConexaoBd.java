@@ -24,7 +24,7 @@ public class ConexaoBd {
     public Statement stm; //prepara e realiza pesquisas no banco de dados
     public ResultSet rs; //armazena o resultado de uma pesquisa passada para o statement
     private String driver = "com.mysql.jdbc"; //identifica o banco de dados e prepara a conexão
-    private String caminho = "jdbc:mysql://127.0.0.1:3308/sistemaVendas"; //setar o local do banco de dados
+    private String caminho = "jdbc:mysql://127.0.0.1:3307/sistemaVendas"; //setar o local do banco de dados
     private String usuario = "root";
     private String senha = "";
     public Connection conn; //realiza a conexão com o banco de dados

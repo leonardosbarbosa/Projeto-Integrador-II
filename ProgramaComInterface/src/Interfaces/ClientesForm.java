@@ -12,9 +12,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilitarios.ConexaoBd;
+import utilitarios.Validacoes;
 
 /**
- *
+ * @author lohan.yugue
  * @author phfar
  */
 public class ClientesForm extends javax.swing.JFrame {
@@ -29,6 +30,8 @@ public class ClientesForm extends javax.swing.JFrame {
         conecta.conexao();//chamada do método de conexão
 
     }
+    
+    Validacoes validador = new Validacoes();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -368,6 +371,11 @@ public class ClientesForm extends javax.swing.JFrame {
         jLabel5.setText("Nascimento:");
 
         jTextFieldNome.setEnabled(false);
+        jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNomeActionPerformed(evt);
+            }
+        });
 
         jTextFieldCpf.setEnabled(false);
 
@@ -376,6 +384,7 @@ public class ClientesForm extends javax.swing.JFrame {
         jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
         jComboBoxSexo.setEnabled(false);
 
+        jTextFieldNascimento.setText("AAAA/MM/DD");
         jTextFieldNascimento.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -500,6 +509,12 @@ public class ClientesForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        
+        try {
+            validador.validaNome(jTextFieldNome);
+            validador.campoVazio(jTextFieldNome);
+        } catch (Exception e) {
+        
         try {
             // TODO add your handling code here:
             //recebe a conexão com o banco de dados
@@ -520,6 +535,9 @@ public class ClientesForm extends javax.swing.JFrame {
             pst.setString(13, jTextField1Cidade.getText());
             pst.executeUpdate(); //executa a inserção
             JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso");
+            
+            
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro na inserção de dados \n EERO:" + ex);
         }
@@ -536,7 +554,8 @@ public class ClientesForm extends javax.swing.JFrame {
         jTextFieldNome.setText("");
         jTextFieldRg.setText("");
         jTextFieldRua.setText("");
-
+        }
+        
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
@@ -681,6 +700,10 @@ public class ClientesForm extends javax.swing.JFrame {
         TelaInicio abrirInicio = new TelaInicio();
         abrirInicio.setVisible(true);
     }//GEN-LAST:event_jButtonHomeActionPerformed
+
+    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
     /**
      * @param args the command line arguments

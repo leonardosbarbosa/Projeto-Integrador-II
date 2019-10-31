@@ -91,7 +91,6 @@ public class FrClientes extends javax.swing.JFrame {
         setTitle("Cadastro de clientes");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setAutoscrolls(true);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa de clientes"));
         jPanel4.setPreferredSize(new java.awt.Dimension(617, 800));
