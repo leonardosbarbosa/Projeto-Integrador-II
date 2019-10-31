@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 
 public class ConexaoBD {
 
-    private Connection con;
+    public Connection con;
     private Statement st;
 
     public void conectar() throws SQLException {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3308/formCli?zeroDateTimeBehavior=convertToNull", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/sistemavendas?zeroDateTimeBehavior=convertToNull", "root", "");
             st = (java.sql.Statement) con.createStatement();
 
         } catch (Exception e) {

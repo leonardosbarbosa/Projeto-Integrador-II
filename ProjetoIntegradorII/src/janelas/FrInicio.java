@@ -118,10 +118,13 @@ public class FrInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // TODO add your handling code here:
-        FrClientes clientes = new FrClientes();
-        clientes.setVisible(true);
-        dispose();
+      
+            // TODO add your handling code here:  
+            FrClientes clientes = new FrClientes();
+            clientes.setVisible(true);
+            dispose();
+
+            
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
