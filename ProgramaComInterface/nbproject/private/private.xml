@@ -5,18 +5,12 @@
             <url>src/Interfaces/ClientesForm.java</url>
             <bookmark id="1">
                 <name/>
-                <line>584</line>
+                <line>590</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/leonardo.sbarbosa4/Documents/NetBeansProjects/Projeto-Integrador-II/ProgramaComInterface/src/utilitarios/Validacoes.java</file>
-            <file>file:/C:/Users/leonardo.sbarbosa4/Documents/NetBeansProjects/Projeto-Integrador-II/ProgramaComInterface/src/Interfaces/ClientesForm.java</file>
-            <file>file:/C:/Users/leonardo.sbarbosa4/Documents/NetBeansProjects/Projeto-Integrador-II/ProgramaComInterface/src/Interfaces/VendasFrame.java</file>
-            <file>file:/C:/Users/leonardo.sbarbosa4/Documents/NetBeansProjects/Projeto-Integrador-II/ProgramaComInterface/src/Interfaces/VendaFinalizada.java</file>
-            <file>file:/C:/Users/leonardo.sbarbosa4/Documents/NetBeansProjects/Projeto-Integrador-II/ProgramaComInterface/src/Interfaces/TelaInicio.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

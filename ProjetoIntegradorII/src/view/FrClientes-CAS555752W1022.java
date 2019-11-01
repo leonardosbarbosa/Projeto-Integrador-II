@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package janelas;
+package view;
 
+import Controller.ControllerCliente;
+import ModeloDao.ClienteDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +22,8 @@ import conexao.ConexaoBD;
 public class FrClientes extends javax.swing.JFrame {
 
     ConexaoBD conecta = new ConexaoBD();//instancia da classe de conexão
+    ClienteDao cliente = new ClienteDao();
+    ControllerCliente controle = new ControllerCliente();
 
     /**
      * Creates new form ClientesForm
@@ -508,30 +512,37 @@ public class FrClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        try {
-            // TODO add your handling code here:
-            //recebe a conexão com o banco de dados
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO clientes (nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade)" //passagem do comando sql para inserção
-                    + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            pst.setString(1, jTextFieldNome.getText()); //passagem de paramentro para inserção(valores)
-            pst.setString(2, jTextFieldCpf.getText());
-            pst.setString(3, jTextFieldRg.getText());
-            pst.setString(4, jTextFieldNascimento.getText());
-            pst.setString(5, (String) jComboBoxSexo.getSelectedItem());
-            pst.setString(6, jTextFieldFixo.getText());
-            pst.setString(7, jTextFieldCelular.getText());
-            pst.setString(8, jTextField7Email.getText());
-            pst.setString(9, jTextFieldRua.getText());
-            pst.setString(10, jTextFieldBairro.getText());
-            pst.setString(11, (String) jComboBoxUf.getSelectedItem());
-            pst.setString(12, jTextFieldCep.getText());
-            pst.setString(13, jTextField1Cidade.getText());
-            pst.executeUpdate(); //executa a inserção
-            JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro na inserção de dados \n EERO:" + ex);
-        }
 
+        int id;
+        String nome;
+        String cpf;
+        String rg;
+        String nascimento;
+        String sexo;
+        String fixo;
+        String celular;
+        String email;
+        String rua;
+        String bairro;
+        String uf;
+        String cep;
+        String cidade;
+        id = Integer.parseInt(jTextFieldNome.getText());
+        nome = (jTextFieldCpf.getText());
+        cpf = (jTextFieldRg.getText());
+        rg = (jTextFieldNascimento.getText());
+        sexo = ((String) jComboBoxSexo.getSelectedItem());
+        fixo = (jTextFieldFixo.getText());
+        celular = (jTextFieldCelular.getText());
+        email = (jTextField7Email.getText());
+        rua = (jTextFieldRua.getText());
+        bairro = (jTextFieldBairro.getText());
+        uf = ((String) jComboBoxUf.getSelectedItem());
+        cep = (jTextFieldCep.getText());
+        cidade = (jTextField1Cidade.getText());
+        salvar(int id, String nome, String cpf, String rg, String nascimento, String sexo, String fixo, String celular, String email, String rua, String bairro,
+            String uf, String cep, String cidade)
+        controle.salvar(id,nome,cpf,rg,nascimento,sexo,fixo,celular,email,rua,bairro,uf,cep,cidade);
         jTextField1Cidade.setText("");
         jTextField7Email.setText("");
         jTextFieldBairro.setText("");
@@ -544,6 +555,7 @@ public class FrClientes extends javax.swing.JFrame {
         jTextFieldNome.setText("");
         jTextFieldRg.setText("");
         jTextFieldRua.setText("");
+
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -565,11 +577,11 @@ public class FrClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        
+
         if (RBNome.isSelected()) {
-            
+
         }
-        
+
         jTextField1Cidade.setEnabled(true);
         jTextField7Email.setEnabled(true);
         jTextFieldBairro.setEnabled(true);
@@ -586,10 +598,10 @@ public class FrClientes extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             PreparedStatement pst = null;
-            if (RBCpf.isSelected()){
-            pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + jTextFieldPesquisaCpf.getText() + "'");
-            }else if(RBNome.isSelected()){
-            pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + jTextFieldPesquisaCpf.getText() + "'");  
+            if (RBCpf.isSelected()) {
+                pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + jTextFieldPesquisaCpf.getText() + "'");
+            } else if (RBNome.isSelected()) {
+                pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + jTextFieldPesquisaCpf.getText() + "'");
             }
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
@@ -642,10 +654,10 @@ public class FrClientes extends javax.swing.JFrame {
             pst.execute();
             JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso");
         } catch (SQLException ex) {
-            Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);            
+            Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro ao excluir o cliente \n ERRO: " + ex);
         }
-                
+
         jTextField1Cidade.setText("");
         jTextField7Email.setText("");
         jTextFieldBairro.setText("");
@@ -658,7 +670,7 @@ public class FrClientes extends javax.swing.JFrame {
         jTextFieldNome.setText("");
         jTextFieldRg.setText("");
         jTextFieldRua.setText("");
-        
+
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -677,11 +689,11 @@ public class FrClientes extends javax.swing.JFrame {
             pst.setString(9, jTextFieldPesquisaCpf.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso");
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar o cliente \n + ERRO: " + ex);
         }
-        
+
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed

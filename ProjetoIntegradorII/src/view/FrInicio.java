@@ -1,4 +1,4 @@
-package janelas;
+package view;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,6 +9,7 @@ public class FrInicio extends javax.swing.JFrame {
     public FrInicio() throws SQLException {
 
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -129,9 +130,13 @@ public class FrInicio extends javax.swing.JFrame {
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
 
-        FrProdutos produtos = new FrProdutos();
-        produtos.setVisible(true);
-        dispose();
+        try {
+            FrProdutos produtos = new FrProdutos();
+            produtos.setVisible(true);
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(FrInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnProdutosActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed

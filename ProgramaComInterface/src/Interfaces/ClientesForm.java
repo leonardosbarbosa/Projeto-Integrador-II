@@ -8,6 +8,7 @@ package Interfaces;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -386,6 +387,11 @@ public class ClientesForm extends javax.swing.JFrame {
 
         jTextFieldNascimento.setText("AAAA/MM/DD");
         jTextFieldNascimento.setEnabled(false);
+        jTextFieldNascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNascimentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -704,6 +710,12 @@ public class ClientesForm extends javax.swing.JFrame {
     private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeActionPerformed
+
+    private void jTextFieldNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNascimentoActionPerformed
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dataFormatada = sdf.format(jTextFieldNascimento.getText());
+		System.out.println(dataFormatada);
+    }//GEN-LAST:event_jTextFieldNascimentoActionPerformed
 
     /**
      * @param args the command line arguments

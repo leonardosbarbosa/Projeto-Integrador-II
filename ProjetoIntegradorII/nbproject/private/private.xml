@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/phfar/Desktop/Projeto-Integrador-II/ProjetoIntegradorII/src/Modelos/ModeloProduto.java</file>
-            <file>file:/C:/Users/phfar/Desktop/Projeto-Integrador-II/ProjetoIntegradorII/src/janelas/ModeloTabela.java</file>
-            <file>file:/C:/Users/phfar/Desktop/Projeto-Integrador-II/ProjetoIntegradorII/src/conexao/ConexaoBD.java</file>
-            <file>file:/C:/Users/phfar/Desktop/Projeto-Integrador-II/ProjetoIntegradorII/src/janelas/FrInicio.java</file>
-            <file>file:/C:/Users/phfar/Desktop/Projeto-Integrador-II/ProjetoIntegradorII/src/janelas/FrClientes.java</file>
-            <file>file:/C:/Users/phfar/Desktop/Projeto-Integrador-II/ProjetoIntegradorII/src/Modelos/ModeloCliente.java</file>
-            <file>file:/C:/Users/phfar/Desktop/Projeto-Integrador-II/ProjetoIntegradorII/src/janelas/FrCadastroCliente.java</file>
-            <file>file:/C:/Users/phfar/Desktop/Projeto-Integrador-II/ProjetoIntegradorII/src/janelas/FrProdutos.java</file>
+            <file>file:/C:/Users/lukas/OneDrive/Trab_PI_2/Projeto-Integrador-II/ProjetoIntegradorII/src/Modelos/ModeloCliente.java</file>
+            <file>file:/C:/Users/lukas/OneDrive/Trab_PI_2/Projeto-Integrador-II/ProjetoIntegradorII/src/ModeloDao/ClienteDao.java</file>
+            <file>file:/C:/Users/lukas/OneDrive/Trab_PI_2/Projeto-Integrador-II/ProjetoIntegradorII/src/view/FrClientes.java</file>
         </group>
     </open-files>
 </project-private>
