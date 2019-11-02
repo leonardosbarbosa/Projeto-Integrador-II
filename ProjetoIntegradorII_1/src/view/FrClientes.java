@@ -183,6 +183,11 @@ public class FrClientes extends javax.swing.JFrame {
         jComboBoxSexo.setEnabled(false);
 
         jTextFieldNascimento.setEnabled(false);
+        jTextFieldNascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNascimentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -505,7 +510,8 @@ public class FrClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        try {
+        
+       
             c.setNome(jTextFieldNome.getText());
             c.setCpf(jTextFieldCpf.getText());
             c.setRg(jTextFieldRg.getText());
@@ -520,23 +526,26 @@ public class FrClientes extends javax.swing.JFrame {
             c.setCep(jTextFieldCep.getText());
             c.setCidade(jTextField1Cidade.getText());
 
+        try {
             dao.addCliente(c);
         } catch (SQLException ex) {
             Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        jTextField1Cidade.setText("");
-        jTextField7Email.setText("");
-        jTextFieldBairro.setText("");
-        jTextFieldCelular.setText("");
-        jTextFieldCep.setText("");
-        jTextFieldCodCli.setText("");
-        jTextFieldCpf.setText("");
-        jTextFieldFixo.setText("");
-        jTextFieldNascimento.setText("");
-        jTextFieldNome.setText("");
-        jTextFieldRg.setText("");
-        jTextFieldRua.setText("");
+        
+            
+            jTextField1Cidade.setText("");
+            jTextField7Email.setText("");
+            jTextFieldBairro.setText("");
+            jTextFieldCelular.setText("");
+            jTextFieldCep.setText("");
+            jTextFieldCodCli.setText("");
+            jTextFieldCpf.setText("");
+            jTextFieldFixo.setText("");
+            jTextFieldNascimento.setText("");
+            jTextFieldNome.setText("");
+            jTextFieldRg.setText("");
+            jTextFieldRua.setText("");
+      
 
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
@@ -688,6 +697,10 @@ public class FrClientes extends javax.swing.JFrame {
             Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonHomeActionPerformed
+
+    private void jTextFieldNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNascimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNascimentoActionPerformed
 
     /**
      * @param args the command line arguments
