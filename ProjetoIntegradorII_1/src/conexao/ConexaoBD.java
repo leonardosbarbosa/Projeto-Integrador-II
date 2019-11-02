@@ -13,7 +13,7 @@ public class ConexaoBD {
 
     public void conectar() throws SQLException {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/sistemavendas?zeroDateTimeBehavior=convertToNull", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3307/sistemavendas?zeroDateTimeBehavior=convertToNull", "root", "");
             st = (java.sql.Statement) con.createStatement();
 
         } catch (Exception e) {
