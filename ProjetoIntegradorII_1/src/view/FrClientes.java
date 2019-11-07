@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import conexao.ConexaoBD;
+import conexao.Validacoes;
 
 /**
  *
@@ -37,6 +38,7 @@ public class FrClientes extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
@@ -96,6 +98,7 @@ public class FrClientes extends javax.swing.JFrame {
 
         jButtonPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loupe.png"))); // NOI18N
         jButtonPesquisar.setToolTipText("Clique para realizar uma pesquisa de clientes a base de dados através do CPF");
+        jButtonPesquisar.setName(""); // NOI18N
         jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarActionPerformed(evt);
@@ -174,15 +177,19 @@ public class FrClientes extends javax.swing.JFrame {
         jLabel5.setText("Nascimento:");
 
         jTextFieldNome.setEnabled(false);
+        jTextFieldNome.setName("Nome"); // NOI18N
 
         jTextFieldCpf.setEnabled(false);
+        jTextFieldCpf.setName("CPF"); // NOI18N
 
         jTextFieldRg.setEnabled(false);
+        jTextFieldRg.setName("RG"); // NOI18N
 
         jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
         jComboBoxSexo.setEnabled(false);
 
         jTextFieldNascimento.setEnabled(false);
+        jTextFieldNascimento.setName("Nascimento"); // NOI18N
         jTextFieldNascimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNascimentoActionPerformed(evt);
@@ -243,19 +250,25 @@ public class FrClientes extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTextFieldNome.getAccessibleContext().setAccessibleName("");
+        jTextFieldNome.getAccessibleContext().setAccessibleDescription("");
+
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Contato"));
 
         jLabel6.setText("Telefone fixo:");
 
         jTextFieldFixo.setEnabled(false);
+        jTextFieldFixo.setName("Telefone Fixo"); // NOI18N
 
         jLabel7.setText("Celular:");
 
         jTextFieldCelular.setEnabled(false);
+        jTextFieldCelular.setName("Celular"); // NOI18N
 
         jLabel8.setText("E-mail:");
 
         jTextField7Email.setEnabled(false);
+        jTextField7Email.setName("E-mail"); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -299,10 +312,12 @@ public class FrClientes extends javax.swing.JFrame {
         jLabel9.setText("Rua:");
 
         jTextFieldRua.setEnabled(false);
+        jTextFieldRua.setName("Rua"); // NOI18N
 
         jLabel10.setText("Bairro:");
 
         jTextFieldBairro.setEnabled(false);
+        jTextFieldBairro.setName("Bairro"); // NOI18N
 
         jLabel11.setText("UF:");
 
@@ -311,10 +326,12 @@ public class FrClientes extends javax.swing.JFrame {
         jLabel12.setText("Cidade:");
 
         jTextField1Cidade.setEnabled(false);
+        jTextField1Cidade.setName("Cidade"); // NOI18N
 
         jLabel13.setText("CEP:");
 
         jTextFieldCep.setEnabled(false);
+        jTextFieldCep.setName("CEP"); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -427,7 +444,7 @@ public class FrClientes extends javax.swing.JFrame {
                         .addComponent(jButtonSalvar)
                         .addComponent(jButtonExcluir)
                         .addComponent(jButtonAlterar)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -454,7 +471,7 @@ public class FrClientes extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -509,9 +526,33 @@ public class FrClientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    Validacoes validador = new Validacoes();
+    
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         
        
+        try {
+            validador.campoVazio(jTextFieldNome);
+            validador.campoVazio(jTextFieldCpf);
+            validador.campoVazio(jTextFieldRg);
+            validador.campoVazio(jTextFieldNascimento);
+            validador.campoVazio(jTextFieldRua);
+            validador.campoVazio(jTextFieldBairro);
+            validador.campoVazio(jTextFieldCep);
+            validador.campoVazio(jTextField1Cidade);
+            validador.validaNome(jTextFieldNome);
+            validador.validaNum(jTextFieldCpf);
+            validador.validaNum(jTextFieldRg);
+            validador.validaNum(jTextFieldFixo);
+            validador.validaNum(jTextFieldCelular);
+            validador.validaNum(jTextFieldCep);
+            
+            if (validador.hasError()){
+                JOptionPane.showMessageDialog(null, validador.getMensagensErro());
+            }
+            
+        } catch (Exception e) {
+        
             c.setNome(jTextFieldNome.getText());
             c.setCpf(jTextFieldCpf.getText());
             c.setRg(jTextFieldRg.getText());
@@ -546,7 +587,7 @@ public class FrClientes extends javax.swing.JFrame {
             jTextFieldRg.setText("");
             jTextFieldRua.setText("");
       
-
+        }
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -775,6 +816,7 @@ public class FrClientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField jTextField1Cidade;
     private javax.swing.JTextField jTextField7Email;
     private javax.swing.JTextField jTextFieldBairro;

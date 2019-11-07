@@ -4,6 +4,10 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
     </Component>
+    <Container class="javax.swing.JSplitPane" name="jSplitPane1">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
+    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -92,7 +96,7 @@
                           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                           <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                           <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jPanel7" alignment="0" pref="598" max="32767" attributes="0"/>
+                          <Component id="jPanel7" alignment="0" pref="585" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -147,6 +151,7 @@
                   <Image iconType="3" name="/images/loupe.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Clique para realizar uma pesquisa de clientes a base de dados atrav&#xe9;s do CPF"/>
+                <Property name="name" type="java.lang.String" value="" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPesquisarActionPerformed"/>
@@ -362,16 +367,23 @@
                 <Component class="javax.swing.JTextField" name="jTextFieldNome">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="Nome" noResource="true"/>
                   </Properties>
+                  <AccessibilityProperties>
+                    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
+                    <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
+                  </AccessibilityProperties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldCpf">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="CPF" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldRg">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="RG" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBoxSexo">
@@ -391,6 +403,7 @@
                 <Component class="javax.swing.JTextField" name="jTextFieldNascimento">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="Nascimento" noResource="true"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNascimentoActionPerformed"/>
@@ -461,6 +474,7 @@
                 <Component class="javax.swing.JTextField" name="jTextFieldFixo">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="Telefone Fixo" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7">
@@ -471,6 +485,7 @@
                 <Component class="javax.swing.JTextField" name="jTextFieldCelular">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="Celular" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel8">
@@ -481,6 +496,7 @@
                 <Component class="javax.swing.JTextField" name="jTextField7Email">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="E-mail" noResource="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -568,6 +584,7 @@
                 <Component class="javax.swing.JTextField" name="jTextFieldRua">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="Rua" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel10">
@@ -578,6 +595,7 @@
                 <Component class="javax.swing.JTextField" name="jTextFieldBairro">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="Bairro" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
@@ -630,6 +648,7 @@
                 <Component class="javax.swing.JTextField" name="jTextField1Cidade">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="Cidade" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel13">
@@ -640,6 +659,7 @@
                 <Component class="javax.swing.JTextField" name="jTextFieldCep">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="CEP" noResource="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -683,7 +703,7 @@
                                   <Component id="jButtonAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="14" max="32767" attributes="0"/>
+                          <EmptySpace pref="16" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
