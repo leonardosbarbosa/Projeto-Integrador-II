@@ -3,6 +3,7 @@ package ModeloDao;
 import ModeloBeans.ClienteBeans;
 import java.sql.PreparedStatement;
 import conexao.ConexaoBD;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ import view.FrClientes;
 public class ClienteDao {
 
     ConexaoBD conecta = new ConexaoBD();
+    FrClientes cliente = new FrClientes();
 
     public void addCliente(ClienteBeans c) throws SQLException {
         conecta.conectar();
@@ -41,5 +43,78 @@ public class ClienteDao {
             JOptionPane.showMessageDialog(null, "Erro ao salvar o cliente \n ERRO: " + ex);
         }
     }
-}
 
+    public void pesquisarClienteCpf(ClienteBeans c) throws SQLException {
+        conecta.conectar();
+
+        try {
+            
+            // TODO add your handling code here:
+            PreparedStatement pst = null;
+
+            pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + c.getCpf() + "'");
+
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int codigo = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String cpf = rs.getString("cpf");
+                String rg = rs.getString("rg");
+                String nascimento = rs.getString("nascimento");
+                String sexo = rs.getString("sexo");
+                String fixo = rs.getString("fixo");
+                String celular = rs.getString("celular");
+                String email = rs.getString("email");
+                String rua = rs.getString("rua");
+                String bairro = rs.getString("bairro");
+                String uf = rs.getString("uf");
+                String cep = rs.getString("cep");
+                String cidade = rs.getString("cidade");
+
+                String codS = Integer.toString(codigo);
+
+                pst.execute();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
+        }
+
+    }
+
+    public void pesquisarClienteNome(ClienteBeans c) throws SQLException {
+        conecta.conectar();
+
+        try {
+            // TODO add your handling code here:
+            PreparedStatement pst = null;
+
+            pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + c.getNome() + "'");
+
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int codigo = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String cpf = rs.getString("cpf");
+                String rg = rs.getString("rg");
+                String nascimento = rs.getString("nascimento");
+                String sexo = rs.getString("sexo");
+                String fixo = rs.getString("fixo");
+                String celular = rs.getString("celular");
+                String email = rs.getString("email");
+                String rua = rs.getString("rua");
+                String bairro = rs.getString("bairro");
+                String uf = rs.getString("uf");
+                String cep = rs.getString("cep");
+                String cidade = rs.getString("cidade");
+
+                String codS = Integer.toString(codigo);
+
+                pst.execute();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
+        }
+
+    }
+
+}

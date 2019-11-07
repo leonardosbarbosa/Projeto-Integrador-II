@@ -5,7 +5,7 @@
  */
 package view;
 
-
+import Controller.ClienteController;
 import ModeloBeans.ClienteBeans;
 import ModeloDao.ClienteDao;
 import java.sql.PreparedStatement;
@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import conexao.ConexaoBD;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -24,7 +25,7 @@ public class FrClientes extends javax.swing.JFrame {
 
     ConexaoBD conecta = new ConexaoBD();
     ClienteDao dao = new ClienteDao();
-    
+
     ClienteBeans c = new ClienteBeans();
 
     public FrClientes() {
@@ -40,7 +41,7 @@ public class FrClientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jTextFieldPesquisaCpf = new javax.swing.JTextField();
+        jTextFieldPesquisar = new javax.swing.JTextField();
         jButtonPesquisar = new javax.swing.JButton();
         RBNome = new javax.swing.JRadioButton();
         RBCpf = new javax.swing.JRadioButton();
@@ -104,6 +105,11 @@ public class FrClientes extends javax.swing.JFrame {
 
         buttonGroup1.add(RBNome);
         RBNome.setText("Nome");
+        RBNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBNomeActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(RBCpf);
         RBCpf.setText("CPF");
@@ -442,7 +448,7 @@ public class FrClientes extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(RBNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -465,7 +471,7 @@ public class FrClientes extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(jTextFieldPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(RBNome)
@@ -510,42 +516,37 @@ public class FrClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        
-       
-            c.setNome(jTextFieldNome.getText());
-            c.setCpf(jTextFieldCpf.getText());
-            c.setRg(jTextFieldRg.getText());
-            c.setNascimento(jTextFieldNascimento.getText());
-            c.setSexo((String) jComboBoxSexo.getSelectedItem());
-            c.setFixo(jTextFieldFixo.getText());
-            c.setCelular(jTextFieldCelular.getText());
-            c.setEmail(jTextField7Email.getText());
-            c.setRua(jTextFieldRua.getText());
-            c.setBairro(jTextFieldBairro.getText());
-            c.setUf((String) jComboBoxUf.getSelectedItem());
-            c.setCep(jTextFieldCep.getText());
-            c.setCidade(jTextField1Cidade.getText());
 
-        try {
-            dao.addCliente(c);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-            
-            jTextField1Cidade.setText("");
-            jTextField7Email.setText("");
-            jTextFieldBairro.setText("");
-            jTextFieldCelular.setText("");
-            jTextFieldCep.setText("");
-            jTextFieldCodCli.setText("");
-            jTextFieldCpf.setText("");
-            jTextFieldFixo.setText("");
-            jTextFieldNascimento.setText("");
-            jTextFieldNome.setText("");
-            jTextFieldRg.setText("");
-            jTextFieldRua.setText("");
-      
+        String nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade;
+
+        nome = (jTextFieldNome.getText());
+        cpf = (jTextFieldCpf.getText());
+        rg = (jTextFieldRg.getText());
+        nascimento = (jTextFieldNascimento.getText());
+        sexo = ((String) jComboBoxSexo.getSelectedItem());
+        fixo = (jTextFieldFixo.getText());
+        celular = (jTextFieldCelular.getText());
+        email = (jTextField7Email.getText());
+        rua = (jTextFieldRua.getText());
+        bairro = (jTextFieldBairro.getText());
+        uf = ((String) jComboBoxUf.getSelectedItem());
+        cep = (jTextFieldCep.getText());
+        cidade = (jTextField1Cidade.getText());
+
+        ClienteController.salvar(nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade);
+
+        jTextField1Cidade.setText("");
+        jTextField7Email.setText("");
+        jTextFieldBairro.setText("");
+        jTextFieldCelular.setText("");
+        jTextFieldCep.setText("");
+        jTextFieldCodCli.setText("");
+        jTextFieldCpf.setText("");
+        jTextFieldFixo.setText("");
+        jTextFieldNascimento.setText("");
+        jTextFieldNome.setText("");
+        jTextFieldRg.setText("");
+        jTextFieldRua.setText("");
 
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
@@ -568,11 +569,7 @@ public class FrClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-
-        if (RBNome.isSelected()) {
-
-        }
-
+     
         jTextField1Cidade.setEnabled(true);
         jTextField7Email.setEnabled(true);
         jTextFieldBairro.setEnabled(true);
@@ -586,53 +583,28 @@ public class FrClientes extends javax.swing.JFrame {
         jTextFieldRg.setEnabled(false);
         jTextFieldRua.setEnabled(true);
         jComboBoxSexo.setEnabled(false);
-        try {
-            // TODO add your handling code here:
-            PreparedStatement pst = null;
-            if (RBCpf.isSelected()) {
-                pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + jTextFieldPesquisaCpf.getText() + "'");
-            } else if (RBNome.isSelected()) {
-                pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + jTextFieldPesquisaCpf.getText() + "'");
-            }
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                int codigo = rs.getInt("id");
-                String nome = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String rg = rs.getString("rg");
-                String nascimento = rs.getString("nascimento");
-                String sexo = rs.getString("sexo");
-                String fixo = rs.getString("fixo");
-                String celular = rs.getString("celular");
-                String email = rs.getString("email");
-                String rua = rs.getString("rua");
-                String bairro = rs.getString("bairro");
-                String uf = rs.getString("uf");
-                String cep = rs.getString("cep");
-                String cidade = rs.getString("cidade");
 
-                String codS = Integer.toString(codigo);
+        String nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade;
 
-                jTextFieldCodCli.setText(codS);
-                jTextFieldNome.setText(nome);
-                jTextFieldCpf.setText(cpf);
-                jTextFieldRg.setText(rg);
-                jTextFieldNascimento.setText(nascimento);
-                jComboBoxSexo.setSelectedItem(sexo);
-
-                jTextFieldFixo.setText(fixo);
-                jTextFieldCelular.setText(celular);
-                jTextField7Email.setText(email);
-
-                jTextFieldRua.setText(rua);
-                jTextFieldBairro.setText(bairro);
-                jTextFieldCep.setText(cep);
-                jTextField1Cidade.setText(cidade);
-                jComboBoxUf.setSelectedItem(uf);
-                pst.execute();
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro na busca de dados \n EERO:" + ex);
+        nome = (jTextFieldNome.getText());
+        cpf = (jTextFieldCpf.getText());
+        rg = (jTextFieldRg.getText());
+        nascimento = (jTextFieldNascimento.getText());
+        sexo = ((String) jComboBoxSexo.getSelectedItem());
+        fixo = (jTextFieldFixo.getText());
+        celular = (jTextFieldCelular.getText());
+        email = (jTextField7Email.getText());
+        rua = (jTextFieldRua.getText());
+        bairro = (jTextFieldBairro.getText());
+        uf = ((String) jComboBoxUf.getSelectedItem());
+        cep = (jTextFieldCep.getText());
+        cidade = (jTextField1Cidade.getText());
+        
+        if (RBCpf.isSelected()) {
+            ClienteController.pesquisarCpf(nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade);
+        } else if (RBNome.isSelected()) {
+            ClienteController.pesquisarNome(nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade);
+            
         }
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
@@ -641,7 +613,7 @@ public class FrClientes extends javax.swing.JFrame {
             //conecta.executaSQL("DELETE FROM clientes where cpf ='" +jTextFieldPesquisaCpf.getText() + "'");
             //JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso");
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM clientes where cpf = ?");
-            pst.setString(1, jTextFieldPesquisaCpf.getText());
+            pst.setString(1, jTextFieldPesquisar.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso");
         } catch (SQLException ex) {
@@ -677,7 +649,7 @@ public class FrClientes extends javax.swing.JFrame {
             pst.setString(6, (String) jComboBoxUf.getSelectedItem());
             pst.setString(7, jTextFieldCep.getText());
             pst.setString(8, jTextField1Cidade.getText());
-            pst.setString(9, jTextFieldPesquisaCpf.getText());
+            pst.setString(9, jTextFieldPesquisar.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso");
 
@@ -701,6 +673,10 @@ public class FrClientes extends javax.swing.JFrame {
     private void jTextFieldNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNascimentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNascimentoActionPerformed
+
+    private void RBNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RBNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -785,7 +761,7 @@ public class FrClientes extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldFixo;
     private javax.swing.JTextField jTextFieldNascimento;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldPesquisaCpf;
+    private javax.swing.JTextField jTextFieldPesquisar;
     private javax.swing.JTextField jTextFieldRg;
     private javax.swing.JTextField jTextFieldRua;
     // End of variables declaration//GEN-END:variables
