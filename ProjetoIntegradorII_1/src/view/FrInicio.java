@@ -140,7 +140,9 @@ public class FrInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProdutosActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-        // TODO add your handling code here:
+        frmrelatorio relatorio = new frmrelatorio();
+        relatorio.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
     private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
