@@ -14,8 +14,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import conexao.ConexaoBD;
-import conexao.Validacoes;
+import utilitarios.ConexaoBD;
+import utilitarios.Validacoes;
 import javax.swing.JRadioButton;
 
 /**

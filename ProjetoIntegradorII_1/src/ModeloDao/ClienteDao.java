@@ -2,7 +2,7 @@ package ModeloDao;
 
 import ModeloBeans.ClienteBeans;
 import java.sql.PreparedStatement;
-import conexao.ConexaoBD;
+import utilitarios.ConexaoBD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;

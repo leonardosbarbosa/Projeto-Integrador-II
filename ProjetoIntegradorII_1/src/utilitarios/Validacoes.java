@@ -1,5 +1,5 @@
 
-package conexao;
+package utilitarios;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

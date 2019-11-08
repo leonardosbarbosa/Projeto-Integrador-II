@@ -1,4 +1,4 @@
-package conexao;
+package utilitarios;
 
 import java.sql.Statement;
 import java.sql.Connection;
@@ -13,7 +13,7 @@ public class ConexaoBD {
 
     public void conectar() throws SQLException {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3307/sistemavendas?zeroDateTimeBehavior=convertToNull", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemavendas?zeroDateTimeBehavior=convertToNull", "root", "");
             st = (java.sql.Statement) con.createStatement();
 
         } catch (Exception e) {
