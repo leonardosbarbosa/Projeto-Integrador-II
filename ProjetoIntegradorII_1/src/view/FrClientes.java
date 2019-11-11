@@ -8,15 +8,12 @@ package view;
 import Controller.ClienteController;
 import ModeloBeans.ClienteBeans;
 import ModeloDao.ClienteDao;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
-import javax.swing.JRadioButton;
 
 /**
  *
@@ -24,14 +21,16 @@ import javax.swing.JRadioButton;
  */
 public class FrClientes extends javax.swing.JFrame {
 
-    ConexaoBD conecta = new ConexaoBD();
     ClienteDao dao = new ClienteDao();
-
     ClienteBeans c = new ClienteBeans();
+    Validacoes validador = new Validacoes();
 
-    public FrClientes() {
+    public FrClientes() throws SQLException {
         initComponents();
 
+        ConexaoBD conecta = new ConexaoBD();
+
+        conecta.conectar();
     }
 
     @SuppressWarnings("unchecked")
@@ -532,34 +531,31 @@ public class FrClientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    Validacoes validador = new Validacoes();
-    
+
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 
-        
-       
         try {
-            validador.campoVazio(jTextFieldNome);
-            validador.campoVazio(jTextFieldCpf);
-            validador.campoVazio(jTextFieldRg);
-            validador.campoVazio(jTextFieldNascimento);
-            validador.campoVazio(jTextFieldRua);
-            validador.campoVazio(jTextFieldBairro);
-            validador.campoVazio(jTextFieldCep);
-            validador.campoVazio(jTextField1Cidade);
-            validador.validaNome(jTextFieldNome);
-            validador.validaNum(jTextFieldCpf);
-            validador.validaNum(jTextFieldRg);
-            validador.validaNum(jTextFieldFixo);
-            validador.validaNum(jTextFieldCelular);
-            validador.validaNum(jTextFieldCep);
-            
-            if (validador.hasError()){
-                JOptionPane.showMessageDialog(null, validador.getMensagensErro());
+            Validacoes.campoVazio(jTextFieldNome);
+            Validacoes.campoVazio(jTextFieldCpf);
+            Validacoes.campoVazio(jTextFieldRg);
+            Validacoes.campoVazio(jTextFieldNascimento);
+            Validacoes.campoVazio(jTextFieldRua);
+            Validacoes.campoVazio(jTextFieldBairro);
+            Validacoes.campoVazio(jTextFieldCep);
+            Validacoes.campoVazio(jTextField1Cidade);
+            Validacoes.validaNome(jTextFieldNome);
+            Validacoes.validaNum(jTextFieldCpf);
+            Validacoes.validaNum(jTextFieldRg);
+            Validacoes.validaNum(jTextFieldFixo);
+            Validacoes.validaNum(jTextFieldCelular);
+            Validacoes.validaNum(jTextFieldCep);
+
+            if (validador.hasError()) {
+                JOptionPane.showMessageDialog(null, Validacoes.getMensagensErro());
             }
-            
+
         } catch (Exception e) {
-        
+
             c.setNome(jTextFieldNome.getText());
             c.setCpf(jTextFieldCpf.getText());
             c.setRg(jTextFieldRg.getText());
@@ -574,13 +570,12 @@ public class FrClientes extends javax.swing.JFrame {
             c.setCep(jTextFieldCep.getText());
             c.setCidade(jTextField1Cidade.getText());
 
-        try {
-            dao.addCliente(c);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-            
+            try {
+                dao.addCliente(c);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             jTextField1Cidade.setText("");
             jTextField7Email.setText("");
             jTextFieldBairro.setText("");
@@ -593,7 +588,7 @@ public class FrClientes extends javax.swing.JFrame {
             jTextFieldNome.setText("");
             jTextFieldRg.setText("");
             jTextFieldRua.setText("");
-      
+
         }
 
         String nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade;
@@ -628,7 +623,6 @@ public class FrClientes extends javax.swing.JFrame {
         jTextFieldRua.setText("");
 
 
-
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
@@ -649,7 +643,7 @@ public class FrClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-     
+
         jTextField1Cidade.setEnabled(true);
         jTextField7Email.setEnabled(true);
         jTextFieldBairro.setEnabled(true);
@@ -665,7 +659,9 @@ public class FrClientes extends javax.swing.JFrame {
         jComboBoxSexo.setEnabled(false);
 
         String nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade;
-
+  
+        
+        String cod = jTextFieldCodCli.getText();
         nome = (jTextFieldNome.getText());
         cpf = (jTextFieldCpf.getText());
         rg = (jTextFieldRg.getText());
@@ -679,16 +675,18 @@ public class FrClientes extends javax.swing.JFrame {
         uf = ((String) jComboBoxUf.getSelectedItem());
         cep = (jTextFieldCep.getText());
         cidade = (jTextField1Cidade.getText());
-        
+
         if (RBCpf.isSelected()) {
             ClienteController.pesquisarCpf(nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade);
         } else if (RBNome.isSelected()) {
             ClienteController.pesquisarNome(nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade);
-            
+
         }
+
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        /*
         try {
             //conecta.executaSQL("DELETE FROM clientes where cpf ='" +jTextFieldPesquisaCpf.getText() + "'");
             //JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso");
@@ -713,10 +711,12 @@ public class FrClientes extends javax.swing.JFrame {
         jTextFieldNome.setText("");
         jTextFieldRg.setText("");
         jTextFieldRua.setText("");
+         */
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        /*
         try {
             // TODO add your handling code here:
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE clientes set fixo =?, celular =?, email =?, rua =?, bairro = ?, uf =?, cep =?, cidade =? "
@@ -736,7 +736,7 @@ public class FrClientes extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar o cliente \n + ERRO: " + ex);
         }
-
+         */
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
@@ -791,7 +791,7 @@ public class FrClientes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrClientes().setVisible(true);
+
             }
         });
     }

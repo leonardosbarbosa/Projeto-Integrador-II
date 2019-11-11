@@ -13,8 +13,7 @@ import view.FrClientes;
 public class ClienteDao {
 
     ConexaoBD conecta = new ConexaoBD();
-    FrClientes cliente = new FrClientes();
-
+    //FrClientes cliente = new FrClientes();
     public void addCliente(ClienteBeans c) throws SQLException {
         conecta.conectar();
         try {
@@ -48,31 +47,25 @@ public class ClienteDao {
         conecta.conectar();
 
         try {
-            
+
             // TODO add your handling code here:
-            PreparedStatement pst = null;
-
-            pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + c.getCpf() + "'");
-
+            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + c.getCpf() + "'");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                int codigo = rs.getInt("id");
-                String nome = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String rg = rs.getString("rg");
-                String nascimento = rs.getString("nascimento");
-                String sexo = rs.getString("sexo");
-                String fixo = rs.getString("fixo");
-                String celular = rs.getString("celular");
-                String email = rs.getString("email");
-                String rua = rs.getString("rua");
-                String bairro = rs.getString("bairro");
-                String uf = rs.getString("uf");
-                String cep = rs.getString("cep");
-                String cidade = rs.getString("cidade");
-
-                String codS = Integer.toString(codigo);
-
+                rs.getInt(c.getId());
+                rs.getString(c.getNome());
+                rs.getString(c.getCpf());
+                rs.getString(c.getRg());
+                rs.getString(c.getNascimento());
+                rs.getString(c.getSexo());
+                rs.getString(c.getFixo());
+                rs.getString(c.getCelular());
+                rs.getString(c.getEmail());
+                rs.getString(c.getRua());
+                rs.getString(c.getBairro());
+                rs.getString(c.getUf());
+                rs.getString(c.getCep());
+                rs.getString(c.getCidade());
                 pst.execute();
             }
         } catch (SQLException ex) {
@@ -85,30 +78,25 @@ public class ClienteDao {
         conecta.conectar();
 
         try {
+
             // TODO add your handling code here:
-            PreparedStatement pst = null;
-
-            pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + c.getNome() + "'");
-
+            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + c.getNome() + "'");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                int codigo = rs.getInt("id");
-                String nome = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String rg = rs.getString("rg");
-                String nascimento = rs.getString("nascimento");
-                String sexo = rs.getString("sexo");
-                String fixo = rs.getString("fixo");
-                String celular = rs.getString("celular");
-                String email = rs.getString("email");
-                String rua = rs.getString("rua");
-                String bairro = rs.getString("bairro");
-                String uf = rs.getString("uf");
-                String cep = rs.getString("cep");
-                String cidade = rs.getString("cidade");
-
-                String codS = Integer.toString(codigo);
-
+                rs.getInt(c.getId());
+                rs.getString(c.getNome());
+                rs.getString(c.getCpf());
+                rs.getString(c.getRg());
+                rs.getString(c.getNascimento());
+                rs.getString(c.getSexo());
+                rs.getString(c.getFixo());
+                rs.getString(c.getCelular());
+                rs.getString(c.getEmail());
+                rs.getString(c.getRua());
+                rs.getString(c.getBairro());
+                rs.getString(c.getUf());
+                rs.getString(c.getCep());
+                rs.getString(c.getCidade());
                 pst.execute();
             }
         } catch (SQLException ex) {
