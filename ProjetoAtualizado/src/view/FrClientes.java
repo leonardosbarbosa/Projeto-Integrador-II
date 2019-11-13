@@ -621,42 +621,52 @@ public class FrClientes extends javax.swing.JFrame {
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
 
-        jTextField1Cidade.setEnabled(true);
-        jTextField7Email.setEnabled(true);
-        jTextFieldBairro.setEnabled(true);
-        jTextFieldCelular.setEnabled(true);
-        jTextFieldCep.setEnabled(true);
-        jTextFieldCodCli.setEnabled(false);
-        jTextFieldCpf.setEnabled(false);
-        jTextFieldFixo.setEnabled(true);
-        jTextFieldNascimento.setEnabled(false);
-        jTextFieldNome.setEnabled(false);
-        jTextFieldRg.setEnabled(false);
-        jTextFieldRua.setEnabled(true);
-        jComboBoxSexo.setEnabled(false);
+       if (RBCpf.isSelected()) {
+            try {
+                c.setPesquisa(jTextFieldPesquisar.getText());
 
-        String nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade;
+                ClienteBeans cliente = dao.pesquisarClienteNome(c);
+                jTextFieldCodCli.setText(Integer.toString(cliente.getId()));
+                jTextFieldNome.setText(cliente.getNome());
+                jTextFieldCpf.setText(cliente.getCpf());
+                jTextFieldRg.setText(cliente.getRg());
+                jComboBoxSexo.setSelectedItem(cliente.getSexo());
+                jTextFieldNascimento.setText(cliente.getNascimento());
+                jTextFieldFixo.setText(cliente.getFixo());
+                jTextFieldCelular.setText(cliente.getCelular());
+                jTextField7Email.setText(cliente.getEmail());
+                jTextFieldRua.setText(cliente.getRua());
+                jTextFieldBairro.setText(cliente.getBairro());
+                jComboBoxUf.setSelectedItem(cliente.getUf());
+                jTextField1Cidade.setText(cliente.getCidade());
+                jTextFieldCep.setText(cliente.getCep());
+            } catch (SQLException ex) {
+                Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
-        String cod = jTextFieldCodCli.getText();
-        nome = (jTextFieldNome.getText());
-        cpf = (jTextFieldCpf.getText());
-        rg = (jTextFieldRg.getText());
-        nascimento = (jTextFieldNascimento.getText());
-        sexo = ((String) jComboBoxSexo.getSelectedItem());
-        fixo = (jTextFieldFixo.getText());
-        celular = (jTextFieldCelular.getText());
-        email = (jTextField7Email.getText());
-        rua = (jTextFieldRua.getText());
-        bairro = (jTextFieldBairro.getText());
-        uf = ((String) jComboBoxUf.getSelectedItem());
-        cep = (jTextFieldCep.getText());
-        cidade = (jTextField1Cidade.getText());
+        else if (RBNome.isSelected()) {
+            try {
+                c.setPesquisa(jTextFieldPesquisar.getText());
 
-        if (RBCpf.isSelected()) {
-            ClienteController.pesquisarCpf(nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade);
-        } else if (RBNome.isSelected()) {
-            ClienteController.pesquisarNome(nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade);
-
+                ClienteBeans cliente = dao.pesquisarClienteNome(c);
+                jTextFieldCodCli.setText(Integer.toString(cliente.getId()));
+                jTextFieldNome.setText(cliente.getNome());
+                jTextFieldCpf.setText(cliente.getCpf());
+                jTextFieldRg.setText(cliente.getRg());
+                jComboBoxSexo.setSelectedItem(cliente.getSexo());
+                jTextFieldNascimento.setText(cliente.getNascimento());
+                jTextFieldFixo.setText(cliente.getFixo());
+                jTextFieldCelular.setText(cliente.getCelular());
+                jTextField7Email.setText(cliente.getEmail());
+                jTextFieldRua.setText(cliente.getRua());
+                jTextFieldBairro.setText(cliente.getBairro());
+                jComboBoxUf.setSelectedItem(cliente.getUf());
+                jTextField1Cidade.setText(cliente.getCidade());
+                jTextFieldCep.setText(cliente.getCep());
+            } catch (SQLException ex) {
+                Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_jButtonPesquisarActionPerformed

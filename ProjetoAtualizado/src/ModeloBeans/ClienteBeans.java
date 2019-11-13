@@ -5,6 +5,8 @@
  */
 package ModeloBeans;
 
+import javax.swing.JRadioButton;
+
 /**
  *
  * @author phfar
@@ -25,7 +27,15 @@ public class ClienteBeans {
     private String uf;
     private String cep;
     private String cidade;
+    private String pesquisa;
 
+    public String getPesquisa() {
+        return pesquisa;
+    }
+
+    public void setPesquisa(String pesquisa) {
+        this.pesquisa = pesquisa;
+    }
     public int getId() {
         return id;
     }
@@ -34,8 +44,6 @@ public class ClienteBeans {
         this.id = id;
     }
 
-    
-    
     public String getNome() {
         return nome;
     }
@@ -61,7 +69,7 @@ public class ClienteBeans {
     }
 
     public String getNascimento() {
-        
+
         return nascimento;
     }
 
@@ -140,6 +148,7 @@ public class ClienteBeans {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-    
-    
+
+   
+
 }

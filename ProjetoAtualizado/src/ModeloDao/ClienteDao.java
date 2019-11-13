@@ -13,6 +13,7 @@ import view.FrClientes;
 public class ClienteDao {
 
     ConexaoBD conecta = new ConexaoBD();
+
     //FrClientes cliente = new FrClientes();
     public void addCliente(ClienteBeans c) throws SQLException {
         conecta.conectar();
@@ -43,66 +44,71 @@ public class ClienteDao {
         }
     }
 
-    public void pesquisarClienteCpf(ClienteBeans c) throws SQLException {
+    public ClienteBeans pesquisarClienteNome(ClienteBeans c) throws SQLException {
         conecta.conectar();
 
         try {
 
-            // TODO add your handling code here:
-            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + c.getCpf() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + c.getPesquisa() + "'");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                rs.getInt(c.getId());
-                rs.getString(c.getNome());
-                rs.getString(c.getCpf());
-                rs.getString(c.getRg());
-                rs.getString(c.getNascimento());
-                rs.getString(c.getSexo());
-                rs.getString(c.getFixo());
-                rs.getString(c.getCelular());
-                rs.getString(c.getEmail());
-                rs.getString(c.getRua());
-                rs.getString(c.getBairro());
-                rs.getString(c.getUf());
-                rs.getString(c.getCep());
-                rs.getString(c.getCidade());
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setCpf(rs.getString("cpf"));
+                c.setRg(rs.getString("rg"));
+                c.setNascimento(rs.getString("nascimento"));
+                c.setSexo(rs.getString("sexo"));
+                c.setFixo(rs.getString("fixo"));
+                c.setCelular(rs.getString("celular"));
+                c.setEmail(rs.getString("email"));
+                c.setRua(rs.getString("rua"));
+                c.setBairro(rs.getString("bairro"));
+                c.setUf(rs.getString("uf"));
+                c.setCep(rs.getString("cep"));
+                c.setCidade(rs.getString("cidade"));
                 pst.execute();
+                JOptionPane.showMessageDialog(null, "Busca realizada");
             }
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
         }
-
+        conecta.desconectar();
+        return c;
     }
 
-    public void pesquisarClienteNome(ClienteBeans c) throws SQLException {
+
+    public ClienteBeans pesquisarClienteCpf(ClienteBeans c) throws SQLException {
         conecta.conectar();
 
         try {
 
-            // TODO add your handling code here:
-            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + c.getNome() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + c.getPesquisa() + "'");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                rs.getInt(c.getId());
-                rs.getString(c.getNome());
-                rs.getString(c.getCpf());
-                rs.getString(c.getRg());
-                rs.getString(c.getNascimento());
-                rs.getString(c.getSexo());
-                rs.getString(c.getFixo());
-                rs.getString(c.getCelular());
-                rs.getString(c.getEmail());
-                rs.getString(c.getRua());
-                rs.getString(c.getBairro());
-                rs.getString(c.getUf());
-                rs.getString(c.getCep());
-                rs.getString(c.getCidade());
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setCpf(rs.getString("cpf"));
+                c.setRg(rs.getString("rg"));
+                c.setNascimento(rs.getString("nascimento"));
+                c.setSexo(rs.getString("sexo"));
+                c.setFixo(rs.getString("fixo"));
+                c.setCelular(rs.getString("celular"));
+                c.setEmail(rs.getString("email"));
+                c.setRua(rs.getString("rua"));
+                c.setBairro(rs.getString("bairro"));
+                c.setUf(rs.getString("uf"));
+                c.setCep(rs.getString("cep"));
+                c.setCidade(rs.getString("cidade"));
                 pst.execute();
+                JOptionPane.showMessageDialog(null, "Busca realizada");
             }
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
         }
-
+        conecta.desconectar();
+        return c;
     }
 
 }
