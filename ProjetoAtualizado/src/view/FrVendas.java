@@ -5,9 +5,11 @@
  */
 package view;
 
+import Controller.VendasController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -18,6 +20,8 @@ public class FrVendas extends javax.swing.JFrame {
     /**
      * Creates new form FrVendas
      */
+    private VendasController controller;
+
     public FrVendas() {
         initComponents();
     }
@@ -33,36 +37,63 @@ public class FrVendas extends javax.swing.JFrame {
 
         jSpinner1 = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAddCarrinho = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        lblValor = new javax.swing.JLabel();
+        btnIrCarrinho = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lstProdutos = new javax.swing.JList<>();
+        cbbCategoria = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vendas");
 
+        jSpinner1.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jSpinner1ComponentAdded(evt);
+            }
+        });
+        jSpinner1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                jSpinner1MouseWheelMoved(evt);
+            }
+        });
+        jSpinner1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jSpinner1MouseClicked(evt);
+            }
+        });
+        jSpinner1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jSpinner1KeyPressed(evt);
+            }
+        });
+
         jLabel1.setText("Quantidade:");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-cart.png"))); // NOI18N
-        jButton1.setText("Adicionar ao carrinho");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnAddCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-cart.png"))); // NOI18N
+        btnAddCarrinho.setText("Adicionar ao carrinho");
+        btnAddCarrinho.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnAddCarrinho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCarrinhoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Valor do Produto (R$):");
 
-        jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblValor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/go-cart.png"))); // NOI18N
-        jButton2.setText("Ir para o carrinho");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnIrCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/go-cart.png"))); // NOI18N
+        btnIrCarrinho.setText("Ir para o carrinho");
+        btnIrCarrinho.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnIrCarrinho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnIrCarrinhoActionPerformed(evt);
             }
         });
 
@@ -75,14 +106,19 @@ public class FrVendas extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selecione um produto:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
+        lstProdutos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Intel Core i5", "Intel Core i7", "AMD Ryzen", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(lstProdutos);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
+        cbbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
+        cbbCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbCategoriaActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Categoria:");
 
@@ -93,7 +129,7 @@ public class FrVendas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -106,37 +142,46 @@ public class FrVendas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        jButton1.setText("Atualizar valor");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSpinner1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(137, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(jSpinner1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnAddCarrinho)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnIrCarrinho))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,16 +192,18 @@ public class FrVendas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel2))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
+                    .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIrCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(jButton3)
                 .addContainerGap())
@@ -178,12 +225,83 @@ public class FrVendas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnIrCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrCarrinhoActionPerformed
         // TODO add your handling code here:
         FrCarrinho carrinho = new FrCarrinho();
         carrinho.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnIrCarrinhoActionPerformed
+
+
+    private void btnAddCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCarrinhoActionPerformed
+        // TODO add your handling code here:
+        controller.salvar(lstProdutos.getSelectedValue(), (int) jSpinner1.getValue(), Double.parseDouble(lblValor.getText()));
+    }//GEN-LAST:event_btnAddCarrinhoActionPerformed
+
+    private void cbbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCategoriaActionPerformed
+        // TODO add your handling code here:
+
+        final DefaultListModel model = new DefaultListModel();
+
+        if (cbbCategoria.getSelectedItem().toString().equals("Processadores")) {
+
+            model.addElement("Intel Core i5");
+            model.addElement("Intel Core i7");
+            model.addElement("AMD Ryzen");
+            lstProdutos.setModel(model);
+
+        } else if (cbbCategoria.getSelectedItem().toString().equals("Placa-mãe")) {
+
+            model.addElement("Asus Prime");
+            model.addElement("Gigabyte H310M");
+            model.addElement("AsRock A320M");
+            lstProdutos.setModel(model);
+
+        } else if (cbbCategoria.getSelectedItem().toString().equals("Placa de Vídeo")) {
+            model.addElement("GTX 1050 TI");
+            model.addElement("GTX 1070");
+            model.addElement("GTX 1080");
+            lstProdutos.setModel(model);
+
+        } else if (cbbCategoria.getSelectedItem().toString().equals("HD/SSD")) {
+
+            model.addElement("SSD SanDisk 240GB");
+            model.addElement("HD Seagate 1TB");
+            model.addElement("SSD SanDiSK 480GB");
+            lstProdutos.setModel(model);
+
+        } else {
+            model.addElement("Mouse Gamer Razer");
+            model.addElement("Teclado Mecânico HyperX");
+            model.addElement("Headset Logitech");
+            lstProdutos.setModel(model);
+        }
+    }//GEN-LAST:event_cbbCategoriaActionPerformed
+
+    private void jSpinner1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSpinner1MouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jSpinner1MouseClicked
+
+    private void jSpinner1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jSpinner1MouseWheelMoved
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jSpinner1MouseWheelMoved
+
+    private void jSpinner1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSpinner1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSpinner1KeyPressed
+
+    private void jSpinner1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jSpinner1ComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSpinner1ComponentAdded
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int qtd = (int) jSpinner1.getValue();
+        double valor = 100.00 * qtd;
+        lblValor.setText("" + valor);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,17 +339,18 @@ public class FrVendas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCarrinho;
+    private javax.swing.JButton btnIrCarrinho;
+    private javax.swing.JComboBox<String> cbbCategoria;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JLabel lblValor;
+    private javax.swing.JList<String> lstProdutos;
     // End of variables declaration//GEN-END:variables
 }

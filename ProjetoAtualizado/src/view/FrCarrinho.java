@@ -5,6 +5,7 @@
  */
 package view;
 
+import utilitarios.VendasTable;
 /**
  *
  * @author pedro.hfarantes
@@ -154,17 +155,7 @@ public class FrCarrinho extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Dados da Compra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Produto", "Quantidade", "Valor Unitário"
-            }
-        ));
+        jTable1.setModel(new VendasTable());
         jScrollPane1.setViewportView(jTable1);
 
         jLabel7.setText("Forma de Pagamento");
@@ -196,6 +187,11 @@ public class FrCarrinho extends javax.swing.JFrame {
         );
 
         jButton2.setText("Finalizar Compra");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Voltar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -246,6 +242,10 @@ public class FrCarrinho extends javax.swing.JFrame {
             vendas.setVisible(true);
             dispose();  
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
