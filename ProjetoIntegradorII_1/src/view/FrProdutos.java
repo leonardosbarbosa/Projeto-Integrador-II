@@ -26,7 +26,7 @@ public class FrProdutos extends javax.swing.JFrame {
      */
     public FrProdutos() throws SQLException {
         initComponents();
-        conecta.conectar();
+        ConexaoBD conecta = new ConexaoBD();
     }
 
     /**
@@ -319,97 +319,97 @@ public class FrProdutos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarProdutoActionPerformed
-        try {
-            // TODO add your handling code here:
-            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM produtos WHERE descr ='" +jTextFieldPesquisaProduto.getText() +"'");
-            ResultSet rs = pst.executeQuery();
-            while(rs.next()){
-                int codigo = rs.getInt("id");
-                String descricao = rs.getString ("descr"); 
-                String unidade = rs.getString("un"); 
-                String fornecedor = rs.getString("fornecedor"); 
-                String marca = rs.getString("marca"); 
-                float vlrCompra = rs.getFloat("vlr_compra"); 
-                float vlrVenda = rs.getFloat("vlr_venda"); 
-                int estoque = rs.getInt("qtd_estoque");
-                String categoria = rs.getString("categoria");
-                
-                jTextFieldCodProduto.setText(Integer.toString(codigo));
-                jTextFieldDescricao.setText(descricao);
-                jTextFieldUnidade.setText(unidade);
-                jTextFieldFornecedor.setText(fornecedor);
-                jTextFieldMarca.setText(marca);
-                jTextFieldValorCompra.setText(Float.toString(vlrCompra));
-                jTextFieldVlrVenda.setText(Float.toString(vlrVenda));
-                jTextFieldEstoque.setText(Integer.toString(estoque));
-                jComboBoxCategoria.setSelectedItem(categoria); 
-                pst.execute();
-                JOptionPane.showMessageDialog(rootPane, "Busca realizada");
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro na busca de dados \n EERO:" + ex);
-        }
+//        try {
+//            // TODO add your handling code here:
+//            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM produtos WHERE descr ='" +jTextFieldPesquisaProduto.getText() +"'");
+//            ResultSet rs = pst.executeQuery();
+//            while(rs.next()){
+//                int codigo = rs.getInt("id");
+//                String descricao = rs.getString ("descr"); 
+//                String unidade = rs.getString("un"); 
+//                String fornecedor = rs.getString("fornecedor"); 
+//                String marca = rs.getString("marca"); 
+//                float vlrCompra = rs.getFloat("vlr_compra"); 
+//                float vlrVenda = rs.getFloat("vlr_venda"); 
+//                int estoque = rs.getInt("qtd_estoque");
+//                String categoria = rs.getString("categoria");
+//                
+//                jTextFieldCodProduto.setText(Integer.toString(codigo));
+//                jTextFieldDescricao.setText(descricao);
+//                jTextFieldUnidade.setText(unidade);
+//                jTextFieldFornecedor.setText(fornecedor);
+//                jTextFieldMarca.setText(marca);
+//                jTextFieldValorCompra.setText(Float.toString(vlrCompra));
+//                jTextFieldVlrVenda.setText(Float.toString(vlrVenda));
+//                jTextFieldEstoque.setText(Integer.toString(estoque));
+//                jComboBoxCategoria.setSelectedItem(categoria); 
+//                pst.execute();
+//                JOptionPane.showMessageDialog(rootPane, "Busca realizada");
+//            }
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(rootPane, "Erro na busca de dados \n EERO:" + ex);
+//        }
     }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
 
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
-        try {
-            // TODO add your handling code here:
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO produtos (descr, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria)"
-                    + "values(?, ?, ?, ?, ?, ?, ?, ?)");
-            pst.setString(1, jTextFieldDescricao.getText());
-            pst.setString(2, jTextFieldUnidade.getText());
-            pst.setString(3, jTextFieldFornecedor.getText());
-            pst.setString(4, jTextFieldMarca.getText());
-            pst.setString(5, jTextFieldValorCompra.getText());
-            pst.setString(6, jTextFieldVlrVenda.getText());
-            pst.setString(7, jTextFieldEstoque.getText());
-            pst.setString(8, (String) jComboBoxCategoria.getSelectedItem());
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(rootPane, "Produto inserido com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro na inserção de dados \n EERO:" + ex);
-        }
+//        try {
+//            // TODO add your handling code here:
+//            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO produtos (descr, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria)"
+//                    + "values(?, ?, ?, ?, ?, ?, ?, ?)");
+//            pst.setString(1, jTextFieldDescricao.getText());
+//            pst.setString(2, jTextFieldUnidade.getText());
+//            pst.setString(3, jTextFieldFornecedor.getText());
+//            pst.setString(4, jTextFieldMarca.getText());
+//            pst.setString(5, jTextFieldValorCompra.getText());
+//            pst.setString(6, jTextFieldVlrVenda.getText());
+//            pst.setString(7, jTextFieldEstoque.getText());
+//            pst.setString(8, (String) jComboBoxCategoria.getSelectedItem());
+//            pst.executeUpdate();
+//            JOptionPane.showMessageDialog(rootPane, "Produto inserido com sucesso");
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(rootPane, "Erro na inserção de dados \n EERO:" + ex);
+//        }
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
 
     private void jButtonDelProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelProdutoActionPerformed
-        // TODO add your handling code here:
-        PreparedStatement pst;
-        try {
-            pst = conecta.con.prepareStatement("DELETE FROM produtos WHERE descr = ?");
-            pst.setString(1, jTextFieldPesquisaProduto.getText());
-            pst.execute();
-            JOptionPane.showMessageDialog(rootPane, "Produto excluido com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao excluir produto \n ERRO: " + ex);
-        }        
+//        // TODO add your handling code here:
+//        PreparedStatement pst;
+//        try {
+//            pst = conecta.con.prepareStatement("DELETE FROM produtos WHERE descr = ?");
+//            pst.setString(1, jTextFieldPesquisaProduto.getText());
+//            pst.execute();
+//            JOptionPane.showMessageDialog(rootPane, "Produto excluido com sucesso");
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(rootPane, "Erro ao excluir produto \n ERRO: " + ex);
+//        }        
     }//GEN-LAST:event_jButtonDelProdutoActionPerformed
 
     private void jButtonAlterProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterProdutoActionPerformed
-        try {
-            // TODO add your handling code here:
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE produtos SET fornecedor =?, vlr_compra =?, vlr_venda =?, qtd_estoque =?"
-                    + "WHERE descr =?");
-            pst.setString(1, jTextFieldFornecedor.getText());
-            pst.setString(2, jTextFieldValorCompra.getText());
-            pst.setString(3, jTextFieldVlrVenda.getText());
-            pst.setString(4, jTextFieldEstoque.getText());
-            pst.setString(5, jTextFieldPesquisaProduto.getText());
-            pst.execute();
-            JOptionPane.showMessageDialog(rootPane, "Produto atualizado com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possivel atualizar o produto \n ERRO: " + ex);
-        }
+//        try {
+//            // TODO add your handling code here:
+//            PreparedStatement pst = conecta.con.prepareStatement("UPDATE produtos SET fornecedor =?, vlr_compra =?, vlr_venda =?, qtd_estoque =?"
+//                    + "WHERE descr =?");
+//            pst.setString(1, jTextFieldFornecedor.getText());
+//            pst.setString(2, jTextFieldValorCompra.getText());
+//            pst.setString(3, jTextFieldVlrVenda.getText());
+//            pst.setString(4, jTextFieldEstoque.getText());
+//            pst.setString(5, jTextFieldPesquisaProduto.getText());
+//            pst.execute();
+//            JOptionPane.showMessageDialog(rootPane, "Produto atualizado com sucesso");
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(rootPane, "Não foi possivel atualizar o produto \n ERRO: " + ex);
+//        }
     }//GEN-LAST:event_jButtonAlterProdutoActionPerformed
 
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
-        try {
-            // TODO add your handling code here:
-            FrInicio abrirInicio = new FrInicio();
-            abrirInicio.setVisible(true);
-            dispose();
-        } catch (SQLException ex) {
-            Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            // TODO add your handling code here:
+//            FrInicio abrirInicio = new FrInicio();
+//            abrirInicio.setVisible(true);
+//            dispose();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
     /**
