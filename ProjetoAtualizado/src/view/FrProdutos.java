@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilitarios.ConexaoBD;
+import utilitarios.Validacoes;
 
 /**
  *
@@ -20,6 +21,7 @@ import utilitarios.ConexaoBD;
 public class FrProdutos extends javax.swing.JFrame {
     
     ConexaoBD conecta = new ConexaoBD();
+    Validacoes validador = new Validacoes();
 
     /**
      * Creates new form ProdutosForm
@@ -57,7 +59,7 @@ public class FrProdutos extends javax.swing.JFrame {
         jTextFieldMarca = new javax.swing.JTextField();
         jTextFieldUnidade = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jComboBoxCategoria = new javax.swing.JComboBox<String>();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
         jTextFieldCodProduto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -80,6 +82,8 @@ public class FrProdutos extends javax.swing.JFrame {
         setTitle("Produtos");
         setSize(new java.awt.Dimension(600, 0));
 
+        jTextFieldDescricao.setName("Descrição"); // NOI18N
+
         jLabel1.setText("Descrição:");
 
         jLabel2.setText("Unidade:");
@@ -90,13 +94,27 @@ public class FrProdutos extends javax.swing.JFrame {
 
         jLabel5.setText("Valor de compra:");
 
+        jTextFieldValorCompra.setName("Valor de compra"); // NOI18N
+
         jLabel6.setText("Valor de venda:");
+
+        jTextFieldVlrVenda.setName("Valor de venda"); // NOI18N
 
         jLabel7.setText("Estoque:");
 
+        jTextFieldEstoque.setName("Estoque"); // NOI18N
+
+        jTextFieldFornecedor.setName("Fornecedor"); // NOI18N
+
+        jTextFieldMarca.setName("Marca"); // NOI18N
+
+        jTextFieldUnidade.setName("Unidade"); // NOI18N
+
         jLabel10.setText("Categoria:");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextFieldCodProduto.setEnabled(false);
 
         jLabel8.setText("Código do Produto:");
 
@@ -352,7 +370,23 @@ public class FrProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
 
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
-        try {
+        
+        validador.campoVazio(jTextFieldDescricao);
+        validador.campoVazio(jTextFieldUnidade);
+        validador.campoVazio(jTextFieldFornecedor);
+        validador.campoVazio(jTextFieldMarca);
+        validador.campoVazio(jTextFieldValorCompra);
+        validador.campoVazio(jTextFieldVlrVenda);
+        validador.campoVazio(jTextFieldEstoque);
+        validador.validaNum(jTextFieldValorCompra);
+        validador.validaNum(jTextFieldVlrVenda);
+        validador.validaNum(jTextFieldEstoque);
+        
+        if (validador.hasError()) {
+            JOptionPane.showMessageDialog(null, validador.getMensagensErro());
+
+        } else {
+            try {
             // TODO add your handling code here:
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO produtos (descr, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria)"
                     + "values(?, ?, ?, ?, ?, ?, ?, ?)");
@@ -366,8 +400,9 @@ public class FrProdutos extends javax.swing.JFrame {
             pst.setString(8, (String) jComboBoxCategoria.getSelectedItem());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(rootPane, "Produto inserido com sucesso");
-        } catch (SQLException ex) {
+            } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro na inserção de dados \n EERO:" + ex);
+            }
         }
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
 

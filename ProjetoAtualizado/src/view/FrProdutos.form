@@ -181,6 +181,9 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="jTextFieldDescricao">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="Descri&#xe7;&#xe3;o" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -208,6 +211,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldValorCompra">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="Valor de compra" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -215,6 +221,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldVlrVenda">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="Valor de venda" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -222,12 +231,24 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldEstoque">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="Estoque" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldFornecedor">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="Fornecedor" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldMarca">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="Marca" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldUnidade">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="Unidade" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -250,6 +271,9 @@
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCodProduto">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
