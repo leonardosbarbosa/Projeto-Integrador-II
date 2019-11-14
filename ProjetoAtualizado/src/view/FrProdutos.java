@@ -371,8 +371,8 @@ public class FrProdutos extends javax.swing.JFrame {
         validador.campoVazio(jTextFieldValorCompra);
         validador.campoVazio(jTextFieldVlrVenda);
         validador.campoVazio(jTextFieldEstoque);
-        validador.validaNum(jTextFieldValorCompra);
-        validador.validaNum(jTextFieldVlrVenda);
+        validador.validaDouble(jTextFieldValorCompra);
+        validador.validaDouble(jTextFieldVlrVenda);
         validador.validaNum(jTextFieldEstoque);
 
         if (validador.hasError()) {
@@ -380,7 +380,8 @@ public class FrProdutos extends javax.swing.JFrame {
 
         } else {
             try {
-                String descr, unidade, fornecedor, marca, qtd_estoque, categoria;
+                String descr, unidade, fornecedor, marca, categoria;
+                int qtd_estoque;
                 float vlr_compra, vlr_venda;
                 descr = (jTextFieldDescricao.getText());
                 unidade = (jTextFieldUnidade.getText());
@@ -388,7 +389,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 marca = (jTextFieldMarca.getText());
                 vlr_compra = Float.parseFloat(jTextFieldValorCompra.getText());
                 vlr_venda = Float.parseFloat(jTextFieldVlrVenda.getText());
-                qtd_estoque = (jTextFieldEstoque.getText());
+                qtd_estoque = Integer.parseInt(jTextFieldEstoque.getText());
                 categoria = (String) (jComboBoxCategoria.getSelectedItem());
                 ProdutoController.salvar(descr, unidade, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria);
                 jTextFieldDescricao.setText("");
