@@ -378,8 +378,8 @@ public class FrProdutos extends javax.swing.JFrame {
         validador.campoVazio(jTextFieldValorCompra);
         validador.campoVazio(jTextFieldVlrVenda);
         validador.campoVazio(jTextFieldEstoque);
-        validador.validaNum(jTextFieldValorCompra);
-        validador.validaNum(jTextFieldVlrVenda);
+        validador.validaDouble(jTextFieldValorCompra);
+        validador.validaDouble(jTextFieldVlrVenda);
         validador.validaNum(jTextFieldEstoque);
         
         if (validador.hasError()) {

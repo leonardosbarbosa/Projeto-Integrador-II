@@ -1,0 +1,12 @@
+As pesquisas tem que mostrar quando tiver mais de um resultado. Mostrar o primeiro resultado no formulário.
+
+
+Implementar o botão de deletar e de editar.
+
+Fazer os produtos aparecerem na venda com o valor e tudo.
+
+Implementar a lista de vendas e ao clicar em uma venda, exibir os dados da venda.
+
+Garantir que o cadastro do usuário tenha um cpf único.
+
+As vendas têm que respeitar o estoque.
