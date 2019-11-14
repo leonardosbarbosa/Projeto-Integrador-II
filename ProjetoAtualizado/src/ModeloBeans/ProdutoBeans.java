@@ -2,21 +2,26 @@ package ModeloBeans;
 
 public class ProdutoBeans {
 
-    private String estoque;
+    private int estoque;
     private String DescProduto;
     private int codProduto;
     private String fornecedor;
     private String uniPorduto;
     private String marca;
-    private String valorCompraProduto;
-    private String valorVendaProduto;
+    private float valorCompraProduto;
+    private float valorVendaProduto;
     private String categoria;
+    private String pesquisa;
 
-    public String getEstoque() {
+    public void setPesquisa(String pesquisa) {
+        this.pesquisa = pesquisa;
+    }
+    
+    public int getEstoque() {
         return estoque;
     }
 
-    public void setEstoque(String estoque) {
+    public void setEstoque(int estoque) {
         this.estoque = estoque;
     }
 
@@ -60,19 +65,19 @@ public class ProdutoBeans {
         this.marca = marca;
     }
 
-    public String getValorCompraProduto() {
+    public float getValorCompraProduto() {
         return valorCompraProduto;
     }
 
-    public void setValorCompraProduto(String valorCompraProduto) {
+    public void setValorCompraProduto(float valorCompraProduto) {
         this.valorCompraProduto = valorCompraProduto;
     }
 
-    public String getValorVendaProduto() {
+    public float getValorVendaProduto() {
         return valorVendaProduto;
     }
 
-    public void setValorVendaProduto(String valorVendaProduto) {
+    public void setValorVendaProduto(float valorVendaProduto) {
         this.valorVendaProduto = valorVendaProduto;
     }
 
@@ -82,6 +87,11 @@ public class ProdutoBeans {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public String getPesquisa() {
+        
+       return pesquisa;
     }
 
 }

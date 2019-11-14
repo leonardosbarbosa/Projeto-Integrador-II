@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/leonardo.sbarbosa4/Desktop/Projeto-Integrador-II/ProjetoAtualizado/src/utilitarios/VendasTable.java</file>
-            <file>file:/C:/Users/leonardo.sbarbosa4/Desktop/Projeto-Integrador-II/ProjetoAtualizado/src/view/FrCarrinho.java</file>
+            <file>file:/C:/Users/lukas.mpereira/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/view/FrInicio.java</file>
+            <file>file:/C:/Users/lukas.mpereira/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/view/FrClientes.java</file>
+            <file>file:/C:/Users/lukas.mpereira/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/Controller/ClienteController.java</file>
+            <file>file:/C:/Users/lukas.mpereira/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/ModeloBeans/ClienteBeans.java</file>
+            <file>file:/C:/Users/lukas.mpereira/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/ModeloDao/ClienteDao.java</file>
         </group>
     </open-files>
 </project-private>

@@ -553,20 +553,7 @@ public class FrClientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, validador.getMensagensErro());
 
         } else {
-            c.setNome(jTextFieldNome.getText());
-            c.setCpf(jTextFieldCpf.getText());
-            c.setRg(jTextFieldRg.getText());
-            c.setNascimento(jTextFieldNascimento.getText());
-            c.setSexo((String) jComboBoxSexo.getSelectedItem());
-            c.setFixo(jTextFieldFixo.getText());
-            c.setCelular(jTextFieldCelular.getText());
-            c.setEmail(jTextField7Email.getText());
-            c.setRua(jTextFieldRua.getText());
-            c.setBairro(jTextFieldBairro.getText());
-            c.setUf((String) jComboBoxUf.getSelectedItem());
-            c.setCep(jTextFieldCep.getText());
-            c.setCidade(jTextField1Cidade.getText());
-
+           
 
             String nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade;
 

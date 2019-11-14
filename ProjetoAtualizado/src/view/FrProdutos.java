@@ -5,6 +5,9 @@
  */
 package view;
 
+import Controller.ProdutoController;
+import ModeloBeans.ProdutoBeans;
+import ModeloDao.ProdutoDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,9 +22,11 @@ import utilitarios.Validacoes;
  * @author phfar
  */
 public class FrProdutos extends javax.swing.JFrame {
-    
+
     ConexaoBD conecta = new ConexaoBD();
     Validacoes validador = new Validacoes();
+    ProdutoBeans prod = new ProdutoBeans();
+    ProdutoDao dao = new ProdutoDao();
 
     /**
      * Creates new form ProdutosForm
@@ -112,7 +117,7 @@ public class FrProdutos extends javax.swing.JFrame {
 
         jLabel10.setText("Categoria:");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
 
         jTextFieldCodProduto.setEnabled(false);
 
@@ -166,7 +171,7 @@ public class FrProdutos extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,7 +289,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 .addComponent(jRadioButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(jTextFieldPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonPesquisarProduto)
@@ -312,11 +317,11 @@ public class FrProdutos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonNovoProduto)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,9 +330,9 @@ public class FrProdutos extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addGap(33, 33, 33)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -337,40 +342,28 @@ public class FrProdutos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarProdutoActionPerformed
+
         try {
-            // TODO add your handling code here:
-            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM produtos WHERE descr ='" +jTextFieldPesquisaProduto.getText() +"'");
-            ResultSet rs = pst.executeQuery();
-            while(rs.next()){
-                int codigo = rs.getInt("id");
-                String descricao = rs.getString ("descr"); 
-                String unidade = rs.getString("un"); 
-                String fornecedor = rs.getString("fornecedor"); 
-                String marca = rs.getString("marca"); 
-                float vlrCompra = rs.getFloat("vlr_compra"); 
-                float vlrVenda = rs.getFloat("vlr_venda"); 
-                int estoque = rs.getInt("qtd_estoque");
-                String categoria = rs.getString("categoria");
-                
-                jTextFieldCodProduto.setText(Integer.toString(codigo));
-                jTextFieldDescricao.setText(descricao);
-                jTextFieldUnidade.setText(unidade);
-                jTextFieldFornecedor.setText(fornecedor);
-                jTextFieldMarca.setText(marca);
-                jTextFieldValorCompra.setText(Float.toString(vlrCompra));
-                jTextFieldVlrVenda.setText(Float.toString(vlrVenda));
-                jTextFieldEstoque.setText(Integer.toString(estoque));
-                jComboBoxCategoria.setSelectedItem(categoria); 
-                pst.execute();
-                JOptionPane.showMessageDialog(rootPane, "Busca realizada");
-            }
+            prod.setPesquisa(jTextFieldPesquisaProduto.getText());
+            ProdutoBeans produto = dao.pesquisa(prod);
+
+            jTextFieldCodProduto.setText(Integer.toString(produto.getCodProduto()));
+            jTextFieldDescricao.setText(produto.getDescProduto());
+            jTextFieldUnidade.setText(produto.getUniPorduto());
+            jTextFieldFornecedor.setText(produto.getFornecedor());
+            jTextFieldMarca.setText(produto.getMarca());
+            jTextFieldValorCompra.setText(Float.toString(produto.getValorCompraProduto()));
+            jTextFieldVlrVenda.setText(Float.toString(produto.getValorVendaProduto()));
+            jTextFieldEstoque.setText(Integer.toString(produto.getEstoque()));
+            jComboBoxCategoria.setSelectedItem(produto.getCategoria());
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro na busca de dados \n EERO:" + ex);
+            Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
 
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
-        
+
         validador.campoVazio(jTextFieldDescricao);
         validador.campoVazio(jTextFieldUnidade);
         validador.campoVazio(jTextFieldFornecedor);
@@ -381,28 +374,34 @@ public class FrProdutos extends javax.swing.JFrame {
         validador.validaNum(jTextFieldValorCompra);
         validador.validaNum(jTextFieldVlrVenda);
         validador.validaNum(jTextFieldEstoque);
-        
+
         if (validador.hasError()) {
             JOptionPane.showMessageDialog(null, validador.getMensagensErro());
 
         } else {
             try {
-            // TODO add your handling code here:
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO produtos (descr, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria)"
-                    + "values(?, ?, ?, ?, ?, ?, ?, ?)");
-            pst.setString(1, jTextFieldDescricao.getText());
-            pst.setString(2, jTextFieldUnidade.getText());
-            pst.setString(3, jTextFieldFornecedor.getText());
-            pst.setString(4, jTextFieldMarca.getText());
-            pst.setString(5, jTextFieldValorCompra.getText());
-            pst.setString(6, jTextFieldVlrVenda.getText());
-            pst.setString(7, jTextFieldEstoque.getText());
-            pst.setString(8, (String) jComboBoxCategoria.getSelectedItem());
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(rootPane, "Produto inserido com sucesso");
+                String descr, unidade, fornecedor, marca, qtd_estoque, categoria;
+                float vlr_compra, vlr_venda;
+                descr = (jTextFieldDescricao.getText());
+                unidade = (jTextFieldUnidade.getText());
+                fornecedor = (jTextFieldFornecedor.getText());
+                marca = (jTextFieldMarca.getText());
+                vlr_compra = Float.parseFloat(jTextFieldValorCompra.getText());
+                vlr_venda = Float.parseFloat(jTextFieldVlrVenda.getText());
+                qtd_estoque = (jTextFieldEstoque.getText());
+                categoria = (String) (jComboBoxCategoria.getSelectedItem());
+                ProdutoController.salvar(descr, unidade, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria);
+                jTextFieldDescricao.setText("");
+                jTextFieldUnidade.setText("");
+                jTextFieldFornecedor.setText("");
+                jTextFieldMarca.setText("");
+                jTextFieldValorCompra.setText("");
+                jTextFieldVlrVenda.setText("");
+                jTextFieldEstoque.setText("");
             } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro na inserção de dados \n EERO:" + ex);
+                Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
 
@@ -416,7 +415,7 @@ public class FrProdutos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Produto excluido com sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro ao excluir produto \n ERRO: " + ex);
-        }        
+        }
     }//GEN-LAST:event_jButtonDelProdutoActionPerformed
 
     private void jButtonAlterProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterProdutoActionPerformed
@@ -442,8 +441,10 @@ public class FrProdutos extends javax.swing.JFrame {
             FrInicio abrirInicio = new FrInicio();
             abrirInicio.setVisible(true);
             dispose();
+
         } catch (SQLException ex) {
-            Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrProdutos.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
@@ -461,16 +462,24 @@ public class FrProdutos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -482,8 +491,10 @@ public class FrProdutos extends javax.swing.JFrame {
             public void run() {
                 try {
                     new FrProdutos().setVisible(true);
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FrProdutos.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
