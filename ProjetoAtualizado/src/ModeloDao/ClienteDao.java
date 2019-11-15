@@ -1,10 +1,13 @@
 package ModeloDao;
 
 import ModeloBeans.ClienteBeans;
+//import java.awt.List;
 import java.sql.PreparedStatement;
 import utilitarios.ConexaoBD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,7 +21,7 @@ public class ClienteDao {
     public void addCliente(ClienteBeans c) throws SQLException {
         conecta.conectar();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO clientes (nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade)" //passagem do comando sql para inserção
+            PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO clientes (nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade)" //passagem do comando sql para inserção
                     + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             pst.setString(1, c.getNome()); //passagem de paramentro para inserção(valores)
@@ -45,12 +48,14 @@ public class ClienteDao {
     }
 
     public ClienteBeans pesquisarClienteNome(ClienteBeans c) throws SQLException {
+
         conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-
-            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + c.getPesquisa() + "'");
-            ResultSet rs = pst.executeQuery();
+            stmt = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + c.getPesquisa() + "'");
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 c.setId(rs.getInt("id"));
                 c.setNome(rs.getString("nome"));
@@ -66,25 +71,26 @@ public class ClienteDao {
                 c.setUf(rs.getString("uf"));
                 c.setCep(rs.getString("cep"));
                 c.setCidade(rs.getString("cidade"));
-                pst.execute();
+                stmt.execute();
                 JOptionPane.showMessageDialog(null, "Busca realizada");
             }
-
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
         }
+
         conecta.desconectar();
         return c;
     }
 
-
     public ClienteBeans pesquisarClienteCpf(ClienteBeans c) throws SQLException {
+
         conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-
-            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + c.getPesquisa() + "'");
-            ResultSet rs = pst.executeQuery();
+            stmt = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + c.getPesquisa() + "'");
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 c.setId(rs.getInt("id"));
                 c.setNome(rs.getString("nome"));
@@ -100,15 +106,97 @@ public class ClienteDao {
                 c.setUf(rs.getString("uf"));
                 c.setCep(rs.getString("cep"));
                 c.setCidade(rs.getString("cidade"));
-                pst.execute();
+                stmt.execute();
                 JOptionPane.showMessageDialog(null, "Busca realizada");
             }
-
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
         }
+
         conecta.desconectar();
         return c;
+    }
+
+    //tabela de clientes
+    public List<ClienteBeans> listar() throws SQLException {
+        conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<ClienteBeans> clientes = new ArrayList<>();
+
+        try {
+            stmt = conecta.conn.prepareStatement("SELECT id, nome, cpf FROM clientes");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                ClienteBeans cliente = new ClienteBeans();
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                clientes.add(cliente);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return clientes;
+    }
+
+    //busca de dados na tabela pelo nome do cliente
+    public List<ClienteBeans> pesquisarClienteNomeTabela(String nome) throws SQLException {
+
+        conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<ClienteBeans> clientes = new ArrayList<>();
+
+        try {
+            stmt = conecta.conn.prepareStatement("SELECT * FROM clientes WHERE nome LIKE ?");
+            stmt.setString(1, "%" + nome + "%");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                ClienteBeans cliente = new ClienteBeans();
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                clientes.add(cliente);
+                //JOptionPane.showMessageDialog(null, "Busca realizada");
+            }
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
+        }
+
+        conecta.desconectar();
+        return clientes;
+    }
+
+    //busca de dados na tabela pelo cpf do cliente
+    public List<ClienteBeans> pesquisarClienteCpfTabela(String cpf) throws SQLException {
+
+        conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<ClienteBeans> clientes = new ArrayList<>();
+
+        try {
+            stmt = conecta.conn.prepareStatement("SELECT * FROM clientes WHERE cpf = ?");
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                ClienteBeans cliente = new ClienteBeans();
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                clientes.add(cliente);
+                //JOptionPane.showMessageDialog(null, "Busca realizada");
+            }
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
+        }
+
+        conecta.desconectar();
+        return clientes;
     }
 
 }

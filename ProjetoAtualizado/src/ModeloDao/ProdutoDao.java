@@ -16,7 +16,7 @@ public class ProdutoDao {
         try {
             // TODO add your handling code here:
 
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO produtos (descr, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria)"
+            PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO produtos (descr, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria)"
                     + "values(?, ?, ?, ?, ?, ?, ?, ?)");
             pst.setString(1, prod.getDescProduto());
             pst.setString(2, prod.getUniPorduto());
@@ -39,7 +39,7 @@ public class ProdutoDao {
 
         
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("SELECT * FROM produtos WHERE descr ='" + p.getPesquisa() + "'");
+            PreparedStatement pst = conecta.conn.prepareStatement("SELECT * FROM produtos WHERE descr ='" + p.getPesquisa() + "'");
         ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 p.setCodProduto(rs.getInt("id"));
