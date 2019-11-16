@@ -6,17 +6,18 @@
 package view;
 
 import Controller.ProdutoController;
+import ModeloBeans.ClienteBeans;
 import ModeloBeans.ProdutoBeans;
+import ModeloDao.ClienteDao;
 import ModeloDao.ProdutoDao;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import utilitarios.ConexaoBD;
-import utilitarios.ModeloTabela;
 import utilitarios.Validacoes;
 
 /**
@@ -24,19 +25,19 @@ import utilitarios.Validacoes;
  * @author phfar
  */
 public class FrProdutos extends javax.swing.JFrame {
-    
+
     ProdutoDao dao = new ProdutoDao();
     ProdutoBeans prod = new ProdutoBeans();
     Validacoes validador = new Validacoes();
     ConexaoBD conecta = new ConexaoBD();
-      
+
     /**
      * Creates new form ProdutosForm
      */
     public FrProdutos() throws SQLException {
         initComponents();
         conecta.conectar();
-        preencherTabela("SELECT id, descr, vlr_venda, qtd_estoque FROM produtos ORDER BY id");
+        preencherTabel();
     }
 
     /**
@@ -302,7 +303,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Descrição", "Valor de venda", "Estoque"
             }
         ));
         jTable1.setPreferredSize(new java.awt.Dimension(300, 300));
@@ -374,8 +375,21 @@ public class FrProdutos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarProdutoActionPerformed
+        if (jRadioButton1.isSelected()) {
+            try {
+                preencherTabelId(Integer.parseInt(jTextFieldPesquisaProduto.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (jRadioButton2.isSelected()) {
+            try {
+                preencherTabelDescr(jTextFieldPesquisaProduto.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
-        try {
+        /*try {
             prod.setPesquisa(jTextFieldPesquisaProduto.getText());
             ProdutoBeans produto = dao.pesquisa(prod);
 
@@ -391,7 +405,7 @@ public class FrProdutos extends javax.swing.JFrame {
 
         } catch (SQLException ex) {
             Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
 
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
@@ -481,25 +495,51 @@ public class FrProdutos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
-    public void preencherTabela(String sql) {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Descrição", "Preço", "Estoque"};
-        conecta.executaSQL(sql);
+    public void preencherTabel() throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setNumRows(0);
+        ProdutoDao dao = new ProdutoDao();
 
-        try {
-            conecta.rs.first();
-            do {
-                dados.add(new Object[]{conecta.rs.getInt("id"), conecta.rs.getString("descr"), conecta.rs.getFloat("vlr_venda"), conecta.rs.getInt("qtd_estoque")});
-            } while (conecta.rs.next());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "ERRO:" + ex);
-        }       
-        ModeloTabela modeloTabela = new ModeloTabela(dados, Colunas);
-        jTable1.setModel(modeloTabela); 
+        for (ProdutoBeans p : dao.listar()) {
+            modelo.addRow(new Object[]{
+                p.getCodProduto(),
+                p.getDescProduto(),
+                p.getValorVendaProduto(),
+                p.getEstoque()
+            });
+        }
     }
-    
-    
-    
+
+    public void preencherTabelId(int id) throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setNumRows(0);
+        ProdutoDao dao = new ProdutoDao();
+
+        for (ProdutoBeans p : dao.listar()) {
+            modelo.addRow(new Object[]{
+                p.getCodProduto(),
+                p.getDescProduto(),
+                p.getValorVendaProduto(),
+                p.getEstoque()
+            });
+        }
+    }
+
+    public void preencherTabelDescr(String descr) throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setNumRows(0);
+        ProdutoDao dao = new ProdutoDao();
+
+        for (ProdutoBeans p : dao.listar()) {
+            modelo.addRow(new Object[]{
+                p.getCodProduto(),
+                p.getDescProduto(),
+                p.getValorVendaProduto(),
+                p.getEstoque()
+            });
+        }
+    }
+
     /**
      * @param args the command line arguments
      */

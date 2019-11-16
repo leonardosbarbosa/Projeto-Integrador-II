@@ -31,8 +31,6 @@ public class FrClientes extends javax.swing.JFrame {
         initComponents();
         conecta.conectar();
         preencherTabel();
-        //preencherTabela("SELECT id, nome, cpf FROM clientes ORDER BY id");
-        //preencherTabelaPesquisa("SELECT * FROM CLIENTES WHERE cpf LIKE" + c.getPesquisa() + "'"); 
     }
 
     @SuppressWarnings("unchecked")
@@ -104,6 +102,11 @@ public class FrClientes extends javax.swing.JFrame {
                 "ID", "Nome", "CPF"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         jLabel14.setText("Nome ou CPF do cliente:");
@@ -613,9 +616,7 @@ public class FrClientes extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        
-        if (RBCpf.isSelected()) {
+        }else if (RBCpf.isSelected()) {
             try {
                 preencherTabelCpfCliente(jTextFieldPesquisar.getText());
             } catch (SQLException ex) {
@@ -696,6 +697,10 @@ public class FrClientes extends javax.swing.JFrame {
     private void RBNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RBNomeActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

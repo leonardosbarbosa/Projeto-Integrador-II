@@ -1,9 +1,14 @@
 package ModeloDao;
 
+import ModeloBeans.ClienteBeans;
 import ModeloBeans.ProdutoBeans;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilitarios.ConexaoBD;
 
@@ -37,10 +42,9 @@ public class ProdutoDao {
     public ProdutoBeans pesquisa(ProdutoBeans p) throws SQLException {
         conecta.conectar();
 
-        
         try {
             PreparedStatement pst = conecta.conn.prepareStatement("SELECT * FROM produtos WHERE descr ='" + p.getPesquisa() + "'");
-        ResultSet rs = pst.executeQuery();
+            ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 p.setCodProduto(rs.getInt("id"));
                 p.setDescProduto(rs.getString("descr"));
@@ -60,5 +64,79 @@ public class ProdutoDao {
         }
         conecta.desconectar();
         return p;
+    }
+
+    public List<ProdutoBeans> listar() throws SQLException {
+        conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<ProdutoBeans> produtos = new ArrayList<>();
+
+        try {
+            stmt = conecta.conn.prepareStatement("SELECT id, descr, vlr_venda, qtd_estoque FROM produtos");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                ProdutoBeans produto = new ProdutoBeans();
+                produto.setCodProduto(rs.getInt("id"));
+                produto.setDescProduto(rs.getString("descr"));
+                produto.setValorVendaProduto(rs.getFloat("vlr_venda"));
+                produto.setEstoque(rs.getInt("qtd_estoque"));
+                produtos.add(produto);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return produtos;
+    }
+    
+    public List<ProdutoBeans> listarProdutosId(int id) throws SQLException {
+        conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<ProdutoBeans> produtos = new ArrayList<>();
+
+        try {
+            stmt = conecta.conn.prepareStatement("SELECT id, descr, vlr_venda, qtd_estoque FROM produtos WHERE id = ?");
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                ProdutoBeans produto = new ProdutoBeans();
+                produto.setCodProduto(rs.getInt("id"));
+                produto.setDescProduto(rs.getString("descr"));
+                produto.setValorVendaProduto(rs.getFloat("vlr_venda"));
+                produto.setEstoque(rs.getInt("qtd_estoque"));
+                produtos.add(produto);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return produtos;
+    }
+    
+    public List<ProdutoBeans> listarProdutosDescr(String descr) throws SQLException {
+        conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<ProdutoBeans> produtos = new ArrayList<>();
+
+        try {
+            stmt = conecta.conn.prepareStatement("SELECT id, descr, vlr_venda, qtd_estoque FROM "
+                    + "produtos WHERE descr like  '%" + descr + "%' order by id");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                ProdutoBeans produto = new ProdutoBeans();
+                produto.setCodProduto(rs.getInt("id"));
+                produto.setDescProduto(rs.getString("descr"));
+                produto.setValorVendaProduto(rs.getFloat("vlr_venda"));
+                produto.setEstoque(rs.getInt("qtd_estoque"));
+                produtos.add(produto);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return produtos;
     }
 }

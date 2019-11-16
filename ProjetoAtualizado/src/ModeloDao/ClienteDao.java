@@ -180,8 +180,8 @@ public class ClienteDao {
         List<ClienteBeans> clientes = new ArrayList<>();
 
         try {
-            stmt = conecta.conn.prepareStatement("SELECT * FROM clientes WHERE cpf = ?");
-            stmt.setString(1, cpf);
+
+            stmt = conecta.conn.prepareStatement("SELECT id, nome, cpf FROM clientes WHERE cpf=" + cpf);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ClienteBeans cliente = new ClienteBeans();
@@ -189,10 +189,8 @@ public class ClienteDao {
                 cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("cpf"));
                 clientes.add(cliente);
-                //JOptionPane.showMessageDialog(null, "Busca realizada");
             }
         } catch (SQLException ex) {
-            //JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
         }
 
         conecta.desconectar();
