@@ -211,5 +211,40 @@ public class ClienteDao {
         conecta.desconectar();
         return clientes;
     }
+    
+        public ClienteBeans preencherForm(ClienteBeans c, int id) throws SQLException {
+
+        conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE id =" + id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setCpf(rs.getString("cpf"));
+                c.setRg(rs.getString("rg"));
+                c.setNascimento(rs.getString("nascimento"));
+                c.setSexo(rs.getString("sexo"));
+                c.setFixo(rs.getString("fixo"));
+                c.setCelular(rs.getString("celular"));
+                c.setEmail(rs.getString("email"));
+                c.setRua(rs.getString("rua"));
+                c.setBairro(rs.getString("bairro"));
+                c.setUf(rs.getString("uf"));
+                c.setCep(rs.getString("cep"));
+                c.setCidade(rs.getString("cidade"));
+                stmt.execute();
+                JOptionPane.showMessageDialog(null, "Busca realizada");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
+        }
+
+        conecta.desconectar();
+        return c;
+    }
 
 }

@@ -307,6 +307,11 @@ public class FrProdutos extends javax.swing.JFrame {
             }
         ));
         jTable1.setPreferredSize(new java.awt.Dimension(300, 300));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -495,6 +500,34 @@ public class FrProdutos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+         // TODO add your handling code here:
+        String id = (jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        ProdutoDao dao = new ProdutoDao();
+        ProdutoBeans p = new ProdutoBeans();
+        
+        try {
+            dao.preencherForm(p, Integer.parseInt(id));
+            jTextFieldCodProduto.setText(id);
+            jTextFieldDescricao.setText(p.getDescProduto());
+            jTextFieldUnidade.setText(p.getUniPorduto());
+            jTextFieldFornecedor.setText(p.getFornecedor());
+            jTextFieldMarca.setText(p.getMarca());
+
+            //não consegui fazer estes, por isso o comentário
+            //jTextFieldValorCompra.setText(Float.parseFloat(p.getValorCompraProduto()));
+            //jTextFieldVlrVenda.(Float.parseFloat(p.getValorVendaProduto())); 
+            //jTextFieldEstoque.setText(Integer.parseInt(p.getEstoque()));
+            
+            jComboBoxCategoria.setSelectedItem(p.getCategoria());
+
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
     public void preencherTabel() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
@@ -539,6 +572,7 @@ public class FrProdutos extends javax.swing.JFrame {
             });
         }
     }
+   
 
     /**
      * @param args the command line arguments

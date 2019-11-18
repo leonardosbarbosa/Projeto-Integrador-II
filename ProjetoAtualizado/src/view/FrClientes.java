@@ -701,6 +701,29 @@ public class FrClientes extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
+        // TODO add your handling code here:
+        String id = (jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        ClienteDao dao = new ClienteDao();
+        ClienteBeans c = new ClienteBeans();
+        try {            
+            dao.preencherForm(c, Integer.parseInt(id));
+            jTextFieldCodCli.setText(id);
+            jTextFieldNome.setText(c.getNome());
+            jTextFieldCpf.setText(c.getCpf());
+            jTextFieldRg.setText(c.getRg());
+            jComboBoxSexo.setSelectedItem(c.getSexo());
+            jTextFieldNascimento.setText(c.getNascimento());
+            jTextField7Email.setText(c.getEmail());
+            jTextFieldCelular.setText(c.getCelular());
+            jTextFieldFixo.setText(c.getCelular());
+            jTextFieldRua.setText(c.getRua());
+            jTextFieldBairro.setText(c.getBairro());
+            jTextFieldCep.setText(c.getCep());
+            jComboBoxUf.setSelectedItem(c.getUf());
+            jTextField1Cidade.setText(c.getCidade());
+        } catch (SQLException ex) {
+            Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**

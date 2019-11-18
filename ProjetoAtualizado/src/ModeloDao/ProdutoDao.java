@@ -139,4 +139,34 @@ public class ProdutoDao {
         }
         return produtos;
     }
+    
+        public ProdutoBeans preencherForm(ProdutoBeans p, int id) throws SQLException {
+
+        conecta.conectar();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = conecta.conn.prepareStatement("SELECT * FROM produtos WHERE id =" + id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                p.setCodProduto(rs.getInt("id"));
+                p.setDescProduto("descr"); 
+                p.setUniPorduto("un");
+                p.setFornecedor("fornecedor");
+                p.setMarca("marca");
+                p.setValorCompraProduto(rs.getFloat("vlr_compra"));
+                p.setValorVendaProduto(rs.getFloat("vlr_venda"));
+                p.setEstoque(rs.getInt("qtd_estoque"));
+                p.setCategoria("categoria");
+                stmt.execute();
+                JOptionPane.showMessageDialog(null, "Busca realizada");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro na busca de dados \n EERO:" + ex);
+        }
+
+        conecta.desconectar();
+        return p;
+    }
 }
