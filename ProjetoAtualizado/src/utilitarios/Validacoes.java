@@ -48,12 +48,15 @@ public class Validacoes {
     }
 
     public void validaNum(JTextField txt) {
-
-        try {
-            int num = Integer.parseInt(txt.getText());
-        } catch (NumberFormatException e) {
-            this.mensagensErro.add("Campo " + txt.getName() + " inválido. Favor informar apenas números inteiros!");
-        }
+//deixei comitado caso laguem fale q o q eu fiz ta errado OBS: o netbeans falou q o CPF era muito grade para int e para long 
+//        try {
+            //int num =Integer.parseInt(txt.getText());
+            if (txt.getText().matches(".*[a-z].*") || txt.getText().matches(".*[,].*") ) {
+                this.mensagensErro.add("Campo " + txt.getName() + " inválido. Favor informar apenas números inteiros!");
+            }
+//        } catch (NumberFormatException e) {
+//            this.mensagensErro.add("Campo " + txt.getName() + " inválido. Favor informar apenas números inteiros!");
+//        }
 
     }
 

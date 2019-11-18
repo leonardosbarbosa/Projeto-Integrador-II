@@ -36,6 +36,7 @@ public class ClienteBeans {
     public void setPesquisa(String pesquisa) {
         this.pesquisa = pesquisa;
     }
+
     public int getId() {
         return id;
     }
@@ -148,7 +149,5 @@ public class ClienteBeans {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-
-   
 
 }
