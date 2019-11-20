@@ -3,14 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/ModeloBeans/ProdutoBeans.java</file>
+            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/view/FrRelSintetico.java</file>
+            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/view/FrClientes.java</file>
+            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/utilitarios/VendasTable.java</file>
             <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/view/FrProdutos.java</file>
-            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/Controller/ProdutoController.java</file>
             <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/ModeloDao/ProdutoDao.java</file>
             <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/Controller/VendasController.java</file>
-            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/utilitarios/ConexaoBD.java</file>
+            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/ModeloDao/ClienteDao.java</file>
+            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/view/FrInicio.java</file>
             <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/utilitarios/Vendas.java</file>
-            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/view/FrCarrinho.java</file>
+            <file>file:/C:/Users/Leonardo%20Silva/Documents/NetBeansProjects/Projeto-Integrador-II/ProjetoAtualizado/src/ModeloDao/VendasDao.java</file>
         </group>
     </open-files>
 </project-private>

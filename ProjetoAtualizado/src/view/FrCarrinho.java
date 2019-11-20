@@ -5,11 +5,13 @@
  */
 package view;
 
+import ModeloDao.VendasDao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
 import utilitarios.VendasTable;
@@ -295,6 +297,9 @@ public class FrCarrinho extends javax.swing.JFrame {
                 pst.executeUpdate(); //executa a inserção
                }
                 JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!");
+                VendasDao venda = new VendasDao();
+                venda.limpar();
+                jTable1.setModel(new VendasTable());
 
             } catch (SQLException ex) {
                 Logger.getLogger(FrCarrinho.class.getName()).log(Level.SEVERE, null, ex);

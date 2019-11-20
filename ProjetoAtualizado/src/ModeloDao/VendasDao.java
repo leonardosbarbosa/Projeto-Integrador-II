@@ -26,4 +26,11 @@ public class VendasDao {
     
     return listaVendas.get(i);
     }
+    
+    public void limpar() {
+    
+        for (int i = 0; i < listaVendas.size(); i++) {
+           listaVendas.remove(i);
+        }       
+    }
 }

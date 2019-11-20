@@ -59,7 +59,7 @@ public class ProdutoDao {
         conecta.conectar();
 
         try {
-            PreparedStatement pst = conecta.conn.prepareStatement("SELECT * FROM produtos WHERE descr ='" + p.getPesquisa() + "'");
+            PreparedStatement pst = conecta.conn.prepareStatement("SELECT * FROM produtos WHERE nome ='" + p.getPesquisa() + "'");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 p.setCodProduto(rs.getInt("id"));
@@ -71,6 +71,7 @@ public class ProdutoDao {
                 p.setValorVendaProduto(Float.parseFloat(rs.getString("vlr_venda")));
                 p.setEstoque(rs.getInt("qtd_estoque"));
                 p.setCategoria(rs.getString("categoria"));
+                p.setNomeProduto("nome");
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Busca realizada");
             }
@@ -84,18 +85,18 @@ public class ProdutoDao {
 
     public List<ProdutoBeans> listar() throws SQLException {
         conecta.conectar();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
 
         List<ProdutoBeans> produtos = new ArrayList<>();
 
         try {
-            stmt = conecta.conn.prepareStatement("SELECT id, descr, vlr_venda, qtd_estoque FROM produtos");
+            stmt = conecta.conn.prepareStatement("SELECT id, nome, vlr_venda, qtd_estoque FROM produtos");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ProdutoBeans produto = new ProdutoBeans();
                 produto.setCodProduto(rs.getInt("id"));
-                produto.setDescProduto(rs.getString("descr"));
+                produto.setNomeProduto(rs.getString("nome"));
                 produto.setValorVendaProduto(rs.getFloat("vlr_venda"));
                 produto.setEstoque(rs.getInt("qtd_estoque"));
                 produtos.add(produto);
@@ -108,19 +109,19 @@ public class ProdutoDao {
 
     public List<ProdutoBeans> listarProdutosId(int id) throws SQLException {
         conecta.conectar();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
 
         List<ProdutoBeans> produtos = new ArrayList<>();
 
         try {
-            stmt = conecta.conn.prepareStatement("SELECT id, descr, vlr_venda, qtd_estoque FROM produtos WHERE id = ?");
+            stmt = conecta.conn.prepareStatement("SELECT id, nome, vlr_venda, qtd_estoque FROM produtos WHERE id = ?");
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ProdutoBeans produto = new ProdutoBeans();
                 produto.setCodProduto(rs.getInt("id"));
-                produto.setDescProduto(rs.getString("descr"));
+                produto.setNomeProduto(rs.getString("nome"));
                 produto.setValorVendaProduto(rs.getFloat("vlr_venda"));
                 produto.setEstoque(rs.getInt("qtd_estoque"));
                 produtos.add(produto);
@@ -133,19 +134,19 @@ public class ProdutoDao {
 
     public List<ProdutoBeans> listarProdutosDescr(String descr) throws SQLException {
         conecta.conectar();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
 
         List<ProdutoBeans> produtos = new ArrayList<>();
 
         try {
-            stmt = conecta.conn.prepareStatement("SELECT id, descr, vlr_venda, qtd_estoque FROM "
+            stmt = conecta.conn.prepareStatement("SELECT id, nome, vlr_venda, qtd_estoque FROM "
                     + "produtos WHERE descr like  '%" + descr + "%' order by id");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ProdutoBeans produto = new ProdutoBeans();
                 produto.setCodProduto(rs.getInt("id"));
-                produto.setDescProduto(rs.getString("descr"));
+                produto.setNomeProduto(rs.getString("nome"));
                 produto.setValorVendaProduto(rs.getFloat("vlr_venda"));
                 produto.setEstoque(rs.getInt("qtd_estoque"));
                 produtos.add(produto);
@@ -159,8 +160,8 @@ public class ProdutoDao {
     public ProdutoBeans preencherForm(ProdutoBeans p, int id) throws SQLException {
 
         conecta.conectar();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
 
         try {
             stmt = conecta.conn.prepareStatement("SELECT * FROM produtos WHERE id =" + id);
@@ -175,6 +176,7 @@ public class ProdutoDao {
                 p.setValorVendaProduto(rs.getFloat("vlr_venda"));
                 p.setEstoque(rs.getInt("qtd_estoque"));
                 p.setCategoria("categoria");
+                p.setNomeProduto("nome");
                 stmt.execute();
                 JOptionPane.showMessageDialog(null, "Busca realizada");
             }

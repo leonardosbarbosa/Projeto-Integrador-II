@@ -275,7 +275,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Descrição", "Valor de venda", "Estoque"
+                "ID", "Nome", "Valor", "Estoque"
             }
         ));
         jTable1.setPreferredSize(new java.awt.Dimension(300, 300));
@@ -417,13 +417,15 @@ public class FrProdutos extends javax.swing.JFrame {
                 qtd_estoque = Integer.parseInt(jTextFieldEstoque.getText());
                 categoria = (String) (jComboBoxCategoria.getSelectedItem());
                 ProdutoController.salvar(nome, descr, unidade, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria);
+                preencherTabel();
                 jTextFieldDescricao.setText("");
                 jTextFieldUnidade.setText("");
                 jTextFieldFornecedor.setText("");
                 jTextFieldMarca.setText("");
                 jTextFieldValorCompra.setText("");
                 jTextFieldVlrVenda.setText("");
-                jTextFieldEstoque.setText("");
+                jTextFieldEstoque.setText("");                
+                
             } catch (SQLException ex) {
                 Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -433,8 +435,8 @@ public class FrProdutos extends javax.swing.JFrame {
 
     private void jButtonDelProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelProdutoActionPerformed
 
-        int rsp = 0;
-        rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
+        
+        int rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
         if (rsp == JOptionPane.YES_OPTION) {
             prod.setDescProduto(jTextFieldDescricao.getText());
             try {
@@ -471,8 +473,9 @@ public class FrProdutos extends javax.swing.JFrame {
         String nome_produto = "" + jTable1.getValueAt(jTable1.getSelectedRow(), 1);
         try {
             conecta.conectar();
-            conecta.executaSQL("select * from produtos where descr ='" + nome_produto + "'");
+            conecta.executaSQL("select * from produtos where nome ='" + nome_produto + "'");
             conecta.rs.first();
+            jTextFieldNomeProduto.setText(conecta.rs.getString("nome"));
             jTextFieldCodProduto.setText(String.valueOf(conecta.rs.getInt("id")));
             jTextFieldDescricao.setText(conecta.rs.getString("descr"));
             jTextFieldUnidade.setText(conecta.rs.getString("un"));
@@ -497,7 +500,7 @@ public class FrProdutos extends javax.swing.JFrame {
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
-                p.getDescProduto(),
+                p.getNomeProduto(),
                 p.getValorVendaProduto(),
                 p.getEstoque()
             });
@@ -512,7 +515,7 @@ public class FrProdutos extends javax.swing.JFrame {
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
-                p.getDescProduto(),
+                p.getNomeProduto(),
                 p.getValorVendaProduto(),
                 p.getEstoque()
             });
@@ -527,7 +530,7 @@ public class FrProdutos extends javax.swing.JFrame {
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
-                p.getDescProduto(),
+                p.getNomeProduto(),
                 p.getValorVendaProduto(),
                 p.getEstoque()
             });

@@ -9,8 +9,8 @@ import Controller.VendasController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.table.TableModel;
-import utilitarios.VendasTable;
+import javax.swing.table.DefaultTableModel;
+import utilitarios.ConexaoBD;
 
 /**
  *
@@ -19,14 +19,22 @@ import utilitarios.VendasTable;
 public class FrRelSintetico extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmrelatorio
+     * Creates new form frRelSintetico
      */
-    
+    ConexaoBD conecta = new ConexaoBD();
+
     private VendasController controller;
-    
+
     public FrRelSintetico() {
+        
         initComponents();
         
+        try {          
+            preencherTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -78,7 +86,7 @@ public class FrRelSintetico extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton2)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1)
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addContainerGap())
@@ -97,7 +105,14 @@ public class FrRelSintetico extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        tableRelatorio.setModel(new VendasTable());
+        tableRelatorio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID  Venda", "ID  Cliente", "ID  Produto", "Quantidade", "Total"
+            }
+        ));
         jScrollPane1.setViewportView(tableRelatorio);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,17 +120,13 @@ public class FrRelSintetico extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton1)))))
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,11 +157,28 @@ public class FrRelSintetico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-     public void refreshTable() {
+    public void preencherTabela() throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) tableRelatorio.getModel();
+        modelo.setNumRows(0);
+        conecta.conectar();
+        conecta.executaSQL("SELECT * FROM vendas");
+        while (conecta.rs.next()) {
+            modelo.addRow(new Object[]{
+                conecta.rs.getInt("id"),
+                conecta.rs.getInt("id_cli"),
+                conecta.rs.getInt("id_prod"),
+                conecta.rs.getInt("qtd"),
+                conecta.rs.getDouble("total")
+            
+            });
+        }
+    }
+
+    public void refreshTable() {
         tableRelatorio.invalidate();
         tableRelatorio.repaint();
     }
-    
+
     /**
      * @param args the command line arguments
      */
