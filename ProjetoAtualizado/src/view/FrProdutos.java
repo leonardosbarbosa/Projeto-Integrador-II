@@ -25,7 +25,7 @@ import utilitarios.Validacoes;
  * @author phfar
  */
 public class FrProdutos extends javax.swing.JFrame {
-
+    
     ProdutoDao dao = new ProdutoDao();
     ProdutoBeans prod = new ProdutoBeans();
     Validacoes validador = new Validacoes();
@@ -414,7 +414,7 @@ public class FrProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
 
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
-
+        
         validador.campoVazio(jTextFieldDescricao);
         validador.campoVazio(jTextFieldUnidade);
         validador.campoVazio(jTextFieldFornecedor);
@@ -425,10 +425,10 @@ public class FrProdutos extends javax.swing.JFrame {
         validador.validaDouble(jTextFieldValorCompra);
         validador.validaDouble(jTextFieldVlrVenda);
         validador.validaNum(jTextFieldEstoque);
-
+        
         if (validador.hasError()) {
             JOptionPane.showMessageDialog(null, validador.getMensagensErro());
-
+            
         } else {
             try {
                 String descr, unidade, fornecedor, marca, categoria;
@@ -453,7 +453,7 @@ public class FrProdutos extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         }
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
 
@@ -493,7 +493,7 @@ public class FrProdutos extends javax.swing.JFrame {
             FrInicio abrirInicio = new FrInicio();
             abrirInicio.setVisible(true);
             dispose();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(FrProdutos.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -502,7 +502,7 @@ public class FrProdutos extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         String id = (jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
         ProdutoDao dao = new ProdutoDao();
         ProdutoBeans p = new ProdutoBeans();
@@ -514,25 +514,28 @@ public class FrProdutos extends javax.swing.JFrame {
             jTextFieldUnidade.setText(p.getUniPorduto());
             jTextFieldFornecedor.setText(p.getFornecedor());
             jTextFieldMarca.setText(p.getMarca());
-
-            //não consegui fazer estes, por isso o comentário
-            //jTextFieldValorCompra.setText(Float.parseFloat(p.getValorCompraProduto()));
-            //jTextFieldVlrVenda.(Float.parseFloat(p.getValorVendaProduto())); 
-            //jTextFieldEstoque.setText(Integer.parseInt(p.getEstoque()));
+            
+            String VlrCompra = String.valueOf(p.getValorCompraProduto());
+            jTextFieldValorCompra.setText(VlrCompra);
+            
+            String VlrVenda = String.valueOf(p.getValorVendaProduto());
+            jTextFieldVlrVenda.setText(VlrVenda);
+            
+            String Estoque = String.valueOf(p.getEstoque());
+            jTextFieldEstoque.setText(Estoque);
             
             jComboBoxCategoria.setSelectedItem(p.getCategoria());
-
-           
+            
         } catch (SQLException ex) {
             Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
     public void preencherTabel() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
         ProdutoDao dao = new ProdutoDao();
-
+        
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
@@ -542,12 +545,12 @@ public class FrProdutos extends javax.swing.JFrame {
             });
         }
     }
-
+    
     public void preencherTabelId(int id) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
         ProdutoDao dao = new ProdutoDao();
-
+        
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
@@ -557,12 +560,12 @@ public class FrProdutos extends javax.swing.JFrame {
             });
         }
     }
-
+    
     public void preencherTabelDescr(String descr) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
         ProdutoDao dao = new ProdutoDao();
-
+        
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
@@ -572,7 +575,6 @@ public class FrProdutos extends javax.swing.JFrame {
             });
         }
     }
-   
 
     /**
      * @param args the command line arguments
@@ -588,21 +590,21 @@ public class FrProdutos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(FrProdutos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(FrProdutos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(FrProdutos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrProdutos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -617,7 +619,7 @@ public class FrProdutos extends javax.swing.JFrame {
             public void run() {
                 try {
                     new FrProdutos().setVisible(true);
-
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(FrProdutos.class
                             .getName()).log(Level.SEVERE, null, ex);
