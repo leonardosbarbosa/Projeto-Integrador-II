@@ -1,13 +1,9 @@
 package view;
 
 import Controller.ProdutoController;
-import ModeloBeans.ClienteBeans;
 import ModeloBeans.ProdutoBeans;
-import ModeloDao.ClienteDao;
 import ModeloDao.ProdutoDao;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -463,7 +459,7 @@ public class FrProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-<<<<<<< HEAD
+
 
         String nome_produto = "" + jTable1.getValueAt(jTable1.getSelectedRow(), 1);
         try {
@@ -480,33 +476,6 @@ public class FrProdutos extends javax.swing.JFrame {
             jTextFieldEstoque.setText(String.valueOf(conecta.rs.getInt("qtd_estoque")));
             jComboBoxCategoria.setSelectedItem(conecta.rs.getString("categoria"));
 
-=======
-        // TODO add your handling code here:
-        // TODO add your handling code here:
-        String id = (jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-        ProdutoDao dao = new ProdutoDao();
-        ProdutoBeans p = new ProdutoBeans();
-        
-        try {
-            dao.preencherForm(p, Integer.parseInt(id));
-            jTextFieldCodProduto.setText(id);
-            jTextFieldDescricao.setText(p.getDescProduto());
-            jTextFieldUnidade.setText(p.getUniPorduto());
-            jTextFieldFornecedor.setText(p.getFornecedor());
-            jTextFieldMarca.setText(p.getMarca());
-            
-            String VlrCompra = String.valueOf(p.getValorCompraProduto());
-            jTextFieldValorCompra.setText(VlrCompra);
-            
-            String VlrVenda = String.valueOf(p.getValorVendaProduto());
-            jTextFieldVlrVenda.setText(VlrVenda);
-            
-            String Estoque = String.valueOf(p.getEstoque());
-            jTextFieldEstoque.setText(Estoque);
-            
-            jComboBoxCategoria.setSelectedItem(p.getCategoria());
-            
->>>>>>> 64b14dfac82341603641d1c8c252ccb79a2b619f
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "erro ao selecionar dados" + ex);
         }
@@ -558,46 +527,8 @@ public class FrProdutos extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
-<<<<<<< HEAD
-=======
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                    
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrProdutos.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrProdutos.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrProdutos.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrProdutos.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
->>>>>>> 64b14dfac82341603641d1c8c252ccb79a2b619f
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

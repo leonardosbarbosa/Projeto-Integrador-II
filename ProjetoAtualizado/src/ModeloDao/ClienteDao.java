@@ -1,7 +1,6 @@
 package ModeloDao;
 
 import ModeloBeans.ClienteBeans;
-//import java.awt.List;
 import java.sql.PreparedStatement;
 import utilitarios.ConexaoBD;
 import java.sql.ResultSet;

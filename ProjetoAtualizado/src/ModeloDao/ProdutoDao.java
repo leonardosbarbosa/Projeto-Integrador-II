@@ -1,6 +1,5 @@
 package ModeloDao;
 
-import ModeloBeans.ClienteBeans;
 import ModeloBeans.ProdutoBeans;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
