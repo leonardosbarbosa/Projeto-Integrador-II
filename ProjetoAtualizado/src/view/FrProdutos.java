@@ -16,7 +16,7 @@ import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
 
 public class FrProdutos extends javax.swing.JFrame {
-
+    
     ProdutoDao dao = new ProdutoDao();
     ProdutoBeans prod = new ProdutoBeans();
     Validacoes validador = new Validacoes();
@@ -385,7 +385,7 @@ public class FrProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
 
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
-
+        
         validador.campoVazio(jTextFieldDescricao);
         validador.campoVazio(jTextFieldUnidade);
         validador.campoVazio(jTextFieldFornecedor);
@@ -396,10 +396,10 @@ public class FrProdutos extends javax.swing.JFrame {
         validador.validaDouble(jTextFieldValorCompra);
         validador.validaDouble(jTextFieldVlrVenda);
         validador.validaNum(jTextFieldEstoque);
-
+        
         if (validador.hasError()) {
             JOptionPane.showMessageDialog(null, validador.getMensagensErro());
-
+            
         } else {
             try {
                 String descr, unidade, fornecedor, marca, categoria;
@@ -424,7 +424,7 @@ public class FrProdutos extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         }
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
 
@@ -455,7 +455,7 @@ public class FrProdutos extends javax.swing.JFrame {
             FrInicio abrirInicio = new FrInicio();
             abrirInicio.setVisible(true);
             dispose();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(FrProdutos.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -463,6 +463,7 @@ public class FrProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+<<<<<<< HEAD
 
         String nome_produto = "" + jTable1.getValueAt(jTable1.getSelectedRow(), 1);
         try {
@@ -479,17 +480,44 @@ public class FrProdutos extends javax.swing.JFrame {
             jTextFieldEstoque.setText(String.valueOf(conecta.rs.getInt("qtd_estoque")));
             jComboBoxCategoria.setSelectedItem(conecta.rs.getString("categoria"));
 
+=======
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        String id = (jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        ProdutoDao dao = new ProdutoDao();
+        ProdutoBeans p = new ProdutoBeans();
+        
+        try {
+            dao.preencherForm(p, Integer.parseInt(id));
+            jTextFieldCodProduto.setText(id);
+            jTextFieldDescricao.setText(p.getDescProduto());
+            jTextFieldUnidade.setText(p.getUniPorduto());
+            jTextFieldFornecedor.setText(p.getFornecedor());
+            jTextFieldMarca.setText(p.getMarca());
+            
+            String VlrCompra = String.valueOf(p.getValorCompraProduto());
+            jTextFieldValorCompra.setText(VlrCompra);
+            
+            String VlrVenda = String.valueOf(p.getValorVendaProduto());
+            jTextFieldVlrVenda.setText(VlrVenda);
+            
+            String Estoque = String.valueOf(p.getEstoque());
+            jTextFieldEstoque.setText(Estoque);
+            
+            jComboBoxCategoria.setSelectedItem(p.getCategoria());
+            
+>>>>>>> 64b14dfac82341603641d1c8c252ccb79a2b619f
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "erro ao selecionar dados" + ex);
         }
         conecta.desconectar();
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
     public void preencherTabel() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
         ProdutoDao dao = new ProdutoDao();
-
+        
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
@@ -499,12 +527,12 @@ public class FrProdutos extends javax.swing.JFrame {
             });
         }
     }
-
+    
     public void preencherTabelId(int id) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
         ProdutoDao dao = new ProdutoDao();
-
+        
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
@@ -514,12 +542,12 @@ public class FrProdutos extends javax.swing.JFrame {
             });
         }
     }
-
+    
     public void preencherTabelDescr(String descr) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
         ProdutoDao dao = new ProdutoDao();
-
+        
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
@@ -534,12 +562,48 @@ public class FrProdutos extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+<<<<<<< HEAD
+=======
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                    
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrProdutos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+>>>>>>> 64b14dfac82341603641d1c8c252ccb79a2b619f
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     new FrProdutos().setVisible(true);
-
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(FrProdutos.class
                             .getName()).log(Level.SEVERE, null, ex);
