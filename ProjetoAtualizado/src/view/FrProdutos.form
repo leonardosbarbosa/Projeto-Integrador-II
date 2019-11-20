@@ -313,8 +313,6 @@
                   <Component id="jButtonAddProduto" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButtonDelProduto" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButtonAlterProduto" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jButtonHome" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -326,7 +324,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonAddProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonDelProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonAlterProduto" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Component id="jButtonHome" alignment="0" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -353,17 +350,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDelProdutoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonAlterProduto">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/save-changes.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Clique para salvar altera&#xe7;&#xf5;es feitas a um produto"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAlterProdutoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonHome">

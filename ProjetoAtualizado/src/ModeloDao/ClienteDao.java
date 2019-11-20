@@ -97,6 +97,22 @@ public class ClienteDao {
         return c;
     }
 
+    public void excluir(ClienteBeans cliente) throws SQLException {
+        conecta.conectar();
+        try {
+            PreparedStatement pst = conecta.conn.prepareStatement("DELETE FROM clientes WHERE nome = ?");
+
+            pst.setString(1, cliente.getNome());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Cliente \n ERRO: " + ex);
+        }
+
+        conecta.desconectar();
+
+    }
+
     public ClienteBeans pesquisarClienteCpf(ClienteBeans c) throws SQLException {
 
         conecta.conectar();

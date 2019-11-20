@@ -19,7 +19,7 @@ public class ProdutoDao {
     public void addProduto(ProdutoBeans prod) throws SQLException {
         conecta.conectar();
         try {
-            // TODO add your handling code here:
+            
 
             PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO produtos (descr, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria)"
                     + "values(?, ?, ?, ?, ?, ?, ?, ?)");
@@ -37,6 +37,22 @@ public class ProdutoDao {
             JOptionPane.showMessageDialog(null, "Erro na inserção de dados \n EERO:" + ex);
         }
         conecta.desconectar();
+    }
+
+    public void excluir(ProdutoBeans prod) throws SQLException {
+        conecta.conectar();
+        try {
+            PreparedStatement pst = conecta.conn.prepareStatement("DELETE FROM produtos WHERE descr = ?");
+
+            pst.setString(1, prod.getDescProduto());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Produto excluido com sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir produto \n ERRO: " + ex);
+        }
+
+        conecta.desconectar();
+
     }
 
     public ProdutoBeans pesquisa(ProdutoBeans p) throws SQLException {
@@ -89,7 +105,7 @@ public class ProdutoDao {
         }
         return produtos;
     }
-    
+
     public List<ProdutoBeans> listarProdutosId(int id) throws SQLException {
         conecta.conectar();
         PreparedStatement stmt = null;
@@ -114,7 +130,7 @@ public class ProdutoDao {
         }
         return produtos;
     }
-    
+
     public List<ProdutoBeans> listarProdutosDescr(String descr) throws SQLException {
         conecta.conectar();
         PreparedStatement stmt = null;
@@ -139,8 +155,8 @@ public class ProdutoDao {
         }
         return produtos;
     }
-    
-        public ProdutoBeans preencherForm(ProdutoBeans p, int id) throws SQLException {
+
+    public ProdutoBeans preencherForm(ProdutoBeans p, int id) throws SQLException {
 
         conecta.conectar();
         PreparedStatement stmt = null;
@@ -151,7 +167,7 @@ public class ProdutoDao {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 p.setCodProduto(rs.getInt("id"));
-                p.setDescProduto("descr"); 
+                p.setDescProduto("descr");
                 p.setUniPorduto("un");
                 p.setFornecedor("fornecedor");
                 p.setMarca("marca");

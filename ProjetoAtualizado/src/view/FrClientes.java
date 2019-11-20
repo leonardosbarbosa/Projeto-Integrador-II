@@ -8,6 +8,7 @@ package view;
 import Controller.ClienteController;
 import ModeloBeans.ClienteBeans;
 import ModeloDao.ClienteDao;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
 
-/**
- *
- * @author phfar
- */
 public class FrClientes extends javax.swing.JFrame {
 
     ClienteDao dao = new ClienteDao();
@@ -29,7 +26,7 @@ public class FrClientes extends javax.swing.JFrame {
 
     public FrClientes() throws SQLException {
         initComponents();
-        conecta.conectar();
+
         preencherTabel();
     }
 
@@ -48,9 +45,6 @@ public class FrClientes extends javax.swing.JFrame {
         RBNome = new javax.swing.JRadioButton();
         RBCpf = new javax.swing.JRadioButton();
         jButtonNovo = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jTextFieldCodCli = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -62,6 +56,8 @@ public class FrClientes extends javax.swing.JFrame {
         jTextFieldRg = new javax.swing.JTextField();
         jComboBoxSexo = new javax.swing.JComboBox<>();
         jTextFieldNascimento = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jTextFieldCodCli = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldFixo = new javax.swing.JTextField();
@@ -83,7 +79,6 @@ public class FrClientes extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jButtonSalvar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
-        jButtonAlterar = new javax.swing.JButton();
         jButtonHome = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -167,7 +162,7 @@ public class FrClientes extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RBNome)
                     .addComponent(RBCpf))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -178,33 +173,6 @@ public class FrClientes extends javax.swing.JFrame {
                 jButtonNovoActionPerformed(evt);
             }
         });
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Código do cliente"));
-
-        jLabel15.setText("Cliente nº:");
-
-        jTextFieldCodCli.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldCodCli, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jTextFieldCodCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados pessoais"));
 
@@ -238,6 +206,10 @@ public class FrClientes extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setText("Cliente nº:");
+
+        jTextFieldCodCli.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -257,40 +229,47 @@ public class FrClientes extends javax.swing.JFrame {
                                 .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldRg, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextFieldRg, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextFieldNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldCodCli, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jTextFieldCodCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
                     .addComponent(jTextFieldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jTextFieldNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jTextFieldNome.getAccessibleContext().setAccessibleName("");
@@ -332,7 +311,7 @@ public class FrClientes extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField7Email)))
-                .addContainerGap(451, Short.MAX_VALUE))
+                .addContainerGap(454, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,14 +424,6 @@ public class FrClientes extends javax.swing.JFrame {
             }
         });
 
-        jButtonAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save-changes.png"))); // NOI18N
-        jButtonAlterar.setToolTipText("Clique aqui para salvar alterações feitas ao registro do cliente");
-        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAlterarActionPerformed(evt);
-            }
-        });
-
         jButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/house.png"))); // NOI18N
         jButtonHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,8 +439,6 @@ public class FrClientes extends javax.swing.JFrame {
                 .addComponent(jButtonSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonHome)
                 .addContainerGap())
@@ -482,9 +451,8 @@ public class FrClientes extends javax.swing.JFrame {
                     .addComponent(jButtonHome)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonSalvar)
-                        .addComponent(jButtonExcluir)
-                        .addComponent(jButtonAlterar)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addComponent(jButtonExcluir)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -495,12 +463,9 @@ public class FrClientes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonNovo)
@@ -515,15 +480,13 @@ public class FrClientes extends javax.swing.JFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonNovo)
-                .addGap(12, 12, 12)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -617,7 +580,7 @@ public class FrClientes extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if (RBCpf.isSelected()) {
+        } else if (RBCpf.isSelected()) {
             try {
                 preencherTabelCpfCliente(jTextFieldPesquisar.getText());
             } catch (SQLException ex) {
@@ -627,58 +590,27 @@ public class FrClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        /*
-         try {
-         //conecta.executaSQL("DELETE FROM clientes where cpf ='" +jTextFieldPesquisaCpf.getText() + "'");
-         //JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso");
-         PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM clientes where cpf = ?");
-         pst.setString(1, jTextFieldPesquisar.getText());
-         pst.execute();
-         JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso");
-         } catch (SQLException ex) {
-         Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
-         JOptionPane.showMessageDialog(null, "Erro ao excluir o cliente \n ERRO: " + ex);
-         }
+        int rsp = 0;
+        rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
+        if (rsp == JOptionPane.YES_OPTION) {
+            c.setNome(jTextFieldNome.getText());
 
-         jTextField1Cidade.setText("");
-         jTextField7Email.setText("");
-         jTextFieldBairro.setText("");
-         jTextFieldCelular.setText("");
-         jTextFieldCep.setText("");
-         jTextFieldCodCli.setText("");
-         jTextFieldCpf.setText("");
-         jTextFieldFixo.setText("");
-         jTextFieldNascimento.setText("");
-         jTextFieldNome.setText("");
-         jTextFieldRg.setText("");
-         jTextFieldRua.setText("");
-         */
+            try {
+                dao.excluir(c);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (jTable1.getSelectedRow() != 1) {
+            DefaultTableModel dtmProdutos = (DefaultTableModel) jTable1.getModel();
+            dtmProdutos.removeRow(jTable1.getSelectedRow());
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione pra excluir");
+        }
+
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
-
-    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        /*
-         try {
-         // TODO add your handling code here:
-         PreparedStatement pst = conecta.con.prepareStatement("UPDATE clientes set fixo =?, celular =?, email =?, rua =?, bairro = ?, uf =?, cep =?, cidade =? "
-         + "where cpf =?");
-         pst.setString(1, jTextFieldFixo.getText());
-         pst.setString(2, jTextFieldCelular.getText());
-         pst.setString(3, jTextField7Email.getText());
-         pst.setString(4, jTextFieldRua.getText());
-         pst.setString(5, jTextFieldBairro.getText());
-         pst.setString(6, (String) jComboBoxUf.getSelectedItem());
-         pst.setString(7, jTextFieldCep.getText());
-         pst.setString(8, jTextField1Cidade.getText());
-         pst.setString(9, jTextFieldPesquisar.getText());
-         pst.execute();
-         JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso");
-
-         } catch (SQLException ex) {
-         JOptionPane.showMessageDialog(null, "Erro ao alterar o cliente \n + ERRO: " + ex);
-         }
-         */
-    }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
         try {
@@ -700,35 +632,35 @@ public class FrClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_RBNomeActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-        // TODO add your handling code here:
-        String id = (jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-        ClienteDao dao = new ClienteDao();
-        ClienteBeans c = new ClienteBeans();
-        try {            
-            dao.preencherForm(c, Integer.parseInt(id));
-            jTextFieldCodCli.setText(id);
-            jTextFieldNome.setText(c.getNome());
-            jTextFieldCpf.setText(c.getCpf());
-            jTextFieldRg.setText(c.getRg());
-            jComboBoxSexo.setSelectedItem(c.getSexo());
-            jTextFieldNascimento.setText(c.getNascimento());
-            jTextField7Email.setText(c.getEmail());
-            jTextFieldCelular.setText(c.getCelular());
-            jTextFieldFixo.setText(c.getCelular());
-            jTextFieldRua.setText(c.getRua());
-            jTextFieldBairro.setText(c.getBairro());
-            jTextFieldCep.setText(c.getCep());
-            jComboBoxUf.setSelectedItem(c.getUf());
-            jTextField1Cidade.setText(c.getCidade());
+
+        String nome_cliente = "" + jTable1.getValueAt(jTable1.getSelectedRow(), 1);
+
+        try {
+            conecta.conectar();
+            conecta.executaSQL("select * from clientes where nome ='" + nome_cliente + "'");
+            conecta.rs.first();
+            jTextFieldCodCli.setText(String.valueOf(conecta.rs.getInt("id")));
+            jTextFieldNome.setText(conecta.rs.getString("nome"));
+            jTextFieldCpf.setText(conecta.rs.getString("cpf"));
+            jTextFieldRg.setText(conecta.rs.getString("rg"));
+            jTextFieldNascimento.setText(conecta.rs.getString("nascimento"));
+            jComboBoxSexo.setSelectedItem(conecta.rs.getString("sexo"));
+            jTextFieldFixo.setText(conecta.rs.getString("fixo"));
+            jTextFieldCelular.setText(conecta.rs.getString("celular"));
+            jTextField7Email.setText(conecta.rs.getString("email"));
+
+            jTextFieldRua.setText(conecta.rs.getString("rua"));
+            jTextFieldBairro.setText(conecta.rs.getString("bairro"));
+            jComboBoxUf.setSelectedItem(conecta.rs.getString("uf"));
+            jTextField1Cidade.setText(conecta.rs.getString("cidade"));
+            jTextFieldCep.setText(conecta.rs.getString("cep"));
+
         } catch (SQLException ex) {
-            Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "erro ao selecionar dados" + ex);
         }
+        conecta.desconectar();
     }//GEN-LAST:event_jTable1MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public void preencherTabel() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
@@ -756,7 +688,7 @@ public class FrClientes extends javax.swing.JFrame {
             });
         }
     }
-    
+
     public void preencherTabelCpfCliente(String cpf) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
@@ -772,33 +704,7 @@ public class FrClientes extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
@@ -810,7 +716,6 @@ public class FrClientes extends javax.swing.JFrame {
     private javax.swing.JRadioButton RBCpf;
     private javax.swing.JRadioButton RBNome;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonNovo;
@@ -836,7 +741,6 @@ public class FrClientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
