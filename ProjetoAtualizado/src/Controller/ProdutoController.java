@@ -6,9 +6,10 @@ import java.sql.SQLException;
 
 public class ProdutoController {
     
-    public static boolean salvar(String describe, String unidade, String fornecedor, String marca, Float vlr_compra, Float vlr_venda, int qtd_estoque, String categoria) throws SQLException {
+    public static boolean salvar(String nomeProd, String describe, String unidade, String fornecedor, String marca, Float vlr_compra, Float vlr_venda, int qtd_estoque, String categoria) throws SQLException {
         
         ProdutoBeans prod = new ProdutoBeans();
+        prod.setNomeProduto(nomeProd);
         prod.setDescProduto(describe);
         prod.setUniPorduto(unidade);
         prod.setFornecedor(fornecedor);

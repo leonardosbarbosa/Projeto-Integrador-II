@@ -5,7 +5,7 @@ import utilitarios.Vendas;
 
 public class VendasDao {
     
-    private static ArrayList<Vendas> listaVendas= new ArrayList<Vendas>();
+    public static ArrayList<Vendas> listaVendas= new ArrayList<Vendas>();
     
     public static boolean addVendas(Vendas venda) {
         

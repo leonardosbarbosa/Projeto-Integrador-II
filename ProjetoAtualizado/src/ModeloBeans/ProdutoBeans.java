@@ -12,6 +12,15 @@ public class ProdutoBeans {
     private float valorVendaProduto;
     private String categoria;
     private String pesquisa;
+    private String nomeProduto;
+
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
 
     public void setPesquisa(String pesquisa) {
         this.pesquisa = pesquisa;

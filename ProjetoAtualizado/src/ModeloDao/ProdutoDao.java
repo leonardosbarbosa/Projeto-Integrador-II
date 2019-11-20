@@ -20,16 +20,17 @@ public class ProdutoDao {
         try {
             
 
-            PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO produtos (descr, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria)"
-                    + "values(?, ?, ?, ?, ?, ?, ?, ?)");
-            pst.setString(1, prod.getDescProduto());
-            pst.setString(2, prod.getUniPorduto());
-            pst.setString(3, prod.getFornecedor());
-            pst.setString(4, prod.getMarca());
-            pst.setFloat(5, prod.getValorCompraProduto());
-            pst.setFloat(6, prod.getValorVendaProduto());
-            pst.setInt(7, prod.getEstoque());
-            pst.setString(8, (String) prod.getCategoria());
+            PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO produtos (categoria, nome, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, descr)"
+                    + "values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            pst.setString(1, (String) prod.getCategoria());
+            pst.setString(2, prod.getNomeProduto());
+            pst.setString(3, prod.getUniPorduto());
+            pst.setString(4, prod.getFornecedor());
+            pst.setString(5, prod.getMarca());
+            pst.setFloat(6, prod.getValorCompraProduto());
+            pst.setFloat(7, prod.getValorVendaProduto());
+            pst.setInt(8, prod.getEstoque());
+            pst.setString(9, (String) prod.getDescProduto());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Produto inserido com sucesso");
         } catch (SQLException ex) {

@@ -5,9 +5,15 @@
  */
 package view;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
 import utilitarios.VendasTable;
+
 /**
  *
  * @author pedro.hfarantes
@@ -17,10 +23,12 @@ public class FrCarrinho extends javax.swing.JFrame {
     /**
      * Creates new form FrCarrinho
      */
+    ConexaoBD conecta = new ConexaoBD();
+
     public FrCarrinho() {
         initComponents();
     }
-    
+
     Validacoes validador = new Validacoes();
 
     /**
@@ -43,14 +51,14 @@ public class FrCarrinho extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblEndereco = new javax.swing.JLabel();
-        lblCPF = new javax.swing.JLabel();
+        lblID = new javax.swing.JLabel();
         lblCelular = new javax.swing.JLabel();
         lblCEP = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        cbbFrmPgto = new javax.swing.JComboBox<>();
+        cbbFrmPgto = new javax.swing.JComboBox<String>();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -80,11 +88,11 @@ public class FrCarrinho extends javax.swing.JFrame {
 
         jLabel6.setText("CEP:");
 
-        jLabel8.setText("CPF:");
+        jLabel8.setText("ID:");
 
         lblEndereco.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblCPF.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblID.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblCelular.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -108,7 +116,7 @@ public class FrCarrinho extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -147,7 +155,7 @@ public class FrCarrinho extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel8)
-                                    .addComponent(lblCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(4, 4, 4)))
                         .addGap(12, 12, 12))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -172,7 +180,7 @@ public class FrCarrinho extends javax.swing.JFrame {
 
         jLabel7.setText("Forma de Pagamento");
 
-        cbbFrmPgto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão de Crédito", "Cartão de Débito" }));
+        cbbFrmPgto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dinheiro", "Cartão de Crédito", "Cartão de Débito" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -251,19 +259,76 @@ public class FrCarrinho extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         FrVendas vendas = new FrVendas();
-            vendas.setVisible(true);
-            dispose();  
+        vendas.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+        validador.campoVazio(txtCPF);
+        validador.validaNum(txtCPF);
+        if (validador.hasError()) {
+            JOptionPane.showMessageDialog(null, validador.getMensagensErro(), "Falha ao Pesquisar", JOptionPane.ERROR_MESSAGE);
+            txtCPF.setText("");
+            txtCPF.grabFocus();
+        } else {
+                   
+            try {
+                conecta.conectar();
+               for (int i = 0; i < jTable1.getRowCount(); i++) { 
+                PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO vendas (id_cli, id_prod, qtd, frm_pgto, total, data_compra, hora)" //passagem do comando sql para inserção
+                        + "values(?, ?, ?, ?, ?, ?, ?)");
+                conecta.executaSQL("select id from produtos where nome ='" + jTable1.getValueAt(i, 0).toString() + "'");
+                conecta.rs.first();
+                int idProd = conecta.rs.getInt("id");
+                
+                int qtd = (int) jTable1.getValueAt(i, 1);
+                Double total = (Double) jTable1.getValueAt(i, 2);
+
+                pst.setString(1, lblID.getText()); //passagem de paramentro para inserção(valores)
+                pst.setInt(2, idProd);
+                pst.setInt(3, qtd);
+                pst.setString(4, cbbFrmPgto.getSelectedItem().toString());
+                pst.setDouble(5, total);
+                pst.setString(6, "2019/11/20");
+                pst.setString(7, "14:00");
+                pst.executeUpdate(); //executa a inserção
+               }
+                JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!");
+
+            } catch (SQLException ex) {
+                Logger.getLogger(FrCarrinho.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
+        validador.campoVazio(txtCPF);
         validador.validaNum(txtCPF);
         if (validador.hasError()) {
             JOptionPane.showMessageDialog(null, validador.getMensagensErro(), "Falha ao Pesquisar", JOptionPane.ERROR_MESSAGE);
+            txtCPF.setText("");
+            txtCPF.grabFocus();
+        } else {
+
+            try {
+                conecta.conectar();
+                conecta.executaSQL("select * from clientes where cpf ='" + txtCPF.getText() + "'");
+                conecta.rs.first();
+                lblNome.setText(conecta.rs.getString("nome"));
+                lblID.setText(conecta.rs.getString("id"));
+                lblCelular.setText(conecta.rs.getString("celular"));
+                lblEndereco.setText(conecta.rs.getString("rua"));
+                lblCEP.setText(conecta.rs.getString("cep"));
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
+                txtCPF.setText("");
+                txtCPF.grabFocus();
+            }
+
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -319,9 +384,9 @@ public class FrCarrinho extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCEP;
-    private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCelular;
     private javax.swing.JLabel lblEndereco;
+    private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblNome;
     private javax.swing.JTextField txtCPF;
     // End of variables declaration//GEN-END:variables

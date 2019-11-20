@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import utilitarios.ConexaoBD;
 
 /**
  *
@@ -21,6 +23,7 @@ public class FrVendas extends javax.swing.JFrame {
      * Creates new form FrVendas
      */
     private VendasController controller;
+    ConexaoBD conecta = new ConexaoBD();
 
     public FrVendas() {
         initComponents();
@@ -44,34 +47,15 @@ public class FrVendas extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstProdutos = new javax.swing.JList<>();
-        cbbCategoria = new javax.swing.JComboBox<>();
+        lstProdutos = new javax.swing.JList<String>();
+        cbbCategoria = new javax.swing.JComboBox<String>();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vendas");
 
-        jSpinner1.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                jSpinner1ComponentAdded(evt);
-            }
-        });
-        jSpinner1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                jSpinner1MouseWheelMoved(evt);
-            }
-        });
-        jSpinner1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jSpinner1MouseClicked(evt);
-            }
-        });
-        jSpinner1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jSpinner1KeyPressed(evt);
-            }
-        });
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
 
         jLabel1.setText("Quantidade:");
 
@@ -106,14 +90,14 @@ public class FrVendas extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selecione um produto:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
 
-        lstProdutos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Intel Core i5", "Intel Core i7", "AMD Ryzen", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        lstProdutos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstProdutosValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(lstProdutos);
 
-        cbbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
+        cbbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma categoria", "Processadores", "Placa-mãe", "Placa de Vídeo", "Armazenamento", "Periféricos" }));
         cbbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbCategoriaActionPerformed(evt);
@@ -130,7 +114,7 @@ public class FrVendas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -141,11 +125,11 @@ public class FrVendas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(cbbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButton1.setText("Atualizar valor");
@@ -164,47 +148,48 @@ public class FrVendas extends javax.swing.JFrame {
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(jSpinner1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnAddCarrinho)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnIrCarrinho))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(140, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddCarrinho)
+                .addGap(18, 18, 18)
+                .addComponent(btnIrCarrinho)
+                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(9, 9, 9)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel2))
                     .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIrCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGap(29, 29, 29)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
@@ -234,74 +219,64 @@ public class FrVendas extends javax.swing.JFrame {
 
 
     private void btnAddCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCarrinhoActionPerformed
-        // TODO add your handling code here:
-        controller.salvar(lstProdutos.getSelectedValue(), (int) jSpinner1.getValue(), Double.parseDouble(lblValor.getText()));
+        try {
+            // TODO add your handling code here:
+            conecta.conectar();
+            conecta.executaSQL("select nome, vlr_venda from produtos where nome ='" + lstProdutos.getSelectedValue() + "'");
+            conecta.rs.first();
+            String nome = conecta.rs.getString("nome");
+            double valor = conecta.rs.getDouble("vlr_venda") * (int) jSpinner1.getValue();
+            int qtde = (int) jSpinner1.getValue();
+            controller.salvar(nome, qtde, valor);
+            JOptionPane.showMessageDialog(null, "Produto adicionado ao carrinho.");
+        } catch (SQLException ex) {
+            Logger.getLogger(FrVendas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAddCarrinhoActionPerformed
 
     private void cbbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCategoriaActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
 
-        final DefaultListModel model = new DefaultListModel();
+            final DefaultListModel model = new DefaultListModel();
+            conecta.conectar();
+            conecta.executaSQL("select nome from produtos where categoria ='" + cbbCategoria.getSelectedItem() + "'");
 
-        if (cbbCategoria.getSelectedItem().toString().equals("Processadores")) {
-
-            model.addElement("Intel Core i5");
-            model.addElement("Intel Core i7");
-            model.addElement("AMD Ryzen");
+            while (conecta.rs.next()) {
+                model.addElement(conecta.rs.getString("nome"));
+            }
             lstProdutos.setModel(model);
 
-        } else if (cbbCategoria.getSelectedItem().toString().equals("Placa-mãe")) {
-
-            model.addElement("Asus Prime");
-            model.addElement("Gigabyte H310M");
-            model.addElement("AsRock A320M");
-            lstProdutos.setModel(model);
-
-        } else if (cbbCategoria.getSelectedItem().toString().equals("Placa de Vídeo")) {
-            model.addElement("GTX 1050 TI");
-            model.addElement("GTX 1070");
-            model.addElement("GTX 1080");
-            lstProdutos.setModel(model);
-
-        } else if (cbbCategoria.getSelectedItem().toString().equals("HD/SSD")) {
-
-            model.addElement("SSD SanDisk 240GB");
-            model.addElement("HD Seagate 1TB");
-            model.addElement("SSD SanDiSK 480GB");
-            lstProdutos.setModel(model);
-
-        } else {
-            model.addElement("Mouse Gamer Razer");
-            model.addElement("Teclado Mecânico HyperX");
-            model.addElement("Headset Logitech");
-            lstProdutos.setModel(model);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrVendas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cbbCategoriaActionPerformed
-
-    private void jSpinner1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSpinner1MouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jSpinner1MouseClicked
-
-    private void jSpinner1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jSpinner1MouseWheelMoved
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jSpinner1MouseWheelMoved
-
-    private void jSpinner1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSpinner1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner1KeyPressed
-
-    private void jSpinner1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jSpinner1ComponentAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner1ComponentAdded
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int qtd = (int) jSpinner1.getValue();
-        double valor = 100.00 * qtd;
+        double valor = Double.parseDouble(lblValor.getText()) * qtd;
         lblValor.setText("" + valor);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void lstProdutosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstProdutosValueChanged
+        try {
+            // TODO add your handling code here:
+            conecta.conectar();
+            conecta.executaSQL("select vlr_venda from produtos where nome ='" + lstProdutos.getSelectedValue() + "'");
+            
+            if (conecta.rs.first()) {
+            
+            jSpinner1.setValue(1);
+            double valor = conecta.rs.getDouble("vlr_venda");
+            int qtd = (int) jSpinner1.getValue();
+            valor *= qtd;
+            lblValor.setText("" + valor);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrVendas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lstProdutosValueChanged
 
     /**
      * @param args the command line arguments

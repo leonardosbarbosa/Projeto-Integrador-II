@@ -47,10 +47,11 @@ public class FrProdutos extends javax.swing.JFrame {
         jTextFieldMarca = new javax.swing.JTextField();
         jTextFieldUnidade = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jComboBoxCategoria = new javax.swing.JComboBox<>();
+        jComboBoxCategoria = new javax.swing.JComboBox<String>();
         jTextFieldCodProduto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jButtonNovoProduto = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jTextFieldNomeProduto = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButtonAddProduto = new javax.swing.JButton();
         jButtonDelProduto = new javax.swing.JButton();
@@ -101,13 +102,13 @@ public class FrProdutos extends javax.swing.JFrame {
 
         jLabel10.setText("Categoria:");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
 
         jTextFieldCodProduto.setEnabled(false);
 
         jLabel8.setText("Código do Produto:");
 
-        jButtonNovoProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        jLabel9.setText("Nome do Produto:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,19 +162,23 @@ public class FrProdutos extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonNovoProduto)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldNomeProduto)
+                        .addGap(285, 285, 285))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextFieldCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jTextFieldNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,7 +386,8 @@ public class FrProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
 
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
-        
+
+        validador.campoVazio(jTextFieldNomeProduto);
         validador.campoVazio(jTextFieldDescricao);
         validador.campoVazio(jTextFieldUnidade);
         validador.campoVazio(jTextFieldFornecedor);
@@ -398,9 +404,10 @@ public class FrProdutos extends javax.swing.JFrame {
             
         } else {
             try {
-                String descr, unidade, fornecedor, marca, categoria;
+                String nome, descr, unidade, fornecedor, marca, categoria;
                 int qtd_estoque;
                 float vlr_compra, vlr_venda;
+                nome = jTextFieldNomeProduto.getText();
                 descr = (jTextFieldDescricao.getText());
                 unidade = (jTextFieldUnidade.getText());
                 fornecedor = (jTextFieldFornecedor.getText());
@@ -409,7 +416,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 vlr_venda = Float.parseFloat(jTextFieldVlrVenda.getText());
                 qtd_estoque = Integer.parseInt(jTextFieldEstoque.getText());
                 categoria = (String) (jComboBoxCategoria.getSelectedItem());
-                ProdutoController.salvar(descr, unidade, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria);
+                ProdutoController.salvar(nome, descr, unidade, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria);
                 jTextFieldDescricao.setText("");
                 jTextFieldUnidade.setText("");
                 jTextFieldFornecedor.setText("");
@@ -549,7 +556,6 @@ public class FrProdutos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddProduto;
     private javax.swing.JButton jButtonDelProduto;
     private javax.swing.JButton jButtonHome;
-    private javax.swing.JButton jButtonNovoProduto;
     private javax.swing.JButton jButtonPesquisarProduto;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JLabel jLabel1;
@@ -561,6 +567,7 @@ public class FrProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
@@ -574,6 +581,7 @@ public class FrProdutos extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldEstoque;
     private javax.swing.JTextField jTextFieldFornecedor;
     private javax.swing.JTextField jTextFieldMarca;
+    private javax.swing.JTextField jTextFieldNomeProduto;
     private javax.swing.JTextField jTextFieldPesquisaProduto;
     private javax.swing.JTextField jTextFieldUnidade;
     private javax.swing.JTextField jTextFieldValorCompra;
