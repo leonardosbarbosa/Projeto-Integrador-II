@@ -1,4 +1,4 @@
-drop database sistemaVendas;
+﻿drop database sistemaVendas;
 
 create database sistemaVendas;
 use sistemaVendas;
@@ -38,6 +38,7 @@ cidade varchar (60)not null,
  id_cli int not null,
  id_prod int not null,
  qtd int not null,
+frm_pgto varchar(30) not null,
  total decimal(9,2) not null,
  data_compra date not null,
  hora time not null,
