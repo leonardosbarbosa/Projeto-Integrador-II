@@ -12,7 +12,7 @@ import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
 
 public class FrProdutos extends javax.swing.JFrame {
-    
+
     ProdutoDao dao = new ProdutoDao();
     ProdutoBeans prod = new ProdutoBeans();
     Validacoes validador = new Validacoes();
@@ -57,10 +57,10 @@ public class FrProdutos extends javax.swing.JFrame {
         jButtonDelProduto = new javax.swing.JButton();
         jButtonHome = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jTextFieldPesquisaProduto = new javax.swing.JTextField();
-        jButtonPesquisarProduto = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        txtPesquisaProduto = new javax.swing.JTextField();
+        btnPesquisar = new javax.swing.JButton();
+        rdbID = new javax.swing.JRadioButton();
+        rdbNome = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -253,19 +253,21 @@ public class FrProdutos extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar por:"));
 
-        jButtonPesquisarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loupe.png"))); // NOI18N
-        jButtonPesquisarProduto.setToolTipText("Clique para pesquisar um produto");
-        jButtonPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
+        txtPesquisaProduto.setName("de pesquisa"); // NOI18N
+
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loupe.png"))); // NOI18N
+        btnPesquisar.setToolTipText("Clique para pesquisar um produto");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPesquisarProdutoActionPerformed(evt);
+                btnPesquisarActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("ID");
+        buttonGroup1.add(rdbID);
+        rdbID.setText("ID");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Descrição");
+        buttonGroup1.add(rdbNome);
+        rdbNome.setText("Nome");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -297,26 +299,26 @@ public class FrProdutos extends javax.swing.JFrame {
                         .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(rdbID)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(jTextFieldPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rdbNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addComponent(txtPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonPesquisarProduto)
+                        .addComponent(btnPesquisar)
                         .addGap(16, 16, 16))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonPesquisarProduto, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton1))))
+                            .addComponent(txtPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdbNome)
+                            .addComponent(rdbID))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -351,39 +353,59 @@ public class FrProdutos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarProdutoActionPerformed
-        if (jRadioButton1.isSelected()) {
-            try {
-                preencherTabelId(Integer.parseInt(jTextFieldPesquisaProduto.getText()));
-            } catch (SQLException ex) {
-                Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+
+        validador.campoVazio(txtPesquisaProduto);
+        if (validador.hasError()) {
+            JOptionPane.showMessageDialog(rootPane, validador.getMensagensErro());
+            txtPesquisaProduto.grabFocus();
+        } else {
+
+            if (rdbID.isSelected()) {
+
+                validador.validaNum(txtPesquisaProduto);
+                if (validador.hasError()) {
+                    JOptionPane.showMessageDialog(rootPane, validador.getMensagensErro());
+                    txtPesquisaProduto.setText("");
+                    txtPesquisaProduto.grabFocus();
+                } else {
+
+                    try {
+                        preencherTabelId(Integer.parseInt(txtPesquisaProduto.getText()));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else if (rdbNome.isSelected()) {
+                try {
+                    preencherTabelaNome(txtPesquisaProduto.getText());
+                } catch (SQLException ex) {
+                    Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Favor selecionar uma das opções de pesquisa.");
             }
-        } else if (jRadioButton2.isSelected()) {
-            try {
-                preencherTabelDescr(jTextFieldPesquisaProduto.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
         }
 
         /*try {
-            prod.setPesquisa(jTextFieldPesquisaProduto.getText());
-            ProdutoBeans produto = dao.pesquisa(prod);
+         prod.setPesquisa(jTextFieldPesquisaProduto.getText());
+         ProdutoBeans produto = dao.pesquisa(prod);
 
-            jTextFieldCodProduto.setText(Integer.toString(produto.getCodProduto()));
-            jTextFieldDescricao.setText(produto.getDescProduto());
-            jTextFieldUnidade.setText(produto.getUniPorduto());
-            jTextFieldFornecedor.setText(produto.getFornecedor());
-            jTextFieldMarca.setText(produto.getMarca());
-            jTextFieldValorCompra.setText(Float.toString(produto.getValorCompraProduto()));
-            jTextFieldVlrVenda.setText(Float.toString(produto.getValorVendaProduto()));
-            jTextFieldEstoque.setText(Integer.toString(produto.getEstoque()));
-            jComboBoxCategoria.setSelectedItem(produto.getCategoria());
+         jTextFieldCodProduto.setText(Integer.toString(produto.getCodProduto()));
+         jTextFieldDescricao.setText(produto.getDescProduto());
+         jTextFieldUnidade.setText(produto.getUniPorduto());
+         jTextFieldFornecedor.setText(produto.getFornecedor());
+         jTextFieldMarca.setText(produto.getMarca());
+         jTextFieldValorCompra.setText(Float.toString(produto.getValorCompraProduto()));
+         jTextFieldVlrVenda.setText(Float.toString(produto.getValorVendaProduto()));
+         jTextFieldEstoque.setText(Integer.toString(produto.getEstoque()));
+         jComboBoxCategoria.setSelectedItem(produto.getCategoria());
 
-        } catch (SQLException ex) {
-            Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-    }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
+         } catch (SQLException ex) {
+         Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
+         }*/
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
 
@@ -398,10 +420,10 @@ public class FrProdutos extends javax.swing.JFrame {
         validador.validaDouble(jTextFieldValorCompra);
         validador.validaDouble(jTextFieldVlrVenda);
         validador.validaNum(jTextFieldEstoque);
-        
+
         if (validador.hasError()) {
             JOptionPane.showMessageDialog(null, validador.getMensagensErro());
-            
+
         } else {
             try {
                 String nome, descr, unidade, fornecedor, marca, categoria;
@@ -424,18 +446,17 @@ public class FrProdutos extends javax.swing.JFrame {
                 jTextFieldMarca.setText("");
                 jTextFieldValorCompra.setText("");
                 jTextFieldVlrVenda.setText("");
-                jTextFieldEstoque.setText("");                
-                
+                jTextFieldEstoque.setText("");
+
             } catch (SQLException ex) {
                 Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
 
     private void jButtonDelProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelProdutoActionPerformed
 
-        
         int rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
         if (rsp == JOptionPane.YES_OPTION) {
             prod.setDescProduto(jTextFieldDescricao.getText());
@@ -460,7 +481,7 @@ public class FrProdutos extends javax.swing.JFrame {
             FrInicio abrirInicio = new FrInicio();
             abrirInicio.setVisible(true);
             dispose();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(FrProdutos.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -468,7 +489,6 @@ public class FrProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-
 
         String nome_produto = "" + jTable1.getValueAt(jTable1.getSelectedRow(), 1);
         try {
@@ -491,42 +511,12 @@ public class FrProdutos extends javax.swing.JFrame {
         }
         conecta.desconectar();
     }//GEN-LAST:event_jTable1MouseClicked
-    
+
     public void preencherTabel() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
         ProdutoDao dao = new ProdutoDao();
-        
-        for (ProdutoBeans p : dao.listar()) {
-            modelo.addRow(new Object[]{
-                p.getCodProduto(),
-                p.getNomeProduto(),
-                p.getValorVendaProduto(),
-                p.getEstoque()
-            });
-        }
-    }
-    
-    public void preencherTabelId(int id) throws SQLException {
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setNumRows(0);
-        ProdutoDao dao = new ProdutoDao();
-        
-        for (ProdutoBeans p : dao.listar()) {
-            modelo.addRow(new Object[]{
-                p.getCodProduto(),
-                p.getNomeProduto(),
-                p.getValorVendaProduto(),
-                p.getEstoque()
-            });
-        }
-    }
-    
-    public void preencherTabelDescr(String descr) throws SQLException {
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setNumRows(0);
-        ProdutoDao dao = new ProdutoDao();
-        
+
         for (ProdutoBeans p : dao.listar()) {
             modelo.addRow(new Object[]{
                 p.getCodProduto(),
@@ -537,14 +527,79 @@ public class FrProdutos extends javax.swing.JFrame {
         }
     }
 
-    
+    public void limparTabela(DefaultTableModel modelo) {
+
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            modelo.removeRow(i);
+        }
+
+    }
+
+    public void preencherTabelId(int id) throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setNumRows(0);
+        conecta.conectar();
+        conecta.executaSQL("SELECT * FROM produtos WHERE id = " + id);
+
+        if (conecta.rs.first()) {
+            modelo.addRow(new Object[]{
+                conecta.rs.getString("id"),
+                conecta.rs.getString("nome"),
+                conecta.rs.getString("vlr_venda"),
+                conecta.rs.getString("qtd_estoque")
+            });
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Nenhum produto encontrado.");
+            txtPesquisaProduto.setText("");
+            txtPesquisaProduto.grabFocus();
+        }
+
+        /* modelo.setNumRows(0);
+         ProdutoDao dao = new ProdutoDao();
+        
+         for (ProdutoBeans p : dao.listar()) {
+         modelo.addRow(new Object[]{
+         p.getCodProduto(),
+         p.getNomeProduto(),
+         p.getValorVendaProduto(),
+         p.getEstoque()
+         });
+         } */
+    }
+
+    public void preencherTabelaNome(String nome) throws SQLException {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setNumRows(0);
+        conecta.conectar();
+        conecta.executaSQL("SELECT * FROM produtos WHERE nome like '%" + nome + "%'");
+
+        while (conecta.rs.next()) {
+            modelo.addRow(new Object[]{
+                conecta.rs.getString("id"),
+                conecta.rs.getString("nome"),
+                conecta.rs.getString("vlr_venda"),
+                conecta.rs.getString("qtd_estoque")
+            });
+        }
+        /*ProdutoDao dao = new ProdutoDao();
+        
+         for (ProdutoBeans p : dao.listar()) {
+         modelo.addRow(new Object[]{
+         p.getCodProduto(),
+         p.getNomeProduto(),
+         p.getValorVendaProduto(),
+         p.getEstoque()
+         });
+         }*/
+    }
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     new FrProdutos().setVisible(true);
-                    
+
                 } catch (SQLException ex) {
                     Logger.getLogger(FrProdutos.class
                             .getName()).log(Level.SEVERE, null, ex);
@@ -554,12 +609,12 @@ public class FrProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddProduto;
     private javax.swing.JButton jButtonDelProduto;
     private javax.swing.JButton jButtonHome;
-    private javax.swing.JButton jButtonPesquisarProduto;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -574,8 +629,6 @@ public class FrProdutos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
@@ -585,9 +638,11 @@ public class FrProdutos extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldFornecedor;
     private javax.swing.JTextField jTextFieldMarca;
     private javax.swing.JTextField jTextFieldNomeProduto;
-    private javax.swing.JTextField jTextFieldPesquisaProduto;
     private javax.swing.JTextField jTextFieldUnidade;
     private javax.swing.JTextField jTextFieldValorCompra;
     private javax.swing.JTextField jTextFieldVlrVenda;
+    private javax.swing.JRadioButton rdbID;
+    private javax.swing.JRadioButton rdbNome;
+    private javax.swing.JTextField txtPesquisaProduto;
     // End of variables declaration//GEN-END:variables
 }

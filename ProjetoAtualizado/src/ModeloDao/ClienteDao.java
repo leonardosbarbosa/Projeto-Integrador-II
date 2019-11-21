@@ -115,11 +115,11 @@ public class ClienteDao {
     public ClienteBeans pesquisarClienteCpf(ClienteBeans c) throws SQLException {
 
         conecta.conectar();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
 
         try {
-            stmt = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE cpf ='" + c.getPesquisa() + "'");
+            stmt = conecta.conn.prepareStatement("SELECT * FROM clientes WHERE cpf = '" + c.getPesquisa() + "'");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 c.setId(rs.getInt("id"));
@@ -150,8 +150,8 @@ public class ClienteDao {
     //tabela de clientes
     public List<ClienteBeans> listar() throws SQLException {
         conecta.conectar();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
 
         List<ClienteBeans> clientes = new ArrayList<>();
 
@@ -175,8 +175,8 @@ public class ClienteDao {
     public List<ClienteBeans> pesquisarClienteNomeTabela(String nome) throws SQLException {
 
         conecta.conectar();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
 
         List<ClienteBeans> clientes = new ArrayList<>();
 
@@ -204,22 +204,21 @@ public class ClienteDao {
     public List<ClienteBeans> pesquisarClienteCpfTabela(String cpf) throws SQLException {
 
         conecta.conectar();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
 
         List<ClienteBeans> clientes = new ArrayList<>();
 
         try {
 
-            stmt = conecta.conn.prepareStatement("SELECT id, nome, cpf FROM clientes WHERE cpf=" + cpf);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
+            conecta.executaSQL("SELECT id, nome, cpf FROM clientes WHERE cpf = " + cpf);
+            conecta.rs.first();
                 ClienteBeans cliente = new ClienteBeans();
-                cliente.setId(rs.getInt("id"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setCpf(rs.getString("cpf"));
+                cliente.setId(conecta.rs.getInt("id"));
+                cliente.setNome(conecta.rs.getString("nome"));
+                cliente.setCpf(conecta.rs.getString("cpf"));
                 clientes.add(cliente);
-            }
+            
         } catch (SQLException ex) {
         }
 
