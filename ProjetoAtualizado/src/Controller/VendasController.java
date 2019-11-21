@@ -6,7 +6,7 @@
 package Controller;
 
 import ModeloDao.VendasDao;
-import utilitarios.Vendas;
+import ModeloBeans.VendasBeans;
 
 /**
  *
@@ -15,7 +15,7 @@ import utilitarios.Vendas;
 public class VendasController {
     
     public static boolean salvar(String produto, int quantidade, double valorVenda) {
-        Vendas venda = new Vendas();
+        VendasBeans venda = new VendasBeans();
         
         venda.setProduto(produto);
         venda.setQuantidade(quantidade);

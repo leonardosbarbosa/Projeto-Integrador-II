@@ -9,6 +9,7 @@ import Controller.VendasController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utilitarios.ConexaoBD;
 
@@ -113,6 +114,11 @@ public class FrRelSintetico extends javax.swing.JFrame {
                 "ID  Venda", "ID  Cliente", "ID  Produto", "Quantidade", "Total"
             }
         ));
+        tableRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableRelatorioMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableRelatorio);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,6 +162,25 @@ public class FrRelSintetico extends javax.swing.JFrame {
             Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tableRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRelatorioMouseClicked
+        try {
+            // TODO add your handling code here:
+            int idVenda = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 0);
+            int idCli = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 1);
+            int idProd = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 2);            
+            conecta.conectar();
+            conecta.executaSQL("SELECT * FROM vendas INNER JOIN produtos on id_prod = produtos.id INNER JOIN clientes on id_cli = clientes.id WHERE vendas.id = " + idVenda);
+            conecta.rs.first();
+            String msg = "ID da Venda: " + idVenda + "\nCliente: " + conecta.rs.getString("clientes.nome")+ "     CPF: " + conecta.rs.getString("clientes.cpf") 
+                    + "\nProduto: " + conecta.rs.getString("produtos.nome") + "\nQuantidade: " + conecta.rs.getString("vendas.qtd") 
+                    + "\nTotal: " + conecta.rs.getString("vendas.total") + "\nData: " + conecta.rs.getString("data_compra")
+                    + "     Horário: " + conecta.rs.getString("hora");
+            JOptionPane.showMessageDialog(rootPane, msg, "Relatório Analítico", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tableRelatorioMouseClicked
 
     public void preencherTabela() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) tableRelatorio.getModel();

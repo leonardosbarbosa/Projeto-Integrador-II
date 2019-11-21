@@ -5,6 +5,7 @@
  */
 package utilitarios;
 
+import ModeloBeans.VendasBeans;
 import ModeloDao.VendasDao;
 import javax.swing.table.AbstractTableModel;
 
@@ -30,7 +31,7 @@ public class VendasTable extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int col) {
-        Vendas venda;
+        VendasBeans venda;
         venda = VendasDao.linha(row);
         if (col == 0) {
             return venda.getProduto();

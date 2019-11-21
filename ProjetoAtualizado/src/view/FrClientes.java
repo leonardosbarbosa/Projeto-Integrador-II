@@ -652,7 +652,7 @@ public class FrClientes extends javax.swing.JFrame {
             jTextFieldCep.setText(conecta.rs.getString("cep"));
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "erro ao selecionar dados" + ex);
+            JOptionPane.showMessageDialog(null, "Falha ao selecionar dados.");
         }
         conecta.desconectar();
     }//GEN-LAST:event_jTable1MouseClicked

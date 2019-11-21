@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilitarios;
+package ModeloBeans;
 
 /**
  *
  * @author leonardo.sbarbosa4
  */
-public class Vendas {
+public class VendasBeans {
 
     String produto;
     int quantidade;
     double valor;
 
-    public Vendas() {
+    public VendasBeans() {
 
     }
 
