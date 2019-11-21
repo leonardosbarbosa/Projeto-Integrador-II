@@ -45,17 +45,17 @@ public class ClienteDao {
             //verifica se o erro foi causado por existir um CPF já cadastrado 
             PreparedStatement CPFValida = conecta.conn.prepareStatement("SELECT * FROM clientes WHERE cpf ='" + c.getCpf() + "'");
             ResultSet cpfValida = CPFValida.executeQuery();
-            if (cpfValida.next()) {
+            if (cpfValida.first()) {
                 JOptionPane.showMessageDialog(null, "CPF já existente");
             } else {
                 //verifica se o erro foi causado por existir um RG já cadastrado 
                 PreparedStatement RgValida = conecta.conn.prepareStatement("SELECT * FROM clientes WHERE rg ='" + c.getRg() + "'");
                 ResultSet rgValida = RgValida.executeQuery();
-                if (rgValida.next()) {
+                if (rgValida.first()) {
                     JOptionPane.showMessageDialog(null, "Rg já existente");
                 } else {
                     // caso o erro não seja causado pelo cpf e nem pelo rg ele vai mostrar essa mensagem 
-                    JOptionPane.showMessageDialog(null, "ERRO ao registrar cliente \n verifique se os dados estão corretos");
+                    JOptionPane.showMessageDialog(null, "Erro ao registrar cliente, verifique se os dados estão corretos");
                 }
             }
         }
@@ -64,8 +64,8 @@ public class ClienteDao {
     public ClienteBeans pesquisarClienteNome(ClienteBeans c) throws SQLException {
 
         conecta.conectar();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
 
         try {
             stmt = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + c.getPesquisa() + "'");
@@ -182,7 +182,7 @@ public class ClienteDao {
 
         try {
             stmt = conecta.conn.prepareStatement("SELECT * FROM clientes WHERE nome LIKE ?");
-            stmt.setString(1, "%" + nome + "%");
+            stmt.setString(1, nome + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ClienteBeans cliente = new ClienteBeans();

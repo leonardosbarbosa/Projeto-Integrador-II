@@ -89,7 +89,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                                          <Component id="jTextFieldDescricao" min="-2" pref="300" max="-2" attributes="0"/>
+                                          <Component id="txtDescricao" min="-2" pref="300" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -161,7 +161,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldUnidade" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -192,7 +192,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="jTextFieldDescricao">
+        <Component class="javax.swing.JTextField" name="txtDescricao">
           <Properties>
             <Property name="name" type="java.lang.String" value="Descri&#xe7;&#xe3;o" noResource="true"/>
           </Properties>

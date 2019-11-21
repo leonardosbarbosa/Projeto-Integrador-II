@@ -18,33 +18,33 @@ bairro varchar (60)not null,
 uf char (2)not null,
 cep varchar (8)not null,
 cidade varchar (60)not null,
- primary key (id));
+primary key (id));
 
- create table produtos(
- id int auto_increment not null,
- categoria varchar(45) not null,
- nome varchar(60) not null,
- un int not null,
- fornecedor varchar(60) not null,
- marca varchar(45) not null,
- vlr_compra decimal(9,2) not null,
- vlr_venda decimal(9,2) not null,
- qtd_estoque int not null,
- descr text not null,
- primary key(id));
+create table produtos(
+id int auto_increment not null,
+categoria varchar(45) not null,
+nome varchar(60) not null,
+un int not null,
+fornecedor varchar(60) not null,
+marca varchar(45) not null,
+vlr_compra decimal(9,2) not null,
+vlr_venda decimal(9,2) not null,
+qtd_estoque int not null,
+descr text not null,
+primary key(id));
 
- create table vendas(
- id int auto_increment not null,
- id_cli int not null,
- id_prod int not null,
- qtd int not null,
+create table vendas(
+id int auto_increment not null,
+id_cli int not null,
+id_prod int not null,
+qtd int not null,
 frm_pgto varchar(30) not null,
- total decimal(9,2) not null,
- data_compra date not null,
- hora time not null,
- primary key(id),
- foreign key (id_cli) references clientes(id),
- foreign key (id_prod) references produtos(id));
+total decimal(9,2) not null,
+data_compra date not null,
+hora time not null,
+primary key(id),
+foreign key (id_cli) references clientes(id),
+foreign key (id_prod) references produtos(id));
  
 insert into clientes (nome,cpf,rg,nascimento,sexo,fixo,celular,email,rua,bairro,uf,cep,cidade) values ('Emanuelly Mariah Bárbara Moraes','39739317804','474480124','1948/12/02','Feminino','9136296000','91989906346','emanuellymariahbarbaramoraes@luxafit.com.br','Rua Samuel Dutra','Tenoné','PA','66820413','Belém');
 insert into clientes (nome,cpf,rg,nascimento,sexo,fixo,celular,email,rua,bairro,uf,cep,cidade) values ('Elias Carlos Isaac Cardoso','56963310416','477080145','1974/09/05','Masculino','9527758877','95985051908','eliascarlosisaaccardoso-99@lynce.com.br','Rua Zuldimar Saraiva de Pinho','Jardim Caranã','RR','69313692','Boa Vista');
@@ -91,7 +91,3 @@ insert into produtos (categoria, nome, un, fornecedor, marca, vlr_compra, vlr_ve
 insert into produtos (categoria, nome, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque,descr) values ('Periféricos','Teclado Logitech K120',1,'Logitech','Logitech',44.90,59.82,200,'Um teclado USB que oferece uma melhor experiência de digitação que irá durar. ');
 insert into produtos (categoria, nome, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque,descr) values ('Periféricos','Mouse Gamer HyperX Pulsefire Core',1,'HyperX','HyperX',159.90,179.90,300,'O HyperX Pulsefire Core é um mouse gamer RGB confortável apresentando um sensor óptico Pixart 3327 para configurações DPI de até 6200 e rastreio suave e preciso sem aceleração do hardware. O mouse ergonomicamente projetado com forma simétrica se adapta aos estilos de segurar com a palma ou com a ponta dos dedos e possui laterais texturizadas para uma aderência sem deslizamento. Switches de nível gamer proporcionam nítido feedback tátil configuradas para 20 milhões de cliques. Personalize a iluminação, as configurações DPI e macros para 7 botões programáveis com o software HyperX NGenuity.');
 insert into produtos (categoria, nome, un, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque,descr) values ('Periféricos','Teclado Gamer Corsair K55',1,'Corsair','Corsair',159.90,211.29,250,'Teclado Gamer Corsair RGB, ABNT2, K55 CH-9206015-BR');
-
-
-
-

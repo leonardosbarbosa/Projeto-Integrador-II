@@ -32,7 +32,7 @@ public class FrProdutos extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jTextFieldDescricao = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -47,7 +47,7 @@ public class FrProdutos extends javax.swing.JFrame {
         jTextFieldMarca = new javax.swing.JTextField();
         jTextFieldUnidade = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jComboBoxCategoria = new javax.swing.JComboBox<String>();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
         jTextFieldCodProduto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -72,7 +72,7 @@ public class FrProdutos extends javax.swing.JFrame {
         setTitle("Produtos");
         setSize(new java.awt.Dimension(600, 0));
 
-        jTextFieldDescricao.setName("Descrição"); // NOI18N
+        txtDescricao.setName("Descrição"); // NOI18N
 
         jLabel1.setText("Descrição:");
 
@@ -102,7 +102,7 @@ public class FrProdutos extends javax.swing.JFrame {
 
         jLabel10.setText("Categoria:");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
 
         jTextFieldCodProduto.setEnabled(false);
 
@@ -127,7 +127,7 @@ public class FrProdutos extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(11, 11, 11)
-                                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
@@ -181,7 +181,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -410,7 +410,7 @@ public class FrProdutos extends javax.swing.JFrame {
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
 
         validador.campoVazio(jTextFieldNomeProduto);
-        validador.campoVazio(jTextFieldDescricao);
+        validador.campoVazio(txtDescricao);
         validador.campoVazio(jTextFieldUnidade);
         validador.campoVazio(jTextFieldFornecedor);
         validador.campoVazio(jTextFieldMarca);
@@ -430,7 +430,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 int qtd_estoque;
                 float vlr_compra, vlr_venda;
                 nome = jTextFieldNomeProduto.getText();
-                descr = (jTextFieldDescricao.getText());
+                descr = (txtDescricao.getText());
                 unidade = (jTextFieldUnidade.getText());
                 fornecedor = (jTextFieldFornecedor.getText());
                 marca = (jTextFieldMarca.getText());
@@ -440,7 +440,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 categoria = (String) (jComboBoxCategoria.getSelectedItem());
                 ProdutoController.salvar(nome, descr, unidade, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria);
                 preencherTabel();
-                jTextFieldDescricao.setText("");
+                txtDescricao.setText("");
                 jTextFieldUnidade.setText("");
                 jTextFieldFornecedor.setText("");
                 jTextFieldMarca.setText("");
@@ -459,7 +459,7 @@ public class FrProdutos extends javax.swing.JFrame {
 
         int rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
         if (rsp == JOptionPane.YES_OPTION) {
-            prod.setDescProduto(jTextFieldDescricao.getText());
+            prod.setDescProduto(txtDescricao.getText());
             try {
                 dao.excluir(prod);
             } catch (SQLException ex) {
@@ -497,7 +497,7 @@ public class FrProdutos extends javax.swing.JFrame {
             conecta.rs.first();
             jTextFieldNomeProduto.setText(conecta.rs.getString("nome"));
             jTextFieldCodProduto.setText(String.valueOf(conecta.rs.getInt("id")));
-            jTextFieldDescricao.setText(conecta.rs.getString("descr"));
+            txtDescricao.setText(conecta.rs.getString("descr"));
             jTextFieldUnidade.setText(conecta.rs.getString("un"));
             jTextFieldFornecedor.setText(conecta.rs.getString("fornecedor"));
             jTextFieldMarca.setText(conecta.rs.getString("marca"));
@@ -633,7 +633,6 @@ public class FrProdutos extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldCodProduto;
-    private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldEstoque;
     private javax.swing.JTextField jTextFieldFornecedor;
     private javax.swing.JTextField jTextFieldMarca;
@@ -643,6 +642,7 @@ public class FrProdutos extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldVlrVenda;
     private javax.swing.JRadioButton rdbID;
     private javax.swing.JRadioButton rdbNome;
+    private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtPesquisaProduto;
     // End of variables declaration//GEN-END:variables
 }
