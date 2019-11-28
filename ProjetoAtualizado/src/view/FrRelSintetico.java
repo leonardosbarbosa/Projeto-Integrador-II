@@ -67,7 +67,7 @@ public class FrRelSintetico extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar por:", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar por:", 1, 0));
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Data");
@@ -111,7 +111,7 @@ public class FrRelSintetico extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID  Venda", "ID  Cliente", "ID  Produto", "Quantidade", "Total"
+                "ID  Venda", "ID  Cliente", "Qtde. Produtos", "Total"
             }
         ));
         tableRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,22 +164,21 @@ public class FrRelSintetico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tableRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRelatorioMouseClicked
-        try {
-            // TODO add your handling code here:
-            int idVenda = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 0);
-            int idCli = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 1);
-            int idProd = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 2);            
-            conecta.conectar();
-            conecta.executaSQL("SELECT * FROM vendas INNER JOIN produtos on id_prod = produtos.id INNER JOIN clientes on id_cli = clientes.id WHERE vendas.id = " + idVenda);
-            conecta.rs.first();
-            String msg = "ID da Venda: " + idVenda + "\nCliente: " + conecta.rs.getString("clientes.nome")+ "     CPF: " + conecta.rs.getString("clientes.cpf") 
-                    + "\nProduto: " + conecta.rs.getString("produtos.nome") + "\nQuantidade: " + conecta.rs.getString("vendas.qtd") 
-                    + "\nTotal: " + conecta.rs.getString("vendas.total") + "\nData: " + conecta.rs.getString("data_compra")
-                    + "     Horário: " + conecta.rs.getString("hora");
-            JOptionPane.showMessageDialog(rootPane, msg, "Relatório Analítico", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            int idVenda = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 0);
+//            int idCli = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 1);
+//            int idProd = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 2);            
+//            conecta.conectar();
+//            conecta.executaSQL("SELECT * FROM vendas INNER JOIN vendas_produtos on id_prod = produtos.id INNER JOIN clientes on id_cli = clientes.id WHERE vendas.id = " + idVenda);
+//            conecta.rs.first();
+//            String msg = "ID da Venda: " + idVenda + "\nCliente: " + conecta.rs.getString("clientes.nome")+ "     CPF: " + conecta.rs.getString("clientes.cpf") 
+//                    + "\nProduto: " + conecta.rs.getString("produtos.nome") + "\nQuantidade: " + conecta.rs.getString("vendas.qtd") 
+//                    + "\nTotal: " + conecta.rs.getString("vendas.total") + "\nData: " + conecta.rs.getString("data_compra")
+//                    + "     Horário: " + conecta.rs.getString("hora");
+//            JOptionPane.showMessageDialog(rootPane, msg, "Relatório Analítico", JOptionPane.INFORMATION_MESSAGE);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_tableRelatorioMouseClicked
 
     public void preencherTabela() throws SQLException {
@@ -191,8 +190,7 @@ public class FrRelSintetico extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 conecta.rs.getInt("id"),
                 conecta.rs.getInt("id_cli"),
-                conecta.rs.getInt("id_prod"),
-                conecta.rs.getInt("qtd"),
+                conecta.rs.getString("frm_pgto"),
                 conecta.rs.getDouble("total")
             
             });

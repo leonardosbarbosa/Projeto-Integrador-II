@@ -277,28 +277,41 @@ public class FrCarrinho extends javax.swing.JFrame {
                    
             try {
                 conecta.conectar();
-               for (int i = 0; i < jTable1.getRowCount(); i++) { 
-                PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO vendas (id_cli, id_prod, qtd, frm_pgto, total, data_compra, hora)" //passagem do comando sql para inserção
-                        + "values(?, ?, ?, ?, ?, ?, ?)");
-                conecta.executaSQL("select id from produtos where nome ='" + jTable1.getValueAt(i, 0).toString() + "'");
-                conecta.rs.first();
-                int idProd = conecta.rs.getInt("id");
                 
-                int qtd = (int) jTable1.getValueAt(i, 1);
-                Double total = (Double) jTable1.getValueAt(i, 2);
+                conecta.executaSQL("INSERT INTO vendas (id_cli, frm_pgto, total, data_compra, hora)" //passagem do comando sql para inserção
+                        + "values(?, ?, ?, ?, ?)");
+                PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO vendas (id_cli, frm_pgto, total, data_compra, hora)" //passagem do comando sql para inserção
+                        + "values(?, ?, ?, ?, ?)");
+                Double total = 0.0;
+                for (int i = 0; i < jTable1.getRowCount(); i++) {
+                total += (Double) jTable1.getValueAt(i, 2);
+                }
 
                 pst.setString(1, lblID.getText()); //passagem de paramentro para inserção(valores)
+                pst.setString(2, cbbFrmPgto.getSelectedItem().toString());
+                pst.setDouble(3, total);
+                pst.setString(4, "2019/11/20");
+                pst.setString(5, "14:00");
+                pst.executeUpdate(); //executa a inserção
+                
+                conecta.executaSQL("SELECT max(id) from vendas;");
+                conecta.rs.first();
+                int idVenda = conecta.rs.getInt("max(id)");
+                
+               for (int i = 0; i < jTable1.getRowCount(); i++) { 
+                 pst = conecta.conn.prepareStatement("INSERT INTO vendas_produtos VALUES (?, ?, ?)");
+                conecta.executaSQL("select id from produtos where nome ='" + jTable1.getValueAt(i, 0).toString() + "'");
+                conecta.rs.first();
+                int idProd = conecta.rs.getInt("id");           
+                int qtd = (int) jTable1.getValueAt(i, 1);
+                pst.setInt(1, idVenda); //passagem de paramentro para inserção(valores)
                 pst.setInt(2, idProd);
                 pst.setInt(3, qtd);
-                pst.setString(4, cbbFrmPgto.getSelectedItem().toString());
-                pst.setDouble(5, total);
-                pst.setString(6, "2019/11/20");
-                pst.setString(7, "14:00");
                 pst.executeUpdate(); //executa a inserção
                }
-                JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!");
-                VendasDao venda = new VendasDao();
-                venda.limpar();
+               JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!");
+               VendasDao venda = new VendasDao();
+               venda.limpar();
                 jTable1.setModel(new VendasTable());
 
             } catch (SQLException ex) {
