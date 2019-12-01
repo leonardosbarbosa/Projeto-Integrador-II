@@ -27,10 +27,10 @@ public class FrRelSintetico extends javax.swing.JFrame {
     private VendasController controller;
 
     public FrRelSintetico() {
-        
+
         initComponents();
-        
-        try {          
+
+        try {
             preencherTabela();
         } catch (SQLException ex) {
             Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +67,7 @@ public class FrRelSintetico extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar por:", 1, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar por:", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Data");
@@ -111,7 +111,7 @@ public class FrRelSintetico extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID  Venda", "ID  Cliente", "Qtde. Produtos", "Total"
+                "ID  Venda", "ID  Cliente", "Forma de Pgto.", "Total"
             }
         ));
         tableRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,21 +164,42 @@ public class FrRelSintetico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tableRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRelatorioMouseClicked
-//        try {
-//            int idVenda = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 0);
-//            int idCli = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 1);
-//            int idProd = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 2);            
-//            conecta.conectar();
-//            conecta.executaSQL("SELECT * FROM vendas INNER JOIN vendas_produtos on id_prod = produtos.id INNER JOIN clientes on id_cli = clientes.id WHERE vendas.id = " + idVenda);
-//            conecta.rs.first();
-//            String msg = "ID da Venda: " + idVenda + "\nCliente: " + conecta.rs.getString("clientes.nome")+ "     CPF: " + conecta.rs.getString("clientes.cpf") 
-//                    + "\nProduto: " + conecta.rs.getString("produtos.nome") + "\nQuantidade: " + conecta.rs.getString("vendas.qtd") 
-//                    + "\nTotal: " + conecta.rs.getString("vendas.total") + "\nData: " + conecta.rs.getString("data_compra")
-//                    + "     Horário: " + conecta.rs.getString("hora");
-//            JOptionPane.showMessageDialog(rootPane, msg, "Relatório Analítico", JOptionPane.INFORMATION_MESSAGE);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            int idVenda = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 0);
+            String frmPgto = (String) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 2);           
+            conecta.conectar();
+            conecta.executaSQL("SELECT count(*) as qtde FROM vendas_produtos where id_venda = " + idVenda);
+            conecta.rs.first();
+            int qtde = conecta.rs.getInt("qtde");
+            String produtos = "";
+            String msg = "";
+            conecta.executaSQL("SELECT vendas.id as id_venda, clientes.nome as cliente, cpf, "
+                    + "produtos.nome as produtos, vlr_venda as valor_produto, qtd_vendida, vendas.total, "
+                    + "data_compra, hora FROM vendas INNER JOIN clientes on id_cli = clientes.id INNER JOIN "
+                    + "vendas_produtos on vendas.id = id_venda INNER JOIN produtos on id_produto = produtos.id WHERE vendas.id = " + idVenda);
+
+            int i = 1;
+            while (conecta.rs.next()) {
+
+                produtos += conecta.rs.getString("produtos") + "      ";
+                produtos += "Qtde: " + conecta.rs.getInt("qtd_vendida") + "      ";
+                produtos += "Valor: " + conecta.rs.getDouble("valor_produto") + "\n";
+
+                if (i == qtde) {
+                    msg = "ID da Venda: " + idVenda + "    Data: " + conecta.rs.getDate("data_compra")
+                            + "     Horário: " + conecta.rs.getTime("hora") + "\n\nCliente: " + conecta.rs.getString("cliente")
+                            + "     CPF: " + conecta.rs.getString("cpf") + "\n\nProdutos Vendidos: \n\n" + produtos + "\n Forma de Pagamento: " 
+                            + frmPgto + "\n\nTotal: R$" + conecta.rs.getDouble("total");
+
+                }
+                i++;
+            
+            }
+
+            JOptionPane.showMessageDialog(rootPane, msg, "Relatório Analítico", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_tableRelatorioMouseClicked
 
     public void preencherTabela() throws SQLException {
@@ -192,7 +213,7 @@ public class FrRelSintetico extends javax.swing.JFrame {
                 conecta.rs.getInt("id_cli"),
                 conecta.rs.getString("frm_pgto"),
                 conecta.rs.getDouble("total")
-            
+
             });
         }
     }
