@@ -4,7 +4,7 @@ public class ProdutoBeans {
 
     private int estoque;
     private String DescProduto;
-    private int codProduto;
+    private String codProduto;
     private String fornecedor;
     private String uniPorduto;
     private String marca;
@@ -13,6 +13,7 @@ public class ProdutoBeans {
     private String categoria;
     private String pesquisa;
     private String nomeProduto;
+    
 
     public String getNomeProduto() {
         return nomeProduto;
@@ -42,11 +43,11 @@ public class ProdutoBeans {
         this.DescProduto = DescProduto;
     }
 
-    public int getCodProduto() {
+    public String getCodProduto() {
         return codProduto;
     }
 
-    public void setCodProduto(int codProduto) {
+    public void setCodProduto(String codProduto) {
         this.codProduto = codProduto;
     }
 

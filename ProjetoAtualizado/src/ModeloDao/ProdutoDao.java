@@ -54,6 +54,28 @@ public class ProdutoDao {
         conecta.desconectar();
 
     }
+    
+    public void alterar (ProdutoBeans prod) throws SQLException {
+    try {
+        conecta.conectar();
+            PreparedStatement pst = conecta.conn.prepareStatement("UPDATE produtos SET categoria = ?, nome = ?, un = ?, fornecedor = ?, "
+                    + "marca = ?, vlr_compra = ?, vlr_venda = ?, qtd_estoque = ?, descr = ? WHERE id = " + prod.getCodProduto());
+
+            pst.setString(1, prod.getCategoria());
+            pst.setString(2, prod.getNomeProduto());
+            pst.setString(3, prod.getUniPorduto());
+            pst.setString(4, prod.getFornecedor());
+            pst.setString(5, prod.getMarca());
+            pst.setDouble(6, prod.getValorCompraProduto());
+            pst.setDouble(7, prod.getValorVendaProduto());
+            pst.setInt(8, prod.getEstoque());
+            pst.setString(9, prod.getDescProduto());            
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar produto.");
+        }
+    }
 
     public ProdutoBeans pesquisa(ProdutoBeans p) throws SQLException {
         conecta.conectar();
@@ -62,7 +84,7 @@ public class ProdutoDao {
             PreparedStatement pst = conecta.conn.prepareStatement("SELECT * FROM produtos WHERE nome ='" + p.getPesquisa() + "'");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                p.setCodProduto(rs.getInt("id"));
+                p.setCodProduto(rs.getString("id"));
                 p.setDescProduto(rs.getString("descr"));
                 p.setUniPorduto(rs.getString("un"));
                 p.setFornecedor(rs.getString("fornecedor"));
@@ -95,7 +117,7 @@ public class ProdutoDao {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ProdutoBeans produto = new ProdutoBeans();
-                produto.setCodProduto(rs.getInt("id"));
+                produto.setCodProduto(rs.getString("id"));
                 produto.setNomeProduto(rs.getString("nome"));
                 produto.setValorVendaProduto(rs.getFloat("vlr_venda"));
                 produto.setEstoque(rs.getInt("qtd_estoque"));
@@ -120,7 +142,7 @@ public class ProdutoDao {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ProdutoBeans produto = new ProdutoBeans();
-                produto.setCodProduto(rs.getInt("id"));
+                produto.setCodProduto(rs.getString("id"));
                 produto.setNomeProduto(rs.getString("nome"));
                 produto.setValorVendaProduto(rs.getFloat("vlr_venda"));
                 produto.setEstoque(rs.getInt("qtd_estoque"));
@@ -145,7 +167,7 @@ public class ProdutoDao {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ProdutoBeans produto = new ProdutoBeans();
-                produto.setCodProduto(rs.getInt("id"));
+                produto.setCodProduto(rs.getString("id"));
                 produto.setNomeProduto(rs.getString("nome"));
                 produto.setValorVendaProduto(rs.getFloat("vlr_venda"));
                 produto.setEstoque(rs.getInt("qtd_estoque"));
@@ -167,7 +189,7 @@ public class ProdutoDao {
             stmt = conecta.conn.prepareStatement("SELECT * FROM produtos WHERE id =" + id);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                p.setCodProduto(rs.getInt("id"));
+                p.setCodProduto(rs.getString("id"));
                 p.setDescProduto("descr");
                 p.setUniPorduto("un");
                 p.setFornecedor("fornecedor");

@@ -50,10 +50,10 @@ public class FrRelSintetico extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        rdbData = new javax.swing.JRadioButton();
+        rdbIdCliente = new javax.swing.JRadioButton();
+        txtPesquisa = new javax.swing.JTextField();
+        rdbPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableRelatorio = new javax.swing.JTable();
 
@@ -67,15 +67,20 @@ public class FrRelSintetico extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar por:", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar por:", 1, 0));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Data");
+        buttonGroup1.add(rdbData);
+        rdbData.setText("Data");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("ID Cliente");
+        buttonGroup1.add(rdbIdCliente);
+        rdbIdCliente.setText("ID Cliente");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loupe.png"))); // NOI18N
+        rdbPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loupe.png"))); // NOI18N
+        rdbPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,13 +88,13 @@ public class FrRelSintetico extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton1)
+                .addComponent(rdbData)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton2)
+                .addComponent(rdbIdCliente)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(rdbPesquisar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -97,12 +102,12 @@ public class FrRelSintetico extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(rdbData)
+                    .addComponent(rdbIdCliente)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(10, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton2)
+                .addComponent(rdbPesquisar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -166,7 +171,7 @@ public class FrRelSintetico extends javax.swing.JFrame {
     private void tableRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRelatorioMouseClicked
         try {
             int idVenda = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 0);
-            String frmPgto = (String) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 2);           
+            String frmPgto = (String) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 2);
             conecta.conectar();
             conecta.executaSQL("SELECT count(*) as qtde FROM vendas_produtos where id_venda = " + idVenda);
             conecta.rs.first();
@@ -188,12 +193,12 @@ public class FrRelSintetico extends javax.swing.JFrame {
                 if (i == qtde) {
                     msg = "ID da Venda: " + idVenda + "    Data: " + conecta.rs.getDate("data_compra")
                             + "     Horário: " + conecta.rs.getTime("hora") + "\n\nCliente: " + conecta.rs.getString("cliente")
-                            + "     CPF: " + conecta.rs.getString("cpf") + "\n\nProdutos Vendidos: \n\n" + produtos + "\n Forma de Pagamento: " 
+                            + "     CPF: " + conecta.rs.getString("cpf") + "\n\nProdutos Vendidos: \n\n" + produtos + "\n Forma de Pagamento: "
                             + frmPgto + "\n\nTotal: R$" + conecta.rs.getDouble("total");
 
                 }
                 i++;
-            
+
             }
 
             JOptionPane.showMessageDialog(rootPane, msg, "Relatório Analítico", JOptionPane.INFORMATION_MESSAGE);
@@ -201,6 +206,47 @@ public class FrRelSintetico extends javax.swing.JFrame {
             Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tableRelatorioMouseClicked
+
+    private void rdbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbPesquisarActionPerformed
+        // TODO add your handling code here:
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) tableRelatorio.getModel();
+            modelo.setNumRows(0);
+
+            if (rdbData.isSelected()) {
+                conecta.conectar();
+                conecta.executaSQL("SELECT * FROM vendas WHERE data_compra = '" + txtPesquisa.getText() + "'");
+                while (conecta.rs.next()) {
+                    modelo.addRow(new Object[]{
+                        conecta.rs.getInt("id"),
+                        conecta.rs.getInt("id_cli"),
+                        conecta.rs.getString("frm_pgto"),
+                        conecta.rs.getDouble("total")
+
+                    });
+                }
+
+            } else if (rdbIdCliente.isSelected()) {
+
+                conecta.conectar();
+                conecta.executaSQL("SELECT * FROM vendas WHERE id_cli = " + txtPesquisa.getText());
+                while (conecta.rs.next()) {
+                    modelo.addRow(new Object[]{
+                        conecta.rs.getInt("id"),
+                        conecta.rs.getInt("id_cli"),
+                        conecta.rs.getString("frm_pgto"),
+                        conecta.rs.getDouble("total")
+
+                    });
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Favor selecionar uma opção de pesquisa.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrRelSintetico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_rdbPesquisarActionPerformed
 
     public void preencherTabela() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) tableRelatorio.getModel();
@@ -264,12 +310,12 @@ public class FrRelSintetico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JRadioButton rdbData;
+    private javax.swing.JRadioButton rdbIdCliente;
+    private javax.swing.JButton rdbPesquisar;
     private javax.swing.JTable tableRelatorio;
+    private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

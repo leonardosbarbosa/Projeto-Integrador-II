@@ -426,8 +426,9 @@ public class FrProdutos extends javax.swing.JFrame {
 
         } else {
             try {
-                String nome, descr, unidade, fornecedor, marca, categoria;
+                String nome, descr, unidade, fornecedor, marca, categoria, codProd;
                 int qtd_estoque;
+                codProd = jTextFieldCodProduto.getText().trim();
                 float vlr_compra, vlr_venda;
                 nome = jTextFieldNomeProduto.getText();
                 descr = (txtDescricao.getText());
@@ -438,7 +439,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 vlr_venda = Float.parseFloat(jTextFieldVlrVenda.getText());
                 qtd_estoque = Integer.parseInt(jTextFieldEstoque.getText());
                 categoria = (String) (jComboBoxCategoria.getSelectedItem());
-                ProdutoController.salvar(nome, descr, unidade, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria);
+                ProdutoController.salvar(codProd, nome, descr, unidade, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria);
                 preencherTabel();
                 txtDescricao.setText("");
                 jTextFieldUnidade.setText("");
@@ -571,7 +572,7 @@ public class FrProdutos extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
         conecta.conectar();
-        conecta.executaSQL("SELECT * FROM produtos WHERE nome like '%" + nome + "%'");
+        conecta.executaSQL("SELECT * FROM produtos WHERE nome like '" + nome + "%'");
 
         while (conecta.rs.next()) {
             modelo.addRow(new Object[]{

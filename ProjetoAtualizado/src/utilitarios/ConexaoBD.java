@@ -11,7 +11,7 @@ public class ConexaoBD {
     public Statement st; //prepar e realizar pesquisas no banco de dados
     public ResultSet rs; //armazena resultados de uma pesquisa passada para o statement
     private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String CAMINHO = "jdbc:mysql://localhost:3306/sistemavendas";
+    private final String CAMINHO = "jdbc:mysql://localhost:3307/sistemavendas";
     private final String USER = "root";
     private final String SENHA = "";
     public Connection conn;
