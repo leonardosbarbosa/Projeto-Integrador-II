@@ -4,6 +4,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por gerar o painel Inicial da loja com as abas: Produtos, Clientes, Vendas e Relatório
+ * @author lohan.ypyugue
+ */
 public class FrInicio extends javax.swing.JFrame {
 
     public FrInicio() throws SQLException {
@@ -118,6 +122,10 @@ public class FrInicio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Botão para direcionar ao painel de Clientes
+     * @see FrClientes
+     */
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
 
         // TODO add your handling code here:  
@@ -134,6 +142,10 @@ public class FrInicio extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnClientesActionPerformed
 
+    /**
+     * Botão para direcionar ao painel de Produtos
+     * @see FrProdutos
+     */
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
 
         try {
@@ -145,12 +157,20 @@ public class FrInicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnProdutosActionPerformed
 
+    /**
+     * Botão para direcionar ao painel de Relatórios
+     * @see FrRelSintetico
+     */
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
         FrRelSintetico relatorio = new FrRelSintetico();
         relatorio.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
+    /**
+     * Botão para direcionar ao painel de Vendas
+     * @see FrVendas
+     */
     private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
         // TODO add your handling code here:
         FrVendas vendas = new FrVendas();

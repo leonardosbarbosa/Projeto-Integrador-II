@@ -37,7 +37,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel8" max="32767" attributes="0"/>
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel7" alignment="0" pref="816" max="32767" attributes="0"/>
+                  <Component id="jPanel7" alignment="0" pref="826" max="32767" attributes="0"/>
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -666,7 +666,7 @@
                           <Component id="jButtonExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

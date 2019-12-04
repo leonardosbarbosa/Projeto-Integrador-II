@@ -6,6 +6,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe responsável por gerenciar a conexão com o banco de dados e poder executar as querys do MySQL
+ * @author lpeterma
+ */
 public class ConexaoBD {
 
     public Statement st; //prepar e realizar pesquisas no banco de dados
@@ -16,6 +20,10 @@ public class ConexaoBD {
     private final String SENHA = "";
     public Connection conn;
 
+    /**
+     * @throws SQLException
+     * Método utilizado para realizar a conexão com o banco de dados
+     */
     public void conectar() throws SQLException {
         try {
             System.setProperty("jdbc.Drivers", DRIVER);
@@ -25,7 +33,11 @@ public class ConexaoBD {
             //JOptionPane.showMessageDialog(null, "Erro ao conectar ao banco de dados" + ex.getMessage());
         }
     }
-
+    
+    /**
+     * 
+     * @param sql 
+     */
     public void executaSQL(String sql) {
         try {
             st = conn.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
@@ -34,7 +46,10 @@ public class ConexaoBD {
             //JOptionPane.showMessageDialog(null, "Erro no executaSQL " + ex.getMessage());
         }
     }
-
+    
+    /**
+     * Método para encerrar conexão com o banco de dados
+     */
     public void desconectar() {
         try {
             conn.close(); // fecha o BD

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utilitarios;
 
 import ModeloBeans.VendasBeans;
@@ -10,7 +5,7 @@ import ModeloDao.VendasDao;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
+ * Classe responsável por gerar a tabela de vendas dos produtos
  * @author leonardo.sbarbosa4
  */
 public class VendasTable extends AbstractTableModel {

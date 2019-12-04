@@ -1,4 +1,3 @@
-
 package view;
 
 import Controller.ClienteController;
@@ -13,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
 
+/**
+ * Classe responsável por gerar o painel de Clientes, possibilitando pesquisas dos mesmos e seus respectivos dados
+ * @author lohan.ypyugue
+ */
 public class FrClientes extends javax.swing.JFrame {
 
     ClienteDao dao = new ClienteDao();
@@ -489,7 +492,6 @@ public class FrClientes extends javax.swing.JFrame {
 
         validador.campoVazio(jTextFieldNome);
         validador.campoVazio(jTextFieldCpf);
-        validador.campoVazio(jTextFieldRg);
         validador.campoVazio(jTextFieldNascimento);
         validador.campoVazio(jTextFieldRua);
         validador.campoVazio(jTextFieldBairro);

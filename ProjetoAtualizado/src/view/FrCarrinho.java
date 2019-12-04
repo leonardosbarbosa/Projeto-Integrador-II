@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import ModeloDao.VendasDao;
@@ -17,7 +12,7 @@ import utilitarios.Validacoes;
 import utilitarios.VendasTable;
 
 /**
- *
+ * Classe responsável por gerar o painel de Carrinho, onde podemos vincular a venda com um cliente.
  * @author pedro.hfarantes
  */
 public class FrCarrinho extends javax.swing.JFrame {
@@ -30,7 +25,7 @@ public class FrCarrinho extends javax.swing.JFrame {
     public FrCarrinho() {
         initComponents();
     }
-
+    
     Validacoes validador = new Validacoes();
 
     /**
@@ -258,6 +253,7 @@ public class FrCarrinho extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         FrVendas vendas = new FrVendas();

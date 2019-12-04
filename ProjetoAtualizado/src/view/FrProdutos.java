@@ -11,6 +11,10 @@ import javax.swing.table.DefaultTableModel;
 import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
 
+/**
+ * Classe responsável por gerar o painel de Produtos junto com todos os dados de cada um deles
+ * @author lohan.ypyugue
+ */
 public class FrProdutos extends javax.swing.JFrame {
 
     ProdutoDao dao = new ProdutoDao();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import Controller.VendasController;
@@ -14,7 +9,7 @@ import javax.swing.JOptionPane;
 import utilitarios.ConexaoBD;
 
 /**
- *
+ * Classe responsável por gerar o painel de Vendas, onde podemos selecionar o(s) produto(s) que será adicionado ao carrinho de compras
  * @author pedro.hfarantes
  */
 public class FrVendas extends javax.swing.JFrame {
@@ -217,7 +212,10 @@ public class FrVendas extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnIrCarrinhoActionPerformed
 
-
+    /**
+     * Método responsável por adicionar os produtos selecionados ao carrinho de compras
+     * @see FrVendas
+     */
     private void btnAddCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCarrinhoActionPerformed
         try {
             // TODO add your handling code here:
@@ -233,7 +231,11 @@ public class FrVendas extends javax.swing.JFrame {
             Logger.getLogger(FrVendas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAddCarrinhoActionPerformed
-
+    
+    /**
+     * Classe responsável por obter os produtos cadastrados no banco de dados e exibir na tabela de produtos para venda
+     * @param evt 
+     */
     private void cbbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCategoriaActionPerformed
         try {
             // TODO add your handling code here:
@@ -252,6 +254,10 @@ public class FrVendas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbbCategoriaActionPerformed
 
+   /**
+    * 
+    * @param evt 
+    */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int qtd = (int) jSpinner1.getValue();
