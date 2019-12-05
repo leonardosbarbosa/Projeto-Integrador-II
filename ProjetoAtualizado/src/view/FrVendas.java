@@ -192,7 +192,11 @@ public class FrVendas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Método utilizado para retornar a página inicial
+     * @param evt 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         FrInicio inicio;
@@ -204,7 +208,12 @@ public class FrVendas extends javax.swing.JFrame {
             Logger.getLogger(FrVendas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
+    /**
+     * Método utilizado para direcionar ao painel de carrinho
+     * @param evt 
+     * @see FrCarrinho
+     */
     private void btnIrCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrCarrinhoActionPerformed
         // TODO add your handling code here:
         FrCarrinho carrinho = new FrCarrinho();

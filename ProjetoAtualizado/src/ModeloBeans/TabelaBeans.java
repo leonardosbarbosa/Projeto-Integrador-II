@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
+ * Classe responsável por gerar as tabelas com seus respectivos valores
  * @author phfar
  */
 public class TabelaBeans extends AbstractTableModel {

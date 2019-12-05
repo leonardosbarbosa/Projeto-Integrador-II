@@ -21,8 +21,8 @@ public class ConexaoBD {
     public Connection conn;
 
     /**
-     * @throws SQLException
      * Método utilizado para realizar a conexão com o banco de dados
+     * @throws SQLException - tratamento de exceção
      */
     public void conectar() throws SQLException {
         try {
@@ -35,8 +35,8 @@ public class ConexaoBD {
     }
     
     /**
-     * 
-     * @param sql 
+     * Método utilizado para poder executar as querys do banco MySQL
+     * @param sql - Utilizar comando MySQL
      */
     public void executaSQL(String sql) {
         try {

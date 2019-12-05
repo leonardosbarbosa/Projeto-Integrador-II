@@ -357,6 +357,10 @@ public class FrProdutos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método para realizar a busca do poduto
+     * @param evt 
+     */
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
         validador.campoVazio(txtPesquisaProduto);
@@ -411,6 +415,10 @@ public class FrProdutos extends javax.swing.JFrame {
          }*/
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
+    /**
+     * Método utilizado para adicionar um produto ao banco de dados
+     * @param evt 
+     */
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
 
         validador.campoVazio(jTextFieldNomeProduto);
@@ -459,7 +467,11 @@ public class FrProdutos extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
-
+    
+    /**
+     * Método utilizado para realizar a deleção de algum produto
+     * @param evt 
+     */
     private void jButtonDelProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelProdutoActionPerformed
 
         int rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
@@ -480,6 +492,10 @@ public class FrProdutos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonDelProdutoActionPerformed
 
+    /**
+     * Método utilizado para retornar a página inicial do painel
+     * @param evt 
+     */
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
         try {
             // TODO add your handling code here:
@@ -493,6 +509,7 @@ public class FrProdutos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
+    
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
         String nome_produto = "" + jTable1.getValueAt(jTable1.getSelectedRow(), 1);
@@ -516,7 +533,11 @@ public class FrProdutos extends javax.swing.JFrame {
         }
         conecta.desconectar();
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
+    /**
+     * Método utilizado para preencher os dados da tabela
+     * @throws SQLException - tratamento de exceção
+     */
     public void preencherTabel() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
@@ -531,7 +552,11 @@ public class FrProdutos extends javax.swing.JFrame {
             });
         }
     }
-
+    
+    /**
+     * Método utilizado para esvaziar os dados da tabela
+     * @param modelo - modelo de tabela
+     */
     public void limparTabela(DefaultTableModel modelo) {
 
         for (int i = 0; i < modelo.getRowCount(); i++) {
@@ -539,7 +564,12 @@ public class FrProdutos extends javax.swing.JFrame {
         }
 
     }
-
+    
+    /**
+     * Método utilizado para preencher os dados da tabela a partir do ID de um produto
+     * @throws SQLException - tratamento de exceção
+     * @param id - id do cliente
+     */
     public void preencherTabelId(int id) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
@@ -572,6 +602,11 @@ public class FrProdutos extends javax.swing.JFrame {
          } */
     }
 
+    /**
+     * Método utilizado para preencher os dados da tabela a partir do nome de um produto
+     * @throws SQLException - tratamento de exceção
+     * @param nome - Nome Cliente
+     */
     public void preencherTabelaNome(String nome) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);

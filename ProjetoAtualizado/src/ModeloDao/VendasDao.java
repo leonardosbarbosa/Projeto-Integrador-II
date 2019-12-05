@@ -3,6 +3,10 @@ package ModeloDao;
 import java.util.ArrayList;
 import ModeloBeans.VendasBeans;
 
+/**
+ * Classe responsável por gerar tabela com a lista de vendas dos produtos
+ * @author lohan.ypyugue
+ */
 public class VendasDao {
 
     public static ArrayList<VendasBeans> listaVendas = new ArrayList<VendasBeans>();

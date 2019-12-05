@@ -12,6 +12,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import view.FrClientes;
 
+/**
+ * Classe responsável por obter todos os dados e fornecé-los dos campos dos clientes no banco de dados
+ * @author lohan.ypyugue
+ */
 public class ClienteDao {
 
     ConexaoBD conecta = new ConexaoBD();

@@ -5,6 +5,10 @@ import ModeloDao.ProdutoDao;
 import java.sql.SQLException;
 import utilitarios.ConexaoBD;
 
+/**
+ * Classe responsável por obter os dados do produto e dar um "set" em cada um dos respectivos campos da tabela
+ * @author lpeterma
+ */
 public class ProdutoController {
 
     public static boolean salvar(String codProd, String nomeProd, String describe, String unidade, String fornecedor, String marca, Float vlr_compra, Float vlr_venda, int qtd_estoque, String categoria) throws SQLException {

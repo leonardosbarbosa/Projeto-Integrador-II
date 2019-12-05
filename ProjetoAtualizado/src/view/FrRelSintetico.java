@@ -150,7 +150,11 @@ public class FrRelSintetico extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Método utilizado para retornar a página inicial do painel
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
@@ -163,6 +167,10 @@ public class FrRelSintetico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Método utilizado para retornar os dados de compra do cliente ao clicar em uma venda
+     * @param evt 
+     */
     private void tableRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRelatorioMouseClicked
         try {
             int idVenda = (int) tableRelatorio.getValueAt(tableRelatorio.getSelectedRow(), 0);
@@ -202,6 +210,10 @@ public class FrRelSintetico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tableRelatorioMouseClicked
 
+    /**
+     * Método utilizado para realizar a pesquisa de vendas por data ou ID de cliente
+     * @param evt 
+     */
     private void rdbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbPesquisarActionPerformed
         // TODO add your handling code here:
         try {
@@ -243,6 +255,10 @@ public class FrRelSintetico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rdbPesquisarActionPerformed
 
+    /**
+     * Método utilizado para preencher a tabela de vendas
+     * @throws SQLException - tratamento de exceção
+     */
     public void preencherTabela() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) tableRelatorio.getModel();
         modelo.setNumRows(0);
@@ -258,7 +274,10 @@ public class FrRelSintetico extends javax.swing.JFrame {
             });
         }
     }
-
+    
+    /**
+     * Método para atualizar a tabela de vendas
+     */
     public void refreshTable() {
         tableRelatorio.invalidate();
         tableRelatorio.repaint();

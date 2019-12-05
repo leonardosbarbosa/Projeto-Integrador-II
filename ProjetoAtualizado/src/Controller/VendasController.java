@@ -9,7 +9,7 @@ import ModeloDao.VendasDao;
 import ModeloBeans.VendasBeans;
 
 /**
- *
+ * Classe responsável por obter os dados de venda e dar um "set" em cada um dos respectivos campos da tabela
  * @author leonardo.sbarbosa4
  */
 public class VendasController {

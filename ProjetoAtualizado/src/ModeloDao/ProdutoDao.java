@@ -11,6 +11,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilitarios.ConexaoBD;
 
+/**
+ * Classe responsável por obter todos os dados e fornecé-los dos campos dos produtos no banco de dados
+ * @author lohan.ypyugue
+ */
 public class ProdutoDao {
 
     ConexaoBD conecta = new ConexaoBD();

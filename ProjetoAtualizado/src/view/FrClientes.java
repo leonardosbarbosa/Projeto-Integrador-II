@@ -547,6 +547,10 @@ public class FrClientes extends javax.swing.JFrame {
         jTextFieldRua.setText("");
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
+    /**
+     * Método utilizado para habilitar todos os campos de inserção
+     * @param evt 
+     */
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
         // TODO add your handling code here:
         jTextField1Cidade.setEnabled(true);
@@ -563,7 +567,11 @@ public class FrClientes extends javax.swing.JFrame {
         jTextFieldRua.setEnabled(true);
         jComboBoxSexo.setEnabled(true);
     }//GEN-LAST:event_jButtonNovoActionPerformed
-
+    
+    /**
+     * Método utilizado para pesquisar um cliente do banco de dados
+     * @param evt 
+     */
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
         validador.campoVazio(txtPesquisar);
@@ -589,7 +597,11 @@ public class FrClientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Favor selecionar uma opção de pesquisa.");
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
-
+    
+    /**
+     * Método utilizado para deletar um cliente do banco de dados
+     * @param evt 
+     */
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         int rsp = 0;
         rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
@@ -612,7 +624,11 @@ public class FrClientes extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
-
+    
+    /**
+     * Método utilizado para voltar para página inicial
+     * @param evt 
+     */
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
         try {
             // TODO add your handling code here:
@@ -631,7 +647,11 @@ public class FrClientes extends javax.swing.JFrame {
     private void RBNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RBNomeActionPerformed
-
+    
+    /**
+     * Método utilizado para obter os dados do cliente ao clicar no cliente desejado que se encontra na "Jtable1"
+     * @param evt 
+     */
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
         String nome_cliente = "" + jTable1.getValueAt(jTable1.getSelectedRow(), 1);
@@ -661,7 +681,8 @@ public class FrClientes extends javax.swing.JFrame {
         }
         conecta.desconectar();
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
+    
     public void preencherTabel() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
@@ -675,7 +696,12 @@ public class FrClientes extends javax.swing.JFrame {
             });
         }
     }
-
+    
+    /**
+     * Método utilizado para preencher os campos da tabela "jTable1" com os dados: ID, Nome e CPF. Pesquisando pelo nome do cliente
+     * @throws SQLException - tratamento de exceção
+     * @param nome - nome Cliente
+     */
     public void preencherTabelNomeCliente(String nome) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
@@ -689,7 +715,11 @@ public class FrClientes extends javax.swing.JFrame {
             });
         }
     }
-
+    
+    /**
+     * Método utilizado para preencher os campos da tabela "jTable1" com os dados: ID, Nome e CPF. Pesquisando pelo CPF do cliente
+     * @throws SQLException - tratamento de exceção
+     */
     public void preencherTabelCpfCliente(String cpf) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);

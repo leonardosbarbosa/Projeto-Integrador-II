@@ -8,7 +8,7 @@ package ModeloBeans;
 import javax.swing.JRadioButton;
 
 /**
- *
+ * Classe responsável por obter todos os dados dos campos dos clientes com get e set
  * @author phfar
  */
 public class ClienteBeans {

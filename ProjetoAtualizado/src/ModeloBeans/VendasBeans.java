@@ -6,7 +6,7 @@
 package ModeloBeans;
 
 /**
- *
+ * Classe responsável por obter todos os dados dos campos de vendas com get e set
  * @author leonardo.sbarbosa4
  */
 public class VendasBeans {

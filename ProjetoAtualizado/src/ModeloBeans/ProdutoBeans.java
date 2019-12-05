@@ -1,5 +1,9 @@
 package ModeloBeans;
 
+/**
+ * Classe responsável por obter todos os dados dos campos dos produtos com get e set
+ * @author lohan.ypyugue
+ */
 public class ProdutoBeans {
 
     private int estoque;
