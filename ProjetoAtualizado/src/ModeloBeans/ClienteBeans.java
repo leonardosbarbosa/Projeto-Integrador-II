@@ -13,7 +13,7 @@ import javax.swing.JRadioButton;
  */
 public class ClienteBeans {
 
-    private int id;
+    private String id;
     private String nome;
     private String cpf;
     private String rg;
@@ -37,11 +37,11 @@ public class ClienteBeans {
         this.pesquisa = pesquisa;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

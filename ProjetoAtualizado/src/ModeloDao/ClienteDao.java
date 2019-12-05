@@ -61,7 +61,29 @@ public class ClienteDao {
         }
     }
 
-    public ClienteBeans pesquisarClienteNome(ClienteBeans c) throws SQLException {
+    public void alterarDadosCliente(ClienteBeans c) throws SQLException {
+        try {
+            conecta.conectar();
+            PreparedStatement pst = conecta.conn.prepareStatement("UPDATE clientes SET fixo = ?, celular = ?, email = ?, rua = ?, "
+                    + "bairro = ?, uf = ?, cep = ?, cidade = ? WHERE cpf = " + c.getCpf());
+
+            pst.setString(1, c.getFixo());
+            pst.setString(2, c.getCelular());
+            pst.setString(3, c.getEmail());
+            pst.setString(4, c.getRua());
+            pst.setString(5, c.getBairro());
+            pst.setString(6, c.getUf());
+            pst.setString(7, c.getCep());
+            pst.setString(8, c.getCidade());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar dados do cliente.");
+        }
+    }
+
+public ClienteBeans pesquisarClienteNome(ClienteBeans c) throws SQLException {
 
         conecta.conectar();
         PreparedStatement stmt;
@@ -71,7 +93,7 @@ public class ClienteDao {
             stmt = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE nome ='" + c.getPesquisa() + "'");
             rs = stmt.executeQuery();
             while (rs.next()) {
-                c.setId(rs.getInt("id"));
+                c.setId(rs.getString("id"));
                 c.setNome(rs.getString("nome"));
                 c.setCpf(rs.getString("cpf"));
                 c.setRg(rs.getString("rg"));
@@ -122,7 +144,7 @@ public class ClienteDao {
             stmt = conecta.conn.prepareStatement("SELECT * FROM clientes WHERE cpf = '" + c.getPesquisa() + "'");
             rs = stmt.executeQuery();
             while (rs.next()) {
-                c.setId(rs.getInt("id"));
+                c.setId(rs.getString("id"));
                 c.setNome(rs.getString("nome"));
                 c.setCpf(rs.getString("cpf"));
                 c.setRg(rs.getString("rg"));
@@ -160,13 +182,17 @@ public class ClienteDao {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ClienteBeans cliente = new ClienteBeans();
-                cliente.setId(rs.getInt("id"));
+                cliente.setId(rs.getString("id"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("cpf"));
                 clientes.add(cliente);
-            }
+            
+
+}
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDao.class  
+
+.getName()).log(Level.SEVERE, null, ex);
         }
         return clientes;
     }
@@ -186,7 +212,7 @@ public class ClienteDao {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ClienteBeans cliente = new ClienteBeans();
-                cliente.setId(rs.getInt("id"));
+                cliente.setId(rs.getString("id"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("cpf"));
                 clientes.add(cliente);
@@ -213,20 +239,20 @@ public class ClienteDao {
 
             conecta.executaSQL("SELECT id, nome, cpf FROM clientes WHERE cpf = " + cpf);
             conecta.rs.first();
-                ClienteBeans cliente = new ClienteBeans();
-                cliente.setId(conecta.rs.getInt("id"));
-                cliente.setNome(conecta.rs.getString("nome"));
-                cliente.setCpf(conecta.rs.getString("cpf"));
-                clientes.add(cliente);
-            
+            ClienteBeans cliente = new ClienteBeans();
+            cliente.setId(conecta.rs.getString("id"));
+            cliente.setNome(conecta.rs.getString("nome"));
+            cliente.setCpf(conecta.rs.getString("cpf"));
+            clientes.add(cliente);
+
         } catch (SQLException ex) {
         }
 
         conecta.desconectar();
         return clientes;
     }
-    
-        public ClienteBeans preencherForm(ClienteBeans c, int id) throws SQLException {
+
+    public ClienteBeans preencherForm(ClienteBeans c, int id) throws SQLException {
 
         conecta.conectar();
         PreparedStatement stmt = null;
@@ -236,7 +262,7 @@ public class ClienteDao {
             stmt = conecta.conn.prepareStatement("SELECT * FROM CLIENTES WHERE id =" + id);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                c.setId(rs.getInt("id"));
+                c.setId(rs.getString("id"));
                 c.setNome(rs.getString("nome"));
                 c.setCpf(rs.getString("cpf"));
                 c.setRg(rs.getString("rg"));

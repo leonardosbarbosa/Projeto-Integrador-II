@@ -16,10 +16,12 @@ import java.util.logging.Logger;
  * @author pedro.hfarantes
  */
 public class ClienteController {
-
-    public static boolean salvar(String nome, String cpf, String rg, String nascimento, String sexo, String fixo, String celular,
+    
+    public static boolean salvar(String codCli, String nome, String cpf, String rg, String nascimento, String sexo, String fixo, String celular,
             String email, String rua, String bairro, String uf, String cep, String cidade) {
+        
         ClienteBeans cliente = new ClienteBeans();
+        cliente.setId(codCli);
         cliente.setNome(nome);
         cliente.setCpf(cpf);
         cliente.setRg(rg);
@@ -33,17 +35,22 @@ public class ClienteController {
         cliente.setUf(uf);
         cliente.setCep(cep);
         cliente.setCidade(cidade);
-
+        
         ClienteDao dao = new ClienteDao();
-
+        
         try {
-            dao.addCliente(cliente);
+            if (cliente.getId().equals("")) {
+                dao.addCliente(cliente);
+            } else {
+                dao.alterarDadosCliente(cliente);
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
-
+        
     }
-
+    
 }

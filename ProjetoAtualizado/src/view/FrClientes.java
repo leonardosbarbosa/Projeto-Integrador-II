@@ -13,7 +13,9 @@ import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
 
 /**
- * Classe responsável por gerar o painel de Clientes, possibilitando pesquisas dos mesmos e seus respectivos dados
+ * Classe responsável por gerar o painel de Clientes, possibilitando pesquisas
+ * dos mesmos e seus respectivos dados
+ *
  * @author lohan.ypyugue
  */
 public class FrClientes extends javax.swing.JFrame {
@@ -159,7 +161,9 @@ public class FrClientes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButtonNovo.setText("Habilitar campos");
+        jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-client.png"))); // NOI18N
+        jButtonNovo.setText("Novo Cliente");
+        jButtonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNovoActionPerformed(evt);
@@ -178,19 +182,14 @@ public class FrClientes extends javax.swing.JFrame {
 
         jLabel5.setText("Nascimento:");
 
-        jTextFieldNome.setEnabled(false);
         jTextFieldNome.setName("Nome"); // NOI18N
 
-        jTextFieldCpf.setEnabled(false);
         jTextFieldCpf.setName("CPF"); // NOI18N
 
-        jTextFieldRg.setEnabled(false);
         jTextFieldRg.setName("RG"); // NOI18N
 
         jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
-        jComboBoxSexo.setEnabled(false);
 
-        jTextFieldNascimento.setEnabled(false);
         jTextFieldNascimento.setName("Nascimento"); // NOI18N
         jTextFieldNascimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,17 +270,14 @@ public class FrClientes extends javax.swing.JFrame {
 
         jLabel6.setText("Telefone fixo:");
 
-        jTextFieldFixo.setEnabled(false);
         jTextFieldFixo.setName("Telefone Fixo"); // NOI18N
 
         jLabel7.setText("Celular:");
 
-        jTextFieldCelular.setEnabled(false);
         jTextFieldCelular.setName("Celular"); // NOI18N
 
         jLabel8.setText("E-mail:");
 
-        jTextField7Email.setEnabled(false);
         jTextField7Email.setName("E-mail"); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -325,12 +321,10 @@ public class FrClientes extends javax.swing.JFrame {
 
         jLabel9.setText("Rua:");
 
-        jTextFieldRua.setEnabled(false);
         jTextFieldRua.setName("Rua"); // NOI18N
 
         jLabel10.setText("Bairro:");
 
-        jTextFieldBairro.setEnabled(false);
         jTextFieldBairro.setName("Bairro"); // NOI18N
 
         jLabel11.setText("UF:");
@@ -339,12 +333,10 @@ public class FrClientes extends javax.swing.JFrame {
 
         jLabel12.setText("Cidade:");
 
-        jTextField1Cidade.setEnabled(false);
         jTextField1Cidade.setName("Cidade"); // NOI18N
 
         jLabel13.setText("CEP:");
 
-        jTextFieldCep.setEnabled(false);
         jTextFieldCep.setName("CEP"); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -456,13 +448,13 @@ public class FrClientes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonNovo))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 26, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -472,7 +464,7 @@ public class FrClientes extends javax.swing.JFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonNovo)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -509,8 +501,9 @@ public class FrClientes extends javax.swing.JFrame {
 
         } else {
 
-            String nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade;
+            String codCli, nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade;
 
+            codCli = jTextFieldCodCli.getText();
             nome = (jTextFieldNome.getText());
             cpf = (jTextFieldCpf.getText());
             rg = (jTextFieldRg.getText());
@@ -525,7 +518,21 @@ public class FrClientes extends javax.swing.JFrame {
             cep = (jTextFieldCep.getText());
             cidade = (jTextField1Cidade.getText());
 
-            ClienteController.salvar(nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade);
+            ClienteController.salvar(codCli, nome, cpf, rg, nascimento, sexo, fixo, celular, email, rua, bairro, uf, cep, cidade);
+
+            jTextField1Cidade.setText("");
+            jTextField7Email.setText("");
+            jTextFieldBairro.setText("");
+            jTextFieldCelular.setText("");
+            jTextFieldCep.setText("");
+            jTextFieldCodCli.setText("");
+            jTextFieldCpf.setText("");
+            jTextFieldFixo.setText("");
+            jTextFieldNascimento.setText("");
+            jTextFieldNome.setText("");
+            jTextFieldRg.setText("");
+            jTextFieldRua.setText("");
+            jTextFieldNome.grabFocus();
 
         }
         try {
@@ -533,18 +540,7 @@ public class FrClientes extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jTextField1Cidade.setText("");
-        jTextField7Email.setText("");
-        jTextFieldBairro.setText("");
-        jTextFieldCelular.setText("");
-        jTextFieldCep.setText("");
-        jTextFieldCodCli.setText("");
-        jTextFieldCpf.setText("");
-        jTextFieldFixo.setText("");
-        jTextFieldNascimento.setText("");
-        jTextFieldNome.setText("");
-        jTextFieldRg.setText("");
-        jTextFieldRua.setText("");
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
@@ -562,6 +558,20 @@ public class FrClientes extends javax.swing.JFrame {
         jTextFieldRg.setEnabled(true);
         jTextFieldRua.setEnabled(true);
         jComboBoxSexo.setEnabled(true);
+
+        jTextField1Cidade.setText("");
+        jTextField7Email.setText("");
+        jTextFieldBairro.setText("");
+        jTextFieldCelular.setText("");
+        jTextFieldCep.setText("");
+        jTextFieldCodCli.setText("");
+        jTextFieldCpf.setText("");
+        jTextFieldFixo.setText("");
+        jTextFieldNascimento.setText("");
+        jTextFieldNome.setText("");
+        jTextFieldRg.setText("");
+        jTextFieldRua.setText("");
+        jTextFieldNome.grabFocus();
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -570,7 +580,7 @@ public class FrClientes extends javax.swing.JFrame {
         if (validador.hasError()) {
             JOptionPane.showMessageDialog(rootPane, validador.getMensagensErro());
         }
-        
+
         if (RBNome.isSelected()) {
             try {
                 preencherTabelNomeCliente(txtPesquisar.getText());
@@ -583,16 +593,15 @@ public class FrClientes extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(FrClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        
-        else {
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Favor selecionar uma opção de pesquisa.");
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        int rsp = 0;
-        rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
+
+        int rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir o cliente?", "Excluir Cliente", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
         if (rsp == JOptionPane.YES_OPTION) {
             c.setNome(jTextFieldNome.getText());
 
@@ -601,15 +610,27 @@ public class FrClientes extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
 
-        if (jTable1.getSelectedRow() != 1) {
-            DefaultTableModel dtmProdutos = (DefaultTableModel) jTable1.getModel();
-            dtmProdutos.removeRow(jTable1.getSelectedRow());
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione pra excluir");
-        }
+            if (jTable1.getSelectedRow() != 1) {
+                DefaultTableModel dtmProdutos = (DefaultTableModel) jTable1.getModel();
+                dtmProdutos.removeRow(jTable1.getSelectedRow());
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione pra excluir");
+            }
 
+            jTextField1Cidade.setText("");
+            jTextField7Email.setText("");
+            jTextFieldBairro.setText("");
+            jTextFieldCelular.setText("");
+            jTextFieldCep.setText("");
+            jTextFieldCodCli.setText("");
+            jTextFieldCpf.setText("");
+            jTextFieldFixo.setText("");
+            jTextFieldNascimento.setText("");
+            jTextFieldNome.setText("");
+            jTextFieldRg.setText("");
+            jTextFieldRua.setText("");
+        }
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
@@ -659,6 +680,14 @@ public class FrClientes extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Falha ao selecionar dados.");
         }
+
+        jTextFieldCodCli.setEnabled(false);
+        jTextFieldCpf.setEnabled(false);
+        jTextFieldNascimento.setEnabled(false);
+        jTextFieldNome.setEnabled(false);
+        jTextFieldRg.setEnabled(false);
+        jComboBoxSexo.setEnabled(false);
+
         conecta.desconectar();
     }//GEN-LAST:event_jTable1MouseClicked
 
