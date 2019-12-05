@@ -12,7 +12,9 @@ import utilitarios.Validacoes;
 import utilitarios.VendasTable;
 
 /**
- * Classe responsável por gerar o painel de Carrinho, onde podemos vincular a venda com um cliente.
+ * Classe responsável por gerar o painel de Carrinho, onde podemos vincular a
+ * venda com um cliente.
+ *
  * @author pedro.hfarantes
  */
 public class FrCarrinho extends javax.swing.JFrame {
@@ -25,7 +27,7 @@ public class FrCarrinho extends javax.swing.JFrame {
     public FrCarrinho() {
         initComponents();
     }
-    
+
     Validacoes validador = new Validacoes();
 
     /**
@@ -252,11 +254,12 @@ public class FrCarrinho extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     /**
      * Método utilizado para retornar para página principal
      * @param evt 
      */
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         FrVendas vendas = new FrVendas();
@@ -277,17 +280,17 @@ public class FrCarrinho extends javax.swing.JFrame {
             txtCPF.setText("");
             txtCPF.grabFocus();
         } else {
-                   
+
             try {
                 conecta.conectar();
-                
+
                 conecta.executaSQL("INSERT INTO vendas (id_cli, frm_pgto, total, data_compra, hora)" //passagem do comando sql para inserção
                         + "values(?, ?, ?, ?, ?)");
                 PreparedStatement pst = conecta.conn.prepareStatement("INSERT INTO vendas (id_cli, frm_pgto, total, data_compra, hora)" //passagem do comando sql para inserção
                         + "values(?, ?, ?, ?, ?)");
                 Double total = 0.0;
                 for (int i = 0; i < jTable1.getRowCount(); i++) {
-                total += (Double) jTable1.getValueAt(i, 2);
+                    total += (Double) jTable1.getValueAt(i, 2);
                 }
 
                 pst.setString(1, lblID.getText()); //passagem de paramentro para inserção(valores)
@@ -296,26 +299,29 @@ public class FrCarrinho extends javax.swing.JFrame {
                 pst.setString(4, "2019/11/20");
                 pst.setString(5, "14:00");
                 pst.executeUpdate(); //executa a inserção
-                
+
                 conecta.executaSQL("SELECT max(id) from vendas;");
                 conecta.rs.first();
                 int idVenda = conecta.rs.getInt("max(id)");
-                
-               for (int i = 0; i < jTable1.getRowCount(); i++) { 
-                 pst = conecta.conn.prepareStatement("INSERT INTO vendas_produtos VALUES (?, ?, ?)");
-                conecta.executaSQL("select id from produtos where nome ='" + jTable1.getValueAt(i, 0).toString() + "'");
-                conecta.rs.first();
-                int idProd = conecta.rs.getInt("id");           
-                int qtd = (int) jTable1.getValueAt(i, 1);
-                pst.setInt(1, idVenda); //passagem de paramentro para inserção(valores)
-                pst.setInt(2, idProd);
-                pst.setInt(3, qtd);
-                pst.executeUpdate(); //executa a inserção
-               }
-               JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!");
-               VendasDao venda = new VendasDao();
-               venda.limpar();
+
+                for (int i = 0; i < jTable1.getRowCount(); i++) {
+                    pst = conecta.conn.prepareStatement("INSERT INTO vendas_produtos VALUES (?, ?, ?)");
+                    conecta.executaSQL("select id from produtos where nome ='" + jTable1.getValueAt(i, 0).toString() + "'");
+                    conecta.rs.first();
+                    int idProd = conecta.rs.getInt("id");
+                    int qtd = (int) jTable1.getValueAt(i, 1);
+                    pst.setInt(1, idVenda); //passagem de paramentro para inserção(valores)
+                    pst.setInt(2, idProd);
+                    pst.setInt(3, qtd);
+                    pst.executeUpdate(); //executa a inserção
+                }
+                JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!");
+                VendasDao venda = new VendasDao();
+                venda.limpar();
                 jTable1.setModel(new VendasTable());
+                FrInicio inicio = new FrInicio();
+                inicio.setVisible(true);
+                dispose();
 
             } catch (SQLException ex) {
                 Logger.getLogger(FrCarrinho.class.getName()).log(Level.SEVERE, null, ex);

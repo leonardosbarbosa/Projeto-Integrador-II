@@ -42,9 +42,9 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonNovo" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonNovo" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="26" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -58,7 +58,7 @@
               <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButtonNovo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
@@ -210,7 +210,11 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButtonNovo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Habilitar campos"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/add-client.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Novo Cliente"/>
+        <Property name="horizontalTextPosition" type="int" value="4"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNovoActionPerformed"/>
@@ -329,7 +333,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNome">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="Nome" noResource="true"/>
           </Properties>
           <AccessibilityProperties>
@@ -339,13 +342,11 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCpf">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="CPF" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldRg">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="RG" noResource="true"/>
           </Properties>
         </Component>
@@ -357,7 +358,6 @@
                 <StringItem index="1" value="Feminino"/>
               </StringArray>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -365,7 +365,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNascimento">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="Nascimento" noResource="true"/>
           </Properties>
           <Events>
@@ -446,7 +445,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldFixo">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="Telefone Fixo" noResource="true"/>
           </Properties>
         </Component>
@@ -457,7 +455,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCelular">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="Celular" noResource="true"/>
           </Properties>
         </Component>
@@ -468,7 +465,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField7Email">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="E-mail" noResource="true"/>
           </Properties>
         </Component>
@@ -549,7 +545,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldRua">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="Rua" noResource="true"/>
           </Properties>
         </Component>
@@ -560,7 +555,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldBairro">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="Bairro" noResource="true"/>
           </Properties>
         </Component>
@@ -613,7 +607,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField1Cidade">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="Cidade" noResource="true"/>
           </Properties>
         </Component>
@@ -624,7 +617,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCep">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="CEP" noResource="true"/>
           </Properties>
         </Component>
@@ -666,7 +658,7 @@
                           <Component id="jButtonExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

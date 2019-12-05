@@ -12,7 +12,9 @@ import utilitarios.ConexaoBD;
 import utilitarios.Validacoes;
 
 /**
- * Classe responsável por gerar o painel de Produtos junto com todos os dados de cada um deles
+ * Classe responsável por gerar o painel de Produtos junto com todos os dados de
+ * cada um deles
+ *
  * @author lohan.ypyugue
  */
 public class FrProdutos extends javax.swing.JFrame {
@@ -51,7 +53,7 @@ public class FrProdutos extends javax.swing.JFrame {
         jTextFieldMarca = new javax.swing.JTextField();
         jTextFieldUnidade = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jComboBoxCategoria = new javax.swing.JComboBox<>();
+        jComboBoxCategoria = new javax.swing.JComboBox<String>();
         jTextFieldCodProduto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -65,7 +67,7 @@ public class FrProdutos extends javax.swing.JFrame {
         btnPesquisar = new javax.swing.JButton();
         rdbID = new javax.swing.JRadioButton();
         rdbNome = new javax.swing.JRadioButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         jButton1.setText("jButton1");
@@ -106,7 +108,7 @@ public class FrProdutos extends javax.swing.JFrame {
 
         jLabel10.setText("Categoria:");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
 
         jTextFieldCodProduto.setEnabled(false);
 
@@ -275,22 +277,26 @@ public class FrProdutos extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Nome", "Valor", "Estoque"
             }
-        ));
-        jTable1.setPreferredSize(new java.awt.Dimension(300, 300));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -300,7 +306,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane2)
                         .addContainerGap())
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(rdbID)
@@ -324,7 +330,8 @@ public class FrProdutos extends javax.swing.JFrame {
                             .addComponent(rdbNome)
                             .addComponent(rdbID))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -344,9 +351,9 @@ public class FrProdutos extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -453,6 +460,8 @@ public class FrProdutos extends javax.swing.JFrame {
                 categoria = (String) (jComboBoxCategoria.getSelectedItem());
                 ProdutoController.salvar(codProd, nome, descr, unidade, fornecedor, marca, vlr_compra, vlr_venda, qtd_estoque, categoria);
                 preencherTabel();
+                jTextFieldCodProduto.setText("");
+                jTextFieldNomeProduto.setText("");
                 txtDescricao.setText("");
                 jTextFieldUnidade.setText("");
                 jTextFieldFornecedor.setText("");
@@ -460,6 +469,7 @@ public class FrProdutos extends javax.swing.JFrame {
                 jTextFieldValorCompra.setText("");
                 jTextFieldVlrVenda.setText("");
                 jTextFieldEstoque.setText("");
+                jTextFieldNomeProduto.grabFocus();
 
             } catch (SQLException ex) {
                 Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
@@ -474,7 +484,8 @@ public class FrProdutos extends javax.swing.JFrame {
      */
     private void jButtonDelProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelProdutoActionPerformed
 
-        int rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
+        int rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir o produto?", "Excluir Produto", 
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (rsp == JOptionPane.YES_OPTION) {
             prod.setDescProduto(txtDescricao.getText());
             try {
@@ -482,14 +493,25 @@ public class FrProdutos extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(FrProdutos.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            if (jTable1.getSelectedRow() != 1) {
+                DefaultTableModel dtmProdutos = (DefaultTableModel) jTable1.getModel();
+                dtmProdutos.removeRow(jTable1.getSelectedRow());
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione um produto pra excluir");
+            }
+        jTextFieldCodProduto.setText("");
+        jTextFieldNomeProduto.setText("");
+        txtDescricao.setText("");
+        jTextFieldUnidade.setText("");
+        jTextFieldFornecedor.setText("");
+        jTextFieldMarca.setText("");
+        jTextFieldValorCompra.setText("");
+        jTextFieldVlrVenda.setText("");
+        jTextFieldEstoque.setText("");
+        jTextFieldNomeProduto.grabFocus();            
         }
 
-        if (jTable1.getSelectedRow() != 1) {
-            DefaultTableModel dtmProdutos = (DefaultTableModel) jTable1.getModel();
-            dtmProdutos.removeRow(jTable1.getSelectedRow());
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um produto pra excluir");
-        }
     }//GEN-LAST:event_jButtonDelProdutoActionPerformed
 
     /**
@@ -511,7 +533,7 @@ public class FrProdutos extends javax.swing.JFrame {
 
     
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-
+        // TODO add your handling code here:
         String nome_produto = "" + jTable1.getValueAt(jTable1.getSelectedRow(), 1);
         try {
             conecta.conectar();
@@ -669,7 +691,7 @@ public class FrProdutos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldCodProduto;
