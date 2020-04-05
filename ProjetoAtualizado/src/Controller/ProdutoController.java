@@ -3,6 +3,7 @@ package Controller;
 import ModeloBeans.ProdutoBeans;
 import ModeloDao.ProdutoDao;
 import java.sql.SQLException;
+import utilitarios.ConexaoBD;
 
 /**
  * Classe responsável por obter os dados do produto e dar um "set" em cada um dos respectivos campos da tabela

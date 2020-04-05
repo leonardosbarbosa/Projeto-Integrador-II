@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  * Classe responsável por gerenciar a conexão com o banco de dados e poder executar as querys do MySQL
@@ -29,9 +28,9 @@ public class ConexaoBD {
         try {
             System.setProperty("jdbc.Drivers", DRIVER);
             conn = DriverManager.getConnection(CAMINHO,USER,SENHA);
-            JOptionPane.showMessageDialog(null, "Conectado ao banco de dados");
+            ///JOptionPane.showMessageDialog(null, "Conectado ao banco de dados");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar ao banco de dados" + ex.getMessage());
+            //JOptionPane.showMessageDialog(null, "Erro ao conectar ao banco de dados" + ex.getMessage());
         }
     }
     
