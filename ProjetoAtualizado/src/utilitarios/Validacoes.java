@@ -71,7 +71,7 @@ public class Validacoes {
 //        try {
             //int num =Integer.parseInt(txt.getText());
             if (txt.getText().matches(".*[a-z].*") || txt.getText().matches(".*[,].*") ) {
-                this.mensagensErro.add("Campo " + txt.getName() + " inválido. Favor informar apenas números inteiros!");
+                this.mensagensErro.add("Campo " + txt.getName() + " inválido. Favor informar a Kilometragem correta!");
             }
 //        } catch (NumberFormatException e) {
 //            this.mensagensErro.add("Campo " + txt.getName() + " inválido. Favor informar apenas números inteiros!");

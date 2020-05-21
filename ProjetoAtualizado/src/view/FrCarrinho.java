@@ -180,6 +180,11 @@ public class FrCarrinho extends javax.swing.JFrame {
         jLabel7.setText("Forma de Pagamento");
 
         cbbFrmPgto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão de Crédito", "Cartão de Débito" }));
+        cbbFrmPgto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbFrmPgtoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -358,6 +363,10 @@ public class FrCarrinho extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void cbbFrmPgtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbFrmPgtoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbFrmPgtoActionPerformed
 
     /**
      * @param args the command line arguments

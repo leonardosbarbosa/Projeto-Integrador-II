@@ -53,7 +53,7 @@ public class FrProdutos extends javax.swing.JFrame {
         jTextFieldMarca = new javax.swing.JTextField();
         jTextFieldUnidade = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jComboBoxCategoria = new javax.swing.JComboBox<String>();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
         jTextFieldCodProduto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -108,9 +108,19 @@ public class FrProdutos extends javax.swing.JFrame {
 
         jLabel10.setText("Categoria:");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Processadores", "Placa-mãe", "Placa de Vídeo", "HD/SSD", "Periféricos" }));
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaActionPerformed(evt);
+            }
+        });
 
         jTextFieldCodProduto.setEnabled(false);
+        jTextFieldCodProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCodProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Código do Produto:");
 
@@ -271,6 +281,11 @@ public class FrProdutos extends javax.swing.JFrame {
 
         buttonGroup1.add(rdbID);
         rdbID.setText("ID");
+        rdbID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbIDActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rdbNome);
         rdbNome.setText("Nome");
@@ -312,7 +327,7 @@ public class FrProdutos extends javax.swing.JFrame {
                         .addComponent(rdbID)
                         .addGap(18, 18, 18)
                         .addComponent(rdbNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                         .addComponent(txtPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnPesquisar)
@@ -343,9 +358,10 @@ public class FrProdutos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -353,9 +369,9 @@ public class FrProdutos extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -478,10 +494,7 @@ public class FrProdutos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
     
-    /**
-     * Método utilizado para realizar a deleção de algum produto
-     * @param evt 
-     */
+   
     private void jButtonDelProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelProdutoActionPerformed
 
         int rsp = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir o produto?", "Excluir Produto", 
@@ -514,13 +527,10 @@ public class FrProdutos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonDelProdutoActionPerformed
 
-    /**
-     * Método utilizado para retornar a página inicial do painel
-     * @param evt 
-     */
+   
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
         try {
-            // TODO add your handling code here:
+           
             FrInicio abrirInicio = new FrInicio();
             abrirInicio.setVisible(true);
             dispose();
@@ -555,11 +565,20 @@ public class FrProdutos extends javax.swing.JFrame {
         }
         conecta.desconectar();
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
+
+    private void jTextFieldCodProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodProdutoActionPerformed
+        
+    }//GEN-LAST:event_jTextFieldCodProdutoActionPerformed
+
+    private void rdbIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbIDActionPerformed
     
-    /**
-     * Método utilizado para preencher os dados da tabela
-     * @throws SQLException - tratamento de exceção
-     */
+   
     public void preencherTabel() throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
@@ -575,10 +594,7 @@ public class FrProdutos extends javax.swing.JFrame {
         }
     }
     
-    /**
-     * Método utilizado para esvaziar os dados da tabela
-     * @param modelo - modelo de tabela
-     */
+  
     public void limparTabela(DefaultTableModel modelo) {
 
         for (int i = 0; i < modelo.getRowCount(); i++) {
@@ -586,12 +602,7 @@ public class FrProdutos extends javax.swing.JFrame {
         }
 
     }
-    
-    /**
-     * Método utilizado para preencher os dados da tabela a partir do ID de um produto
-     * @throws SQLException - tratamento de exceção
-     * @param id - id do cliente
-     */
+  
     public void preencherTabelId(int id) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
